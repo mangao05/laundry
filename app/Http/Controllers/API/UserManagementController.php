@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+
 class UserManagementController extends Controller
 {
     /**
@@ -12,7 +13,9 @@ class UserManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
 
     public function index()
     {
@@ -105,6 +108,9 @@ class UserManagementController extends Controller
             return 'Activated';
         }
 
+    }
+    public function username(){
+        return \Auth::user();
     }
 
 

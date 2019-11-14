@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-9">
-          <h1 class="m-0 text-dark text-uppercase">Naotech Laundy Solution (Point Of Sale)</h1>
+          <h1 class="m-0 text-dark text-uppercase">Naotech Laundry Solution (Point Of Sale)</h1>
         </div>
         {{--  <!-- /.col -->  --}}
         {{--  <div class="col-sm-3">

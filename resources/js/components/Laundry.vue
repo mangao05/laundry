@@ -291,7 +291,7 @@
                 let total = [];
                 axios.get('api/transactions').then(({data}) => {
                     this.product = data
-                    this.transaction_number = 'INSHA_' + data
+                    this.transaction_number = 'Laundry_' + data
                     this.barcode = this.transaction_number
                     axios.get('api/transactionDetails/'+this.transaction_number).then(({data}) => {
                         if(data != 'Error'){

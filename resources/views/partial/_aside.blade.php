@@ -1,4 +1,4 @@
-<aside class="main-sidebar elevation-4" style="background-image:url('image/login_bg1.png'); background-size: cover;   height: auto; ">
+<aside class="main-sidebar elevation-4" style="background-color:#222D32;">
     <a href="home" class="brand-link">
       {{-- <img src="{{ asset('image/clothes-line.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8"> --}}
@@ -22,38 +22,39 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
     @if( Auth::user()->user_type =='Administrator')
-        <li class="nav-item has-treeview menu-close">
+        <li class="nav-item has-treeview menu-close ">
             <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-tachometer-alt text-white "></i>
               <p>
-                User Management
+              <label for="" class="text-white"> User Management</label> 
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview pl-4">
             <li class="nav-item">
                 <router-link to="/user" class="nav-link">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <i class="fa fa-user-plus " aria-hidden="true" style="color:#669DB2"></i>
                     <p class=" text-bold">
-                        User Information
+                            <label for="" class="text-white">  User Information</label> 
                     </p>
                 </router-link>
             </li>
 
               <li class="nav-item">
                 <router-link to="/role" class="nav-link">
-                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <i class="fa fa-users" aria-hidden="true" style="color:#669DB2"></i>
                     <p class=" text-bold">
-                        User Role
+                            <label for="" class="text-white">  User Role</label> 
+                      
                     </p>
                 </router-link>
               </li>
 
               <li class="nav-item">
                 <router-link to="/branch" class="nav-link">
-                   <i class="fas fa-store-alt "></i>
+                   <i class="fas fa-store-alt " style="color:#669DB2"></i>
                     <p class=" text-bold">
-                       Branch
+                            <label for="" class="text-white"> Branch</label> 
                     </p>
                 </router-link>
               </li>
@@ -63,14 +64,45 @@
 
         <li class="nav-item">
             <router-link to="/addservice" class="nav-link">
-             <i class="fa fa-cart-plus nav-icon" aria-hidden="true"></i>
+             <i class="fa fa-cart-plus nav-icon text-white" aria-hidden="true"></i>
                 <p class=" text-bold">
-                    Add Service
+                        <label for="" class="text-white"> Add Service</label> 
+                  
                 </p>
             </router-link>
         </li>
 
-        {{-- <li class="nav-item">
+  
+
+        <li class="nav-item">
+            <router-link to="/laundry" class="nav-link">
+            <i class="fas fa-tshirt  nav-icon text-white"></i>
+                <p class=" text-bold">
+                        <label for="" class="text-white">  Laundry</label> 
+                </p>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link to="/transaction" class="nav-link">
+                <i class="fa fa-sticky-note nav-icon text-white" aria-hidden="true" ></i>
+            {{-- <i class="fas fa-tshirt  nav-icon" ></i> --}}
+                <p class=" text-bold">
+                        <label for="" class="text-white">  Transaction</label> 
+                  
+                </p>
+            </router-link>
+        </li>
+    @else
+        <li class="nav-item">
+            <router-link to="/laundry" class="nav-link">
+            <i class="fas fa-tshirt  nav-icon"></i>
+                <p class=" text-bold">
+                Transactions
+                </p>
+            </router-link>
+        </li>
+    @endif
+      {{-- <li class="nav-item">
             <router-link to="/developer" class="nav-link">
                 <i class="fa fa-user-plus nav-icon" aria-hidden="true"></i>
                 <p class=" text-bold">
@@ -78,37 +110,6 @@
                 </p>
             </router-link>
         </li> --}}
-
-        <li class="nav-item">
-            <router-link to="/laundry" class="nav-link">
-            <i class="fas fa-tshirt  nav-icon"></i>
-                <p class=" text-bold">
-                    Laundry
-                </p>
-            </router-link>
-        </li>
-        <li class="nav-item">
-            <router-link to="/transaction" class="nav-link">
-            <i class="fas fa-tshirt  nav-icon"></i>
-                <p class=" text-bold">
-                    Transaction
-                </p>
-            </router-link>
-        </li>
-    @else
-        <li class="nav-item">
-            <router-link to="/transaction" class="nav-link">
-                <i class="fa fa-user-plus nav-icon" aria-hidden="true"></i>
-            <router-link to="/laundry" class="nav-link">
-            <i class="fas fa-tshirt  nav-icon"></i>
-                <p class=" text-bold">
-                Transactions
-                    Laundry
-                </p>
-            </router-link>
-        </li>
-    @endif
-
 
         {{--  <li class="nav-item ">
             <a href="/barcode" class="nav-link ">

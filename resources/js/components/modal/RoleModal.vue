@@ -18,8 +18,8 @@
                         <input type="text" class="form-control" v-model="form.role_name" placeholder="Input role for user ..." :class="{ 'is-invalid': form.errors.has('role_name') }">
                         <select v-model="form.role_type"    :class="{ 'is-invalid': form.errors.has('role_type') }">
                             <option value="" selected disabled>Select Job Role</option>
-                            <option value="Water">Water</option>
-                             <option value="Laundry">Laundry</option>
+                            <option value="Administrator">Administrator</option>
+                             <option value="staff">staff</option>
                         </select>
                         <div class="input-group-append">
                             <button type="button" @click="editMode === true ? updaterole() : saveRole()" class="btn btn-primary">{{ editMode === true ? "Update" : "Confirm" }}</button>

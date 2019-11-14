@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service;
+use App\Transaction;
 
 class ServicesController extends Controller
 {
@@ -23,7 +24,14 @@ class ServicesController extends Controller
 
     public function index()
     {
-        // return auth('api')->user();
+       if(isset($_GET['filter'])){
+           $transaction_no = Transaction::latest()->first('transaction_number');
+           return response()->json([
+                'countService' => Service::where('type', $_GET['filter'])->count(),
+                'service' => Service::where('type', $_GET['filter'])->latest()->paginate(6),
+                'transaction_number' => $transaction_no->transaction_number + 1
+           ]);
+       }
         return Service::all();
     }
 
@@ -113,4 +121,5 @@ class ServicesController extends Controller
     public function getServiceById($id){
         return Service::find($id);
     }
+    
 }

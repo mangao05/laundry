@@ -99,4 +99,17 @@ class TransactionDetailsController extends Controller
     public function transactionType($type){
         return Transaction::with('customers')->where('status', $type)->latest()->paginate(10);
     }
+
+    public function dashboardStatus(){
+        $void =  Transaction::where('status', 'void')->count();
+        $onGoing =  Transaction::where('status', 'on_going')->count();
+        $finish =  Transaction::where('status', 'finish')->count();
+        $cancelled =  Transaction::where('status', 'cancel')->count();
+        return response()->json([
+            'void' => $void,
+            'on_going' => $onGoing,
+            'finish' => $finish,
+            'cancelled'=> $cancelled
+        ]);
+    }
 }

@@ -45,7 +45,7 @@
                     </tr>
                     <tr v-for = "(transaction, index) in transactions" :key = "transaction.id">
                       <td>{{ index + 1 }}</td>
-                      <td>{{ "INSHA_"+transaction.transaction_number }}</td>
+                      <td>{{ "Laundry_"+transaction.transaction_number }}</td>
                       <td class="text-capitalize">{{ transaction.customers.name }}</td>
                       <td>{{ transaction.mode }}</td>
                       <td>{{ (transaction.mode == 'Deliver') ? 'N/A' : transaction.pickup_date }}</td>
@@ -101,7 +101,7 @@ export default {
         viewReceipt(id){
             let total = [];
             $("#reviewModal").modal('show')
-            this.transaction_number = "INSHA_"+id
+            this.transaction_number = "Laundry_"+id
             axios.get('api/transactionDetails/'+this.transaction_number).then(({data}) => {
                 this.transaction_details = data.transaction_details
                 this.transaction_customers = data.customers

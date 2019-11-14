@@ -47,10 +47,20 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
 
+
         $job_order = explode('_', $request->transaction_number);
         $transaction_number =  $job_order[1];
         $invID = str_pad($transaction_number, 4, '0', STR_PAD_LEFT);
         $service = Service::find($request->service_id);
+
+        $this->validate($request,[
+            'cname' => 'required',
+            'cnumber' => 'required|string|max:12',
+            'address1' => 'required|string|max:255',
+            'address2' => 'required|string|max:255',
+            'item_name' => 'required|string|max:255',
+            'price' => 'required|numeric'
+        ]);
 
         $customer = Customer::updateOrCreate(
             ['name' => $request->cname],
@@ -142,4 +152,28 @@ class TransactionController extends Controller
     public function fetch_branch(){
         return auth()->user();
     }
+
+
+    public function saveTransaction(Request $request){
+       
+        $transaction = Transaction::create([
+            'transaction_number' => $request->transaction_number,
+            'customer_id' => $request->customer_id,
+            'mode' => 'pickup',
+            'points_used' => 0,
+            'status' => 'ongoing'
+        ]);
+
+        $transactiondetails = $transaction->transaction_details()->create();
+        foreach($request->services as $service){
+            $transactiondetails->transaction_items()->create([
+                'service_id' => $service['service_id'],
+                'item' =>  $service['service'],
+                'qty' =>  $service['quantity'],
+                'price' =>  $service['price']
+            ]);
+        }
+    }
+
+    
 }

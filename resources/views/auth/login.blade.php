@@ -107,18 +107,18 @@
     </style>
 @endsection
 @section('content')
-<div class="container">
+<div class="container mb-5 pb-3" >
     <div class="row justify-content-center">
-        <div class="col-md-7 login " >
-            <div class="container h-100 mt-0">
+        <div class="col-md-7 login "  >
+            <div class="container h-100 mt-0" >
                     <div class="d-flex justify-content-center h-100">
-                        <div class="user_card rounded-0">
+                        <div class="user_card rounded-0" style="background-color:##F0F0F0;">
                             <div class="d-flex justify-content-center">
                                 <div class="brand_logo_container">
                                     <img src="{{ asset('image/loginLogo.png')}}" class="brand_logo" alt="Logo">
                                 </div>
                                 <div class="insha">
-                                        <img src="{{ asset('image/loginImage.png')}}"  width="100%" alt="Logo">
+                                        <img src="{{ asset('image/naotechIcon.png')}}"  width="100%" alt="Logo">
                                 </div>
                             </div>
                         @if (session('warning'))

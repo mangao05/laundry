@@ -20,9 +20,9 @@ import Print from '@mathewparet/vue-print';
 import Swal from 'sweetalert2';
 import VueBarcode from 'vue-barcode';
 import vSelect from 'vue-select'
-
-
-
+import VueApexCharts from 'vue-apexcharts'
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import UserTransaction from './components/UserTransaction.vue';
 // Start Modal 
 
 import UserModal from './components/modal/UserModal';
@@ -32,6 +32,9 @@ import ServiceModal from './components/modal/ServiceModal';
 import LaundryModal from './components/modal/LaundryModal';
 import ReceiptModal from './components/modal/ReceiptModal';
 import ReviewModal from './components/Transactions/TransactionReviewModal.vue';
+
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
 
 
 // End Modal
@@ -62,6 +65,8 @@ Vue.use(VueRouter);
 Vue.use(VueMoment);
 Vue.use(VueInputDropdown);
 // Start Components
+Vue.component('vue-phone-number-input', VuePhoneNumberInput);
+Vue.component('apexchart', VueApexCharts)
 Vue.component('v-select', vSelect)
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -97,7 +102,8 @@ let routes = [
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/role', component: require('./components/UserType.vue').default },
     { path: '/branch', component: require('./components/Branch.vue').default },
-    { path: '/transaction', component: require('./components/Transactions/Transaction.vue').default }
+    { path: '/transaction', component: require('./components/Transactions/Transaction.vue').default },
+    { path: '/usertransaction', component: UserTransaction },
   ]
 
   const options = {
@@ -122,6 +128,11 @@ routes // short for `routes: routes`
 
 Vue.filter('currency', function (value) {
   return '₱' + parseFloat(value).toFixed(2);
+});
+
+Vue.filter('phone', function (phone) {
+  return phone.replace(/[^0-9]/g, '')
+              .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
 });
 
 /**

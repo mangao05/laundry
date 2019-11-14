@@ -44,5 +44,9 @@ Route::get('transaction/number/{number}', 'API\TransactionController@transaction
 Route::get('fetchBranch','API\TransactionController@fetch_branch');
 Route::get('transactionDetails/remove/{id}', 'API\TransactionDetailsController@removeITem');
 Route::get('transactionsDetails/type/{type}', 'API\TransactionDetailsController@transactionType');
+Route::get('dashboardstatus', 'API\TransactionDetailsController@dashboardStatus');
+Route::get('loginDetail','API\UserManagementController@username');
+
+Route::post('transactions/create/savetransaction', 'API\TransactionController@saveTransaction');
 
 

@@ -76,7 +76,6 @@
             },
              userStatus(id,status){
                 axios.get('api/getUser/'+id+'/'+status).then(({data}) => {
-
                     Toast.fire({
                     type: 'success',
                     title: 'Account Successfully'+' '+ data

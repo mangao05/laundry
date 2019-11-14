@@ -9,6 +9,8 @@
                         </button>
                 </div>
                 <div class="modal-body">
+ 
+                    
                     <div class="row">
                          <div class="col-md-6 letter-spacing">
                                     <h1>Customer Detials</h1>
@@ -33,11 +35,14 @@
                                         </div>
                                     </div>
                                     <label for="">Customer Name</label>
-                                        <input type="text" v-model = "form.cname"  class="form-control" :disabled="transaction_customer">
+                                        <input type="text" v-model = "form.cname"  class="form-control" :disabled="transaction_customer"  :class="{ 'is-invalid': form.errors.has('cname') }">
+                                        <has-error :form="form" field="cname"></has-error>
                                     <label for="">Contact Number</label>
-                                        <input type="text" v-model = "form.cnumber" id="" class="form-control" :disabled="transaction_customer">
+                                        <vue-phone-number-input type="text" v-model= "form.cnumber" default-country-code="PH" :disabled="transaction_customer" :error="form.errors.has('cnumber')" />
+                                           <has-error :form="form" field="cnumber"></has-error>
                                     <label for="">Address </label>
-                                        <input type="text" v-model = "form.address1" id="" class="form-control" >
+                                        <input type="text" v-model = "form.address1" id="" class="form-control" :class="{ 'is-invalid': form.errors.has('address1') }" >
+                                         <has-error :form="form" field="address1"></has-error>
                                     <div class="text-center">
                                             <label for="">Mode of Trasaction</label>
                                         <br>
@@ -54,7 +59,8 @@
                                     <div  v-show="form.mode === 'Deliver'">
 
                                         <label for="">Delivery Address</label>
-                                            <input type="text" v-model = "form.address2" id="" class="form-control" >
+                                            <input type="text" v-model = "form.address2" id="" class="form-control" :class="{ 'is-invalid': form.errors.has('address2') }" >
+                                              <has-error :form="form" field="address2"></has-error>
                                     </div>
                                     <div v-show="form.mode === 'Pickup'">
                                             <label for="">Pick up Date</label>
@@ -77,15 +83,18 @@
                                                 placeholder= "Select Product"
                                             >
                                             </v-select>
+                                           
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="item_name">Item <span class="badge badge-info text-white rounded-0 p-2">Leave blank if Per Kilo</span></label>
-                                        <input type="text" v-model = "form.item_name" class="form-control rounded-0">
+                                        <input type="text" v-model = "form.item_name" class="form-control rounded-0" :class="{ 'is-invalid': form.errors.has('item_name') }">
+                                         <has-error :form="form" field="item_name"></has-error>
                                     </div>
                                     <div class="form-group">
                                         <label for="price">Price/Unit</label>
-                                        <input type="text" v-model = "form.price" class="form-control rounded-0">
+                                        <input type="text" v-model = "form.price" class="form-control rounded-0"  :class="{ 'is-invalid': form.errors.has('price') }">
+                                         <has-error :form="form" field="price"></has-error>
                                     </div>
                                     <div class="form-group">
                                         <label for="qty"><span v-show ="type == 'item'">Quantity</span> <span v-show ="type == 'kilo'">Kilo</span>  <span v-show ="type == 'kilo'" class="badge badge-info rounded-0 p-2 text-white"><span>{{ minimum }}</span> Kilo minimum</span></label>
@@ -97,7 +106,7 @@
                 </div>
                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button v-show = "transaction_number != 'INSHA_0000'" type="button" class="btn btn-success" @click = "addTransaction">Add Transaction</button>
+                    <button v-show = "transaction_number != 'Laundry_0000'" type="button" class="btn btn-success" @click = "addTransaction">Add Transaction</button>
                 </div>
             </div>
         </div>
