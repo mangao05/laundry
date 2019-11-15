@@ -50,3 +50,4 @@ Route::get('loginDetail','API\UserManagementController@username');
 Route::post('transactions/create/savetransaction', 'API\TransactionController@saveTransaction');
 
 
+Route::post('/logout', 'Auth\LoginController@logout');
