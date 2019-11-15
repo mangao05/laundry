@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2019 at 10:01 AM
--- Server version: 10.2.10-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Nov 15, 2019 at 07:56 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -174,6 +174,14 @@ CREATE TABLE `oauth_clients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `oauth_clients`
+--
+
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Laravel Personal Access Client', '9wTItsQGb3W5JkTw0FscB5HlxSTUDCtW26MqjDwW', 'http://localhost', 1, 0, 0, '2019-11-14 00:27:45', '2019-11-14 00:27:45'),
+(2, NULL, 'Laravel Password Grant Client', 'fNTif7EmRIXdHazmmtUD3xtYYHNVUOswJxCTOWRG', 'http://localhost', 0, 1, 0, '2019-11-14 00:27:45', '2019-11-14 00:27:45');
+
 -- --------------------------------------------------------
 
 --
@@ -186,6 +194,13 @@ CREATE TABLE `oauth_personal_access_clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_personal_access_clients`
+--
+
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2019-11-14 00:27:45', '2019-11-14 00:27:45');
 
 -- --------------------------------------------------------
 
@@ -247,6 +262,7 @@ CREATE TABLE `services` (
   `price` double NOT NULL,
   `minimum` int(11) DEFAULT NULL,
   `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -256,18 +272,17 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `service`, `price`, `minimum`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Clothes (wash, dry, fold)', 75, 3, 'kilo', NULL, '2019-06-30 23:43:40', '2019-06-30 23:43:40'),
-(2, 'Long Sleeve', 75, NULL, 'item', NULL, '2019-06-30 23:43:56', '2019-06-30 23:43:56'),
-(3, 'Barong Pina', 250, NULL, 'item', NULL, '2019-11-12 21:59:41', '2019-11-12 21:59:41'),
-(4, 'Jusi', 250, NULL, 'item', NULL, '2019-11-12 21:59:54', '2019-11-12 21:59:54'),
-(5, 'Pants', 150, NULL, 'item', NULL, '2019-11-12 22:00:11', '2019-11-12 22:00:11'),
-(6, 'Leather Pants', 250, NULL, 'item', NULL, '2019-11-12 22:00:41', '2019-11-12 22:00:41'),
-(7, 'Jackets(reg.)', 350, NULL, 'item', NULL, '2019-11-12 22:00:59', '2019-11-12 22:00:59'),
-(8, 'Wash dry fold', 28, 3, 'kilo', NULL, '2019-11-12 22:01:19', '2019-11-12 22:01:19'),
-(9, 'Wash Dry Press', 80, 3, 'kilo', NULL, '2019-11-12 22:01:40', '2019-11-12 22:01:40'),
-(10, 'Press Only', 58, 3, 'kilo', NULL, '2019-11-12 22:01:58', '2019-11-12 22:01:58'),
-(11, 'Comforters', 80, 3, 'kilo', NULL, '2019-11-12 22:02:34', '2019-11-12 22:02:34');
+INSERT INTO `services` (`id`, `service`, `price`, `minimum`, `type`, `icon`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(3, 'Barong Pina', 250, NULL, 'item', 'barongPina.png', NULL, '2019-11-12 21:59:41', '2019-11-12 21:59:41'),
+(4, 'Jusi', 250, NULL, 'item', 'jusi.png', NULL, '2019-11-12 21:59:54', '2019-11-12 21:59:54'),
+(5, 'Pants', 150, NULL, 'item', 'pants.png', NULL, '2019-11-12 22:00:11', '2019-11-12 22:00:11'),
+(6, 'Leather Pants', 250, NULL, 'item', 'leatherPants.png', NULL, '2019-11-12 22:00:41', '2019-11-12 22:00:41'),
+(7, 'Jackets(reg.)', 350, NULL, 'item', 'jacket(reg.).png', NULL, '2019-11-12 22:00:59', '2019-11-12 22:00:59'),
+(8, 'Wash dry fold', 28, 3, 'kilo', 'washdryfold.png', NULL, '2019-11-12 22:01:19', '2019-11-12 22:01:19'),
+(9, 'Wash Dry Press', 80, 3, 'kilo', 'washdrypress.png', NULL, '2019-11-12 22:01:40', '2019-11-12 22:01:40'),
+(10, 'Press Only', 58, 3, 'kilo', 'press.png', NULL, '2019-11-12 22:01:58', '2019-11-12 22:01:58'),
+(11, 'Comforters', 80, 3, 'kilo', 'comforters.png', NULL, '2019-11-12 22:02:34', '2019-11-12 22:02:34'),
+(12, 'coat', 300, NULL, 'item', 'coat.png', NULL, '2019-11-13 19:29:47', '2019-11-13 19:29:47');
 
 -- --------------------------------------------------------
 
@@ -277,8 +292,8 @@ INSERT INTO `services` (`id`, `service`, `price`, `minimum`, `type`, `deleted_at
 
 CREATE TABLE `transactions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `transaction_number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `transaction_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
   `mode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pickup_date` timestamp NULL DEFAULT NULL,
   `points_used` double DEFAULT NULL,
@@ -294,7 +309,31 @@ CREATE TABLE `transactions` (
 
 INSERT INTO `transactions` (`id`, `transaction_number`, `customer_id`, `mode`, `pickup_date`, `points_used`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, '0001', 1, 'Deliver', NULL, 0, 'finish', NULL, '2019-06-30 23:45:05', '2019-07-14 21:34:08'),
-(2, '0002', 1, 'Deliver', NULL, 0, 'cancel', NULL, '2019-07-14 19:38:04', '2019-10-28 16:32:11');
+(2, '0002', 1, 'Deliver', NULL, 0, 'cancel', NULL, '2019-07-14 19:38:04', '2019-10-28 16:32:11'),
+(3, '3', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 17:58:10', '2019-11-13 17:58:10'),
+(4, '4', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 17:59:12', '2019-11-13 17:59:12'),
+(5, '5', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:05:23', '2019-11-13 18:05:23'),
+(6, '6', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:06:41', '2019-11-13 18:06:41'),
+(7, '7', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:07:23', '2019-11-13 18:07:23'),
+(8, '8', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:08:29', '2019-11-13 18:08:29'),
+(9, '9', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:09:02', '2019-11-13 18:09:02'),
+(10, '10', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:11:52', '2019-11-13 18:11:52'),
+(11, '11', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:12:17', '2019-11-13 18:12:17'),
+(12, '12', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:12:43', '2019-11-13 18:12:43'),
+(13, '13', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:13:07', '2019-11-13 18:13:07'),
+(14, '14', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:14:07', '2019-11-13 18:14:07'),
+(15, '15', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 18:15:00', '2019-11-13 18:15:00'),
+(16, '16', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 19:33:52', '2019-11-13 19:33:52'),
+(17, '17', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 19:34:47', '2019-11-13 19:34:47'),
+(18, '18', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(19, '19', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 17:15:36', '2019-11-14 17:15:36'),
+(20, '20', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(21, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:14:11', '2019-11-14 19:14:11'),
+(22, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(23, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:15:08', '2019-11-14 19:15:08'),
+(24, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:15:32', '2019-11-14 19:15:32'),
+(25, '21', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
+(26, '22', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
 
 -- --------------------------------------------------------
 
@@ -317,7 +356,30 @@ CREATE TABLE `transaction_details` (
 INSERT INTO `transaction_details` (`id`, `transaction_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, NULL, '2019-06-30 23:45:05', '2019-06-30 23:45:05'),
 (2, 2, NULL, '2019-07-01 21:58:31', '2019-07-01 21:58:31'),
-(3, 3, NULL, '2019-07-02 00:45:19', '2019-07-02 00:45:19');
+(3, 3, NULL, '2019-07-02 00:45:19', '2019-07-02 00:45:19'),
+(4, 4, NULL, '2019-11-13 17:59:12', '2019-11-13 17:59:12'),
+(5, 5, NULL, '2019-11-13 18:05:23', '2019-11-13 18:05:23'),
+(6, 6, NULL, '2019-11-13 18:06:41', '2019-11-13 18:06:41'),
+(7, 7, NULL, '2019-11-13 18:07:23', '2019-11-13 18:07:23'),
+(8, 8, NULL, '2019-11-13 18:08:29', '2019-11-13 18:08:29'),
+(9, 9, NULL, '2019-11-13 18:09:02', '2019-11-13 18:09:02'),
+(10, 10, NULL, '2019-11-13 18:11:52', '2019-11-13 18:11:52'),
+(11, 11, NULL, '2019-11-13 18:12:17', '2019-11-13 18:12:17'),
+(12, 12, NULL, '2019-11-13 18:12:43', '2019-11-13 18:12:43'),
+(13, 13, NULL, '2019-11-13 18:13:07', '2019-11-13 18:13:07'),
+(14, 14, NULL, '2019-11-13 18:14:07', '2019-11-13 18:14:07'),
+(15, 15, NULL, '2019-11-13 18:15:00', '2019-11-13 18:15:00'),
+(16, 16, NULL, '2019-11-13 19:33:53', '2019-11-13 19:33:53'),
+(17, 17, NULL, '2019-11-13 19:34:47', '2019-11-13 19:34:47'),
+(18, 18, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(19, 19, NULL, '2019-11-14 17:15:36', '2019-11-14 17:15:36'),
+(20, 20, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(21, 21, NULL, '2019-11-14 19:14:11', '2019-11-14 19:14:11'),
+(22, 22, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(23, 23, NULL, '2019-11-14 19:15:08', '2019-11-14 19:15:08'),
+(24, 24, NULL, '2019-11-14 19:15:32', '2019-11-14 19:15:32'),
+(25, 25, NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
+(26, 26, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
 
 -- --------------------------------------------------------
 
@@ -342,14 +404,35 @@ CREATE TABLE `transaction_items` (
 --
 
 INSERT INTO `transaction_items` (`id`, `transaction_details_id`, `service_id`, `item`, `qty`, `price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Clothes (wash, dry, fold)', 4, 300, NULL, '2019-06-30 23:45:05', '2019-06-30 23:45:05'),
-(2, 1, 2, 'Long Sleeve', 3, 225, NULL, '2019-06-30 23:49:46', '2019-06-30 23:49:46'),
-(3, 1, 2, 'Long Sleeve', 2, 150, NULL, '2019-06-30 23:51:46', '2019-06-30 23:51:46'),
-(4, 2, 2, 'Long Sleeve', 3, 225, 'removed', '2019-07-01 21:58:31', '2019-07-15 17:32:10'),
-(5, 3, 1, 'Clothes (wash, dry, fold)', 3, 225, NULL, '2019-07-02 00:45:19', '2019-07-02 00:45:19'),
-(6, 2, 2, 'Long Sleeve', 3, 225, NULL, '2019-07-14 19:38:05', '2019-07-14 19:38:05'),
-(7, 2, 2, 'Long Sleeve', 4, 300, NULL, '2019-07-15 17:19:39', '2019-07-15 17:19:39'),
-(8, 2, 2, 'Long Sleeve', 4, 300, NULL, '2019-07-15 17:28:59', '2019-07-15 17:28:59');
+(9, 15, 7, 'Jackets(reg.)', 2, 700, NULL, '2019-11-13 18:15:00', '2019-11-13 18:15:00'),
+(10, 15, 6, 'Leather Pants', 2, 500, NULL, '2019-11-13 18:15:00', '2019-11-13 18:15:00'),
+(11, 15, 5, 'Pants', 2, 300, NULL, '2019-11-13 18:15:00', '2019-11-13 18:15:00'),
+(12, 16, 12, 'coat', 2, 600, NULL, '2019-11-13 19:33:53', '2019-11-13 19:33:53'),
+(13, 17, 12, 'coat', 2, 600, NULL, '2019-11-13 19:34:47', '2019-11-13 19:34:47'),
+(14, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(15, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(16, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(17, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(18, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(19, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(20, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(21, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(22, 18, 12, 'coat', 2, 600, NULL, '2019-11-13 19:36:13', '2019-11-13 19:36:13'),
+(23, 19, 12, 'coat', 1, 300, NULL, '2019-11-14 17:15:36', '2019-11-14 17:15:36'),
+(24, 20, 7, 'Jackets(reg.)', 5, 1750, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(25, 20, 12, 'coat', 2, 600, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(26, 20, 6, 'Leather Pants', 3, 750, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(27, 20, 5, 'Pants', 1, 150, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(28, 20, 4, 'Jusi', 6, 1500, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(29, 20, 3, 'Barong Pina', 2, 500, NULL, '2019-11-14 19:14:06', '2019-11-14 19:14:06'),
+(30, 22, 12, 'coat', 2, 600, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(31, 22, 7, 'Jackets(reg.)', 1, 350, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(32, 22, 6, 'Leather Pants', 4, 1000, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(33, 22, 5, 'Pants', 3, 450, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(34, 22, 4, 'Jusi', 5, 1250, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(35, 22, 3, 'Barong Pina', 6, 1500, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
+(36, 25, 12, 'coat', 2, 600, NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
+(37, 26, 12, 'coat', 2, 600, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
 
 -- --------------------------------------------------------
 
@@ -517,13 +600,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -535,25 +618,25 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `transaction_items`
 --
 ALTER TABLE `transaction_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `users`
