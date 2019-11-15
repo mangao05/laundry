@@ -3205,6 +3205,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -52345,14 +52349,33 @@ var render = function() {
                         }
                       },
                       [
-                        _vm._m(4, true),
+                        _c("div", { staticClass: "col-md-4 p-2" }, [
+                          _c("img", {
+                            staticClass: "img-fluid",
+                            attrs: { src: "/serviceIcon/" + service.icon }
+                          })
+                        ]),
                         _vm._v(" "),
                         _c(
                           "div",
-                          { staticClass: "col-md-8 pt-4 bg-info text-center" },
+                          { staticClass: "col-md-8 p-1 bg-info text-center" },
                           [
                             _c("span", { staticClass: "text-uppercase" }, [
                               _vm._v(_vm._s(service.service))
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "text-dark" }, [
+                              _vm._v(
+                                "\r\n                                         " +
+                                  _vm._s(service.price) +
+                                  " " +
+                                  _vm._s(
+                                    service.type == "kilo" ? " / kg" : " / pc"
+                                  ) +
+                                  "\r\n                                     "
+                              )
                             ])
                           ]
                         )
@@ -52447,7 +52470,7 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.service_name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(4)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
@@ -52583,14 +52606,6 @@ var staticRenderFns = [
       },
       [_c("i", [_vm._v("bullseye laundry")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 p-2" }, [
-      _c("img", { staticClass: "img-fluid", attrs: { src: "image/coat.png" } })
-    ])
   },
   function() {
     var _vm = this

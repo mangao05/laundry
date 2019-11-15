@@ -91,10 +91,14 @@
                         <div class="p-1">
                             <div class="row rounded border border-info" @click="openQuantityModal(service.id, service.service, service.price)" style="box-shadow: 0px 0px 3px gray; cursor:pointer;">
                                 <div class="col-md-4 p-2" >
-                                    <img src="image/coat.png" class="img-fluid">
+                                    <img :src="'/serviceIcon/'+service.icon" class="img-fluid">
                                 </div>
-                                 <div class="col-md-8 pt-4 bg-info text-center">
-                                    <span class="text-uppercase">{{ service.service }}</span>
+                                 <div class="col-md-8 p-1 bg-info text-center">
+                                    <span class="text-uppercase">{{ service.service }}</span> <br>
+                                        
+                                     <span class="text-dark">
+                                         {{ service.price }} {{ (service.type == 'kilo') ? ' / kg' : ' / pc' }}
+                                     </span>
                                 </div>
                             </div>
                         </div>
