@@ -3205,8 +3205,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3227,7 +3225,8 @@ __webpack_require__.r(__webpack_exports__);
       transaction_number: '0000',
       page: 2,
       serviceType: 'item',
-      pageCount: 0
+      pageCount: 0,
+      error: false
     };
   },
   methods: {
@@ -3274,23 +3273,27 @@ __webpack_require__.r(__webpack_exports__);
       $("#enterQuantity").modal('show');
     },
     storeService: function storeService() {
-      var total = [];
-      this.postServices.push({
-        service_id: this.service_id,
-        service: this.service_name,
-        price: this.service_price * this.quantity,
-        quantity: this.quantity
-      });
-      this.quantity = '';
-      $("#enterQuantity").modal('hide');
-      this.postServices.forEach(function (details) {
-        total.push(details.price * details.quantity);
-        document.getElementById('payBtn').removeAttribute("disabled");
-      });
-      this.subtotal = total.reduce(function (total, num) {
-        return total + num;
-      }, 0);
-      console.log(this.subtotal);
+      if (this.quantity <= 0) {
+        this.error = true;
+      } else {
+        var total = [];
+        this.postServices.push({
+          service_id: this.service_id,
+          service: this.service_name,
+          price: this.service_price * this.quantity,
+          quantity: this.quantity
+        });
+        this.quantity = '';
+        $("#enterQuantity").modal('hide');
+        this.postServices.forEach(function (details) {
+          total.push(details.price * details.quantity);
+          document.getElementById('payBtn').removeAttribute("disabled");
+        });
+        this.subtotal = total.reduce(function (total, num) {
+          return total + num;
+        }, 0);
+        console.log(this.subtotal);
+      }
     },
     fetchCustomer: function fetchCustomer() {
       var _this2 = this;
@@ -3318,50 +3321,44 @@ __webpack_require__.r(__webpack_exports__);
           var data = _ref3.data;
           _this3.postServices = [];
           _this3.selected = '';
-          _this3.subtotal = '';
+          _this3.subtotal = 0;
         });
       });
     },
-    openAmountModal: function openAmountModal() {
-      if (this.selected != '') {
-        $("#enterAmount").modal('show');
-      } else {
-        alert('Pick Customer');
-      }
-    },
-    paymentTransaction: function paymentTransaction() {
-      var _this4 = this;
-
-      // window.open(routeData.href, '_blank');
-      // this.CashReceived = this.amountRendered
-      if (this.subtotal <= this.CashReceived) {
-        this.change = this.CashReceived - this.subtotal;
-        Swal.fire({
-          title: 'Are you sure about this Transaction?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, Print it!'
-        }).then(function (result) {
-          if (result.value) {
-            $("#enterAmount").modal('hide');
-
-            _this4.PrintTransaction();
-          }
-        });
-      } else {
-        Swal.fire({
-          type: 'error',
-          title: 'Oops...',
-          text: 'The amount given is Short!'
-        });
-        this.CashReceived = 0;
-      }
-
-      console.log(this.CashReceived);
-    },
+    // openAmountModal(){
+    //     if(this.selected != ''){
+    //         $("#enterAmount").modal('show');
+    //     }else{
+    //         alert('Pick Customer');
+    //     }
+    // },
+    // paymentTransaction(){
+    //     if(this.subtotal  <=  this.CashReceived){
+    //         this.change = this.CashReceived - this.subtotal  ;
+    //         Swal.fire({
+    //             title: 'Are you sure about this Transaction?',
+    //             text: "You won't be able to revert this!",
+    //             type: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonColor: '#3085d6',
+    //             cancelButtonColor: '#d33',
+    //             confirmButtonText: 'Yes, Print it!'
+    //             }).then((result) => {
+    //             if (result.value) {
+    //                 $("#enterAmount").modal('hide');
+    //                 this.PrintTransaction();
+    //             }
+    //             })
+    //     }else{
+    //         Swal.fire({
+    //             type: 'error',
+    //             title: 'Oops...',
+    //             text: 'The amount given is Short!',
+    //         })
+    //             this.CashReceived = 0;
+    //     }
+    //     console.log(this.CashReceived);
+    // },
     removeItem: function removeItem(index) {
       var total = [];
 
@@ -9863,7 +9860,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=BioRhyme|Roboto&display=swap);", ""]);
 
 // module
-exports.push([module.i, "\n#receiptContainer[data-v-51af9cf8]{\n    font-family: 'BioRhyme', serif;\n}\n.btn-active[data-v-51af9cf8]{\n    background-color: red !important;\n}\n", ""]);
+exports.push([module.i, "\n#receiptContainer[data-v-51af9cf8]{\n    font-family: 'BioRhyme', serif;\n}\n.btn-active[data-v-51af9cf8]{\n    background-color: red !important;\n}\n.btn-red[data-v-51af9cf8]{\n    background-color: #EF5B5B;\n}\n", ""]);
 
 // exports
 
@@ -24539,7 +24536,7 @@ exports.default = SVGRenderer;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -24550,7 +24547,7 @@ exports.default = SVGRenderer;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.13';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -27209,16 +27206,10 @@ exports.default = SVGRenderer;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -28142,8 +28133,8 @@ exports.default = SVGRenderer;
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -29960,7 +29951,7 @@ exports.default = SVGRenderer;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -31143,7 +31134,7 @@ exports.default = SVGRenderer;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -31151,6 +31142,10 @@ exports.default = SVGRenderer;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -34951,6 +34946,7 @@ exports.default = SVGRenderer;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -39337,9 +39333,12 @@ exports.default = SVGRenderer;
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -39372,7 +39371,9 @@ exports.default = SVGRenderer;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -41577,10 +41578,11 @@ exports.default = SVGRenderer;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -52121,7 +52123,7 @@ var render = function() {
     "div",
     {
       staticClass: "container border border-secondary p-3 mb-3",
-      staticStyle: { height: "115vh" },
+      staticStyle: { height: "105vh" },
       attrs: { id: "receiptContainer" }
     },
     [
@@ -52173,7 +52175,7 @@ var render = function() {
                 {
                   staticClass: "mb-2",
                   staticStyle: {
-                    height: "60vh",
+                    height: "65vh",
                     "border-bottom": "1px solid black",
                     "overflow-y": "auto"
                   }
@@ -52234,34 +52236,16 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("table", { staticClass: "table" }, [
+              _c("table", { staticClass: "table " }, [
                 _c("tbody", [
                   _c("tr", [
                     _vm._m(2),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-right" }, [
                       _c("span", { staticClass: "h2" }, [
-                        _vm._v("₱" + _vm._s(_vm.subtotal))
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-right" }, [
-                      _c("span", { staticClass: "h4" }, [
-                        _vm._v("₱" + _vm._s(_vm.CashReceived))
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-right" }, [
-                      _c("span", { staticClass: "h5" }, [
-                        _vm._v("₱" + _vm._s(_vm.change))
+                        _vm._v(
+                          "₱" + _vm._s(_vm._f("number")(_vm.subtotal, "0,0"))
+                        )
                       ])
                     ])
                   ])
@@ -52269,17 +52253,22 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12 text-right mt-5" }, [
+            _c("div", [
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-success",
+                  staticClass: "btn btn-success btn-block",
                   attrs: { id: "payBtn", disabled: "" },
-                  on: { click: _vm.openAmountModal }
+                  on: { click: _vm.PrintTransaction }
                 },
                 [
-                  _c("i", { staticClass: "fas fa-dollar-sign    " }),
-                  _vm._v(" Pay Now")
+                  _c("i", {
+                    staticClass: "fa fa-print",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v(
+                    "\r\n                                Print\r\n                  "
+                  )
                 ]
               )
             ])
@@ -52288,7 +52277,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-lg-8" }, [
-          _vm._m(5),
+          _vm._m(3),
           _vm._v(" "),
           _c("hr", { staticStyle: { border: "2px solid black" } }),
           _vm._v(" "),
@@ -52326,43 +52315,52 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
+          _c("hr", { staticStyle: { border: "2px solid black" } }),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "row justify-content-center m-3" },
+            { staticClass: "row justify-content-center m-3 p-2" },
             _vm._l(_vm.services.data, function(service) {
-              return _c("div", { key: service.id, staticClass: "col-lg-4" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-info btn-block m-2",
-                    staticStyle: { "min-height": "150px" },
-                    on: {
-                      click: function($event) {
-                        return _vm.openQuantityModal(
-                          service.id,
-                          service.service,
-                          service.price
+              return _c(
+                "div",
+                { key: service.id, staticClass: "col-lg-4 mb-2" },
+                [
+                  _c("div", { staticClass: "p-1" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row rounded border border-info",
+                        staticStyle: {
+                          "box-shadow": "0px 0px 3px gray",
+                          cursor: "pointer"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.openQuantityModal(
+                              service.id,
+                              service.service,
+                              service.price
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _vm._m(4, true),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-md-8 pt-4 bg-info text-center" },
+                          [
+                            _c("span", { staticClass: "text-uppercase" }, [
+                              _vm._v(_vm._s(service.service))
+                            ])
+                          ]
                         )
-                      }
-                    }
-                  },
-                  [
-                    _c("span", { staticClass: "text-uppercase" }, [
-                      _vm._v(_vm._s(service.service))
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "font-weight-bold" }, [
-                      _vm._v(
-                        _vm._s(service.price) +
-                          " " +
-                          _vm._s(service.type == "item" ? "/ pc" : "/ kg")
-                      )
-                    ])
-                  ]
-                )
-              ])
+                      ]
+                    )
+                  ])
+                ]
+              )
             }),
             0
           ),
@@ -52449,7 +52447,7 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.service_name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(5)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
@@ -52473,6 +52471,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
+                      class: _vm.error ? "border-danger" : "",
                       attrs: { type: "number", id: "quantity" },
                       domProps: { value: _vm.quantity },
                       on: {
@@ -52483,7 +52482,23 @@ var render = function() {
                           _vm.quantity = $event.target.value
                         }
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.error,
+                            expression: "error"
+                          }
+                        ],
+                        staticClass: "text-danger"
+                      },
+                      [_vm._v("Please input Correct Quantity")]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -52507,87 +52522,6 @@ var render = function() {
                           return _vm.storeService()
                         }
                       }
-                    },
-                    [_vm._v("Submit")]
-                  )
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: {
-            id: "enterAmount",
-            tabindex: "-1",
-            role: "dialog",
-            "aria-labelledby": "exampleModalLabel",
-            "aria-hidden": "true"
-          }
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _vm._m(7),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-form-label",
-                        attrs: { for: "quantity" }
-                      },
-                      [_vm._v("Amount Rendered")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.amountRendered,
-                          expression: "amountRendered"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "number", id: "quantity" },
-                      domProps: { value: _vm.amountRendered },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.amountRendered = $event.target.value
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" },
-                      on: { click: _vm.paymentTransaction }
                     },
                     [_vm._v("Submit")]
                   )
@@ -52637,22 +52571,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { colspan: "3" } }, [
-      _c("span", { staticClass: "h4" }, [_vm._v("Cash Received:")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { colspan: "3" } }, [
-      _c("span", { staticClass: "h5" }, [_vm._v("Change")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "h1",
       {
@@ -52670,6 +52588,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4 p-2" }, [
+      _c("img", { staticClass: "img-fluid", attrs: { src: "image/coat.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "button",
       {
@@ -52682,31 +52608,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Please Enter Exact Amount Recieved")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -88192,6 +88093,783 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vue2-filters/dist/vue2-filters.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vue2-filters/dist/vue2-filters.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory();
+	else { var i, a; }
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var string_namespaceObject = {};
+__webpack_require__.r(string_namespaceObject);
+__webpack_require__.d(string_namespaceObject, "capitalize", function() { return string_capitalize; });
+__webpack_require__.d(string_namespaceObject, "uppercase", function() { return string_uppercase; });
+__webpack_require__.d(string_namespaceObject, "lowercase", function() { return string_lowercase; });
+__webpack_require__.d(string_namespaceObject, "placeholder", function() { return string_placeholder; });
+__webpack_require__.d(string_namespaceObject, "truncate", function() { return string_truncate; });
+var other_namespaceObject = {};
+__webpack_require__.r(other_namespaceObject);
+__webpack_require__.d(other_namespaceObject, "currency", function() { return other_currency; });
+__webpack_require__.d(other_namespaceObject, "pluralize", function() { return other_pluralize; });
+__webpack_require__.d(other_namespaceObject, "ordinal", function() { return other_ordinal; });
+__webpack_require__.d(other_namespaceObject, "number", function() { return other_number; });
+
+// CONCATENATED MODULE: ./src/util/index.js
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var ArrayProto = Array.prototype,
+    ObjProto = Object.prototype;
+var slice = ArrayProto.slice,
+    util_toString = ObjProto.toString;
+var util = {};
+
+util.isArray = function (obj) {
+  return Array.isArray(obj);
+};
+
+var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+
+util.isArrayLike = function (obj) {
+  if (_typeof(obj) !== 'object' || !obj) {
+    return false;
+  }
+
+  var length = obj.length;
+  return typeof length === 'number' && length % 1 === 0 && length >= 0 && length <= MAX_ARRAY_INDEX;
+};
+
+util.isObject = function (obj) {
+  var type = _typeof(obj);
+
+  return type === 'function' || type === 'object' && !!obj;
+};
+
+util.each = function (obj, callback) {
+  var i, len;
+
+  if (util.isArray(obj)) {
+    for (i = 0, len = obj.length; i < len; i++) {
+      if (callback(obj[i], i, obj) === false) {
+        break;
+      }
+    }
+  } else {
+    for (i in obj) {
+      if (callback(obj[i], i, obj) === false) {
+        break;
+      }
+    }
+  }
+
+  return obj;
+};
+
+util.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error'], function (name) {
+  util['is' + name] = function (obj) {
+    return util_toString.call(obj) === '[object ' + name + ']';
+  };
+});
+
+util.toArray = function (list, start) {
+  start = start || 0;
+  var i = list.length - start;
+  var ret = new Array(i);
+
+  while (i--) {
+    ret[i] = list[i + start];
+  }
+
+  return ret;
+};
+
+util.toNumber = function (value) {
+  if (typeof value !== 'string') {
+    return value;
+  } else {
+    var parsed = Number(value);
+    return isNaN(parsed) ? value : parsed;
+  }
+};
+
+util.convertRangeToArray = function (range) {
+  return _toConsumableArray(Array(range + 1).keys()).slice(1);
+};
+
+util.convertArray = function (value) {
+  if (util.isArray(value)) {
+    return value;
+  } else if (util.isPlainObject(value)) {
+    // convert plain object to array.
+    var keys = Object.keys(value);
+    var i = keys.length;
+    var res = new Array(i);
+    var key;
+
+    while (i--) {
+      key = keys[i];
+      res[i] = {
+        $key: key,
+        $value: value[key]
+      };
+    }
+
+    return res;
+  } else {
+    return value || [];
+  }
+};
+
+function multiIndex(obj, is) {
+  // obj,['1','2','3'] -> ((obj['1'])['2'])['3']
+  return is.length ? multiIndex(obj[is[0]], is.slice(1)) : obj;
+}
+
+util.getPath = function (obj, is) {
+  // obj,'1.2.3' -> multiIndex(obj,['1','2','3'])
+  return multiIndex(obj, is.split('.'));
+};
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ *
+ * @param {*} obj
+ * @return {Boolean}
+ */
+
+
+var util_toString = Object.prototype.toString;
+var OBJECT_STRING = '[object Object]';
+
+util.isPlainObject = function (obj) {
+  return util_toString.call(obj) === OBJECT_STRING;
+};
+
+util.exist = function (value) {
+  return value !== null && typeof value !== 'undefined';
+};
+
+/* harmony default export */ var src_util = (util);
+// CONCATENATED MODULE: ./src/string/capitalize.js
+/**
+ *  Converts a string into Capitalize
+ * 
+ * 'abc' => 'Abc'
+ * 
+ * @param {Object} options
+ */
+function capitalize(value, options) {
+  var globalOptions = this && this.capitalize ? this.capitalize : {};
+  options = options || globalOptions;
+  var onlyFirstLetter = options.onlyFirstLetter != null ? options.onlyFirstLetter : false;
+  if (!value && value !== 0) return '';
+
+  if (onlyFirstLetter === true) {
+    return value.toString().charAt(0).toUpperCase() + value.toString().slice(1);
+  } else {
+    value = value.toString().toLowerCase().split(' ');
+    return value.map(function (item) {
+      return item.charAt(0).toUpperCase() + item.slice(1);
+    }).join(' ');
+  }
+}
+
+/* harmony default export */ var string_capitalize = (capitalize);
+// CONCATENATED MODULE: ./src/string/uppercase.js
+/**
+ * Converts a string to UPPERCASE
+ * 
+ * 'abc' => 'ABC'
+ */
+function uppercase(value) {
+  return value || value === 0 ? value.toString().toUpperCase() : '';
+}
+
+/* harmony default export */ var string_uppercase = (uppercase);
+// CONCATENATED MODULE: ./src/string/lowercase.js
+/**
+ * Converts a string to lowercase
+ * 
+ * 'AbC' => 'abc'
+ */
+function lowercase(value) {
+  return value || value === 0 ? value.toString().toLowerCase() : '';
+}
+
+/* harmony default export */ var string_lowercase = (lowercase);
+// CONCATENATED MODULE: ./src/string/placeholder.js
+/**
+ *  If the value is missing outputs the placeholder text
+ * 
+ * '' => {placeholder}
+ * 'foo' => 'foo'
+ */
+function placeholder(input, property) {
+  return input === undefined || input === '' || input === null ? property : input;
+}
+
+/* harmony default export */ var string_placeholder = (placeholder);
+// CONCATENATED MODULE: ./src/string/truncate.js
+/**
+ *  Truncate at the given || default length
+ *
+ * 'lorem ipsum dolor' => 'lorem ipsum dol...'
+ */
+function truncate(value, length) {
+  length = length || 15;
+  if (!value || typeof value !== 'string') return '';
+  if (value.length <= length) return value;
+  return value.substring(0, length) + '...';
+}
+
+/* harmony default export */ var string_truncate = (truncate);
+// CONCATENATED MODULE: ./src/string/index.js
+
+
+
+
+
+
+// CONCATENATED MODULE: ./src/array/limitBy.js
+
+/**
+ * Limit filter for arrays
+ *
+ * @param {Number|Array} arr (If Number, decimal expected)
+ * @param {Number} n
+ * @param {Number} offset (Decimal expected)
+ */
+
+function limitBy(arr, n, offset) {
+  arr = src_util.isArray(arr) ? arr : src_util.convertRangeToArray(arr);
+  offset = offset ? parseInt(offset, 10) : 0;
+  n = src_util.toNumber(n);
+  return typeof n === 'number' ? arr.slice(offset, offset + n) : arr;
+}
+
+/* harmony default export */ var array_limitBy = (limitBy);
+// CONCATENATED MODULE: ./src/array/filterBy.js
+
+/**
+ * Filter filter for arrays
+ *
+ * @param {Array} arr
+ * @param {String} prop
+ * @param {String|Number} search
+ */
+
+function filterBy(arr, search) {
+  var arr = src_util.convertArray(arr);
+
+  if (search == null) {
+    return arr;
+  }
+
+  if (typeof search === 'function') {
+    return arr.filter(search);
+  } // cast to lowercase string
+
+
+  search = ('' + search).toLowerCase();
+  var n = 2; // extract and flatten keys
+
+  var keys = Array.prototype.concat.apply([], src_util.toArray(arguments, n));
+  var res = [];
+  var item, key, val, j;
+
+  for (var i = 0, l = arr.length; i < l; i++) {
+    item = arr[i];
+    val = item && item.$value || item;
+    j = keys.length;
+
+    if (j) {
+      while (j--) {
+        key = keys[j];
+
+        if (key === '$key' && contains(item.$key, search) || contains(src_util.getPath(val, key), search)) {
+          res.push(item);
+          break;
+        }
+      }
+    } else if (contains(item, search)) {
+      res.push(item);
+    }
+  }
+
+  return res;
+}
+
+function contains(val, search) {
+  var i;
+
+  if (src_util.isPlainObject(val)) {
+    var keys = Object.keys(val);
+    i = keys.length;
+
+    while (i--) {
+      if (contains(val[keys[i]], search)) {
+        return true;
+      }
+    }
+  } else if (src_util.isArray(val)) {
+    i = val.length;
+
+    while (i--) {
+      if (contains(val[i], search)) {
+        return true;
+      }
+    }
+  } else if (val != null) {
+    return val.toString().toLowerCase().indexOf(search) > -1;
+  }
+}
+
+/* harmony default export */ var array_filterBy = (filterBy);
+// CONCATENATED MODULE: ./src/array/orderBy.js
+
+/**
+ * Filter filter for arrays
+ *
+ * @param {String|Array<String>|Function} ...sortKeys
+ * @param {Number} [order]
+ */
+
+function orderBy(arr) {
+  var _comparator = null;
+  var sortKeys;
+  arr = src_util.convertArray(arr); // determine order (last argument)
+
+  var args = src_util.toArray(arguments, 1);
+  var order = args[args.length - 1];
+
+  if (typeof order === 'number') {
+    order = order < 0 ? -1 : 1;
+    args = args.length > 1 ? args.slice(0, -1) : args;
+  } else {
+    order = 1;
+  } // determine sortKeys & comparator
+
+
+  var firstArg = args[0];
+
+  if (!firstArg) {
+    return arr;
+  } else if (typeof firstArg === 'function') {
+    // custom comparator
+    _comparator = function comparator(a, b) {
+      return firstArg(a, b) * order;
+    };
+  } else {
+    // string keys. flatten first
+    sortKeys = Array.prototype.concat.apply([], args);
+
+    _comparator = function comparator(a, b, i) {
+      i = i || 0;
+      return i >= sortKeys.length - 1 ? baseCompare(a, b, i) : baseCompare(a, b, i) || _comparator(a, b, i + 1);
+    };
+  }
+
+  function baseCompare(a, b, sortKeyIndex) {
+    var sortKey = sortKeys[sortKeyIndex];
+
+    if (sortKey) {
+      if (sortKey !== '$key') {
+        if (src_util.isObject(a) && '$value' in a) a = a.$value;
+        if (src_util.isObject(b) && '$value' in b) b = b.$value;
+      }
+
+      a = src_util.isObject(a) ? src_util.getPath(a, sortKey) : a;
+      b = src_util.isObject(b) ? src_util.getPath(b, sortKey) : b;
+      a = typeof a === 'string' ? a.toLowerCase() : a;
+      b = typeof b === 'string' ? b.toLowerCase() : b;
+    }
+
+    return a === b ? 0 : a > b ? order : -order;
+  } // sort on a copy to avoid mutating original array
+
+
+  return arr.slice().sort(_comparator);
+}
+
+/* harmony default export */ var array_orderBy = (orderBy);
+// CONCATENATED MODULE: ./src/array/find.js
+
+/**
+ * Get first matching element from a filtered array
+ *
+ * @param {Array} arr
+ * @param {String|Number} search
+ * @returns {mixed}
+ */
+
+function find(arr, search) {
+  var array = array_filterBy.apply(this, arguments);
+  array.splice(1);
+  return array;
+}
+
+/* harmony default export */ var array_find = (find);
+// CONCATENATED MODULE: ./src/array/index.js
+
+
+
+
+
+// CONCATENATED MODULE: ./src/other/currency.js
+
+/**
+ * 
+ * 12345 => $12,345.00
+ *
+ * @param {String} symbol
+ * @param {Number} decimals Decimal places
+ * @param {Object} options
+ */
+
+function currency(value, symbol, decimals, options) {
+  var globalOptions = this && this.currency ? this.currency : {};
+  symbol = src_util.exist(symbol) ? symbol : globalOptions.symbol;
+  decimals = src_util.exist(decimals) ? decimals : globalOptions.decimalDigits;
+  options = options || globalOptions;
+  var thousandsSeparator, symbolOnLeft, spaceBetweenAmountAndSymbol, showPlusSign;
+  var digitsRE = /(\d{3})(?=\d)/g;
+  value = parseFloat(value);
+  if (!isFinite(value) || !value && value !== 0) return '';
+  symbol = typeof symbol !== 'undefined' ? symbol : '$';
+  decimals = typeof decimals !== 'undefined' ? decimals : 2;
+  thousandsSeparator = options.thousandsSeparator != null ? options.thousandsSeparator : ',';
+  symbolOnLeft = options.symbolOnLeft != null ? options.symbolOnLeft : true;
+  spaceBetweenAmountAndSymbol = options.spaceBetweenAmountAndSymbol != null ? options.spaceBetweenAmountAndSymbol : false;
+  showPlusSign = options.showPlusSign != null ? options.showPlusSign : false;
+  var number = Math.abs(value);
+  var stringified = toFixed(number, decimals);
+  stringified = options.decimalSeparator ? stringified.replace('.', options.decimalSeparator) : stringified;
+
+  var _int = decimals ? stringified.slice(0, -1 - decimals) : stringified;
+
+  var i = _int.length % 3;
+  var head = i > 0 ? _int.slice(0, i) + (_int.length > 3 ? thousandsSeparator : '') : '';
+
+  var _float = decimals ? stringified.slice(-1 - decimals) : '';
+
+  symbol = spaceBetweenAmountAndSymbol ? symbolOnLeft ? symbol + ' ' : ' ' + symbol : symbol;
+  symbol = symbolOnLeft ? symbol + head + _int.slice(i).replace(digitsRE, '$1' + thousandsSeparator) + _float : head + _int.slice(i).replace(digitsRE, '$1' + thousandsSeparator) + _float + symbol;
+  var sign = value < 0 ? '-' : '';
+  var plusSign = value > 0 && showPlusSign ? '+' : '';
+  return plusSign + sign + symbol;
+}
+
+function toFixed(num, precision) {
+  return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
+}
+
+/* harmony default export */ var other_currency = (currency);
+// CONCATENATED MODULE: ./src/other/pluralize.js
+
+/**
+ * 'item' => 'items'
+ *
+ * @param {String|Array} word
+ * @param {Object} options
+ *
+ */
+
+function pluralize(value, word, options) {
+  var globalOptions = this && this.pluralize ? this.pluralize : {};
+  options = options || globalOptions;
+  var output = '';
+  var includeNumber = options.includeNumber != null ? options.includeNumber : false;
+  if (includeNumber === true) output += value + ' ';
+  if (!value && value !== 0 || !word) return output;
+
+  if (Array.isArray(word)) {
+    output += word[value - 1] || word[word.length - 1];
+  } else {
+    output += word + (value === 1 ? '' : 's');
+  }
+
+  return output;
+}
+
+/* harmony default export */ var other_pluralize = (pluralize);
+// CONCATENATED MODULE: ./src/other/ordinal.js
+
+/**
+ * 42 => 'nd'
+ *
+ * @params {Object} options
+ * 
+ */
+
+function ordinal(value, options) {
+  var globalOptions = this && this.ordinal ? this.ordinal : {};
+  options = options || globalOptions;
+  var output = '';
+  var includeNumber = options.includeNumber != null ? options.includeNumber : false;
+  if (includeNumber === true) output += value;
+  var j = value % 10,
+      k = value % 100;
+  if (j == 1 && k != 11) output += 'st';else if (j == 2 && k != 12) output += 'nd';else if (j == 3 && k != 13) output += 'rd';else output += 'th';
+  return output;
+}
+
+/* harmony default export */ var other_ordinal = (ordinal);
+// CONCATENATED MODULE: ./src/other/number.js
+
+/**
+ * 123456 => '123,456'
+ *
+ * @params {Object} options
+ * 
+ */
+
+function number_number(value, format, options) {
+  var globalOptions = this && this.number ? this.number : {};
+  format = src_util.exist(format) ? format : globalOptions.format;
+  options = options || globalOptions;
+  var config = parseFormat(format);
+  var number = parseNumber(value);
+  var thousandsSeparator = options.thousandsSeparator != null ? options.thousandsSeparator : ',';
+  var decimalSeparator = options.decimalSeparator != null ? options.decimalSeparator : '.';
+  config.sign = config.sign || number.sign;
+
+  if (config.unit) {
+    var numberWithUnit = addUnit(number.float, config);
+    return config.sign + numberWithUnit;
+  }
+
+  var int = config.decimals === 0 ? number_toFixed(number.float, 0) : number.int;
+
+  switch (config.base) {
+    case '':
+      int = '';
+      break;
+
+    case '0,0':
+      int = addSeparator(int, thousandsSeparator);
+      break;
+  }
+
+  var fraction = getFraction(number.float, config.decimals, decimalSeparator);
+  return config.sign + int + fraction;
+}
+
+function parseNumber(num) {
+  return {
+    float: Math.abs(parseFloat(num)),
+    int: Math.abs(parseInt(num)),
+    sign: Math.sign(num) < 0 ? '-' : ''
+  };
+}
+
+function parseFormat() {
+  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '0';
+  var regex = /([\+\-])?([0-9\,]+)?([\.0-9]+)?([a\s]+)?/;
+  var matches = string ? string.match(regex) : ['', '', '', '', ''];
+  var float = matches[3];
+  var decimals = float ? float.match(/0/g).length : 0;
+  return {
+    sign: matches[1] || '',
+    base: matches[2] || '',
+    decimals: decimals,
+    unit: matches[4] || ''
+  };
+}
+
+function addUnit(num, config) {
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var si = [{
+    value: 1,
+    symbol: ""
+  }, {
+    value: 1E3,
+    symbol: "K"
+  }, {
+    value: 1E6,
+    symbol: "M"
+  }];
+  var i;
+
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+
+  num = (num / si[i].value).toFixed(config.decimals).replace(rx, "$1");
+  return num + config.unit.replace('a', si[i].symbol);
+}
+
+function addSeparator(num, separator) {
+  var regex = /(\d+)(\d{3})/;
+  var string = num.toString();
+  var x = string.split('.');
+  var x1 = x[0];
+  var x2 = x.length > 1 ? '.' + x[1] : '';
+
+  while (regex.test(x1)) {
+    x1 = x1.replace(regex, '$1' + separator + '$2');
+  }
+
+  return x1 + x2;
+}
+
+function getFraction(num, decimals, separator) {
+  var fraction = number_toFixed(num, decimals).toString().split('.')[1];
+  return fraction ? separator + fraction : '';
+}
+
+function number_toFixed(num, precision) {
+  return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
+}
+
+/* harmony default export */ var other_number = (number_number);
+// CONCATENATED MODULE: ./src/other/index.js
+
+
+
+
+
+// CONCATENATED MODULE: ./src/index.js
+
+
+
+
+var Vue2Filters = {
+  install: function install(Vue, options) {
+    src_util.each(string_namespaceObject, function (value, key) {
+      Vue.filter(key, value.bind(options));
+    });
+    src_util.each(other_namespaceObject, function (value, key) {
+      Vue.filter(key, value.bind(options));
+    });
+  },
+  mixin: {
+    methods: {
+      limitBy: array_limitBy,
+      filterBy: array_filterBy,
+      orderBy: array_orderBy,
+      find: array_find
+    }
+  }
+};
+/* harmony default export */ var src = __webpack_exports__["default"] = (Vue2Filters);
+
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(Vue2Filters);
+  window.Vue2Filters = Vue2Filters;
+}
+
+/***/ })
+/******/ ]);
+});
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/amd-options.js":
 /*!****************************************!*\
   !*** (webpack)/buildin/amd-options.js ***!
@@ -88337,15 +89015,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_phone_number_input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-phone-number-input */ "./node_modules/vue-phone-number-input/dist/vue-phone-number-input.common.js");
 /* harmony import */ var vue_phone_number_input__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_phone_number_input__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_UserTransaction_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/UserTransaction.vue */ "./resources/js/components/UserTransaction.vue");
-/* harmony import */ var _components_modal_UserModal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/modal/UserModal */ "./resources/js/components/modal/UserModal.vue");
-/* harmony import */ var _components_modal_RoleModal_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/modal/RoleModal.vue */ "./resources/js/components/modal/RoleModal.vue");
-/* harmony import */ var _components_modal_BranchModal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/modal/BranchModal */ "./resources/js/components/modal/BranchModal.vue");
-/* harmony import */ var _components_modal_ServiceModal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/modal/ServiceModal */ "./resources/js/components/modal/ServiceModal.vue");
-/* harmony import */ var _components_modal_LaundryModal__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/modal/LaundryModal */ "./resources/js/components/modal/LaundryModal.vue");
-/* harmony import */ var _components_modal_ReceiptModal__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/modal/ReceiptModal */ "./resources/js/components/modal/ReceiptModal.vue");
-/* harmony import */ var _components_Transactions_TransactionReviewModal_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Transactions/TransactionReviewModal.vue */ "./resources/js/components/Transactions/TransactionReviewModal.vue");
-/* harmony import */ var vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! vue-phone-number-input/dist/vue-phone-number-input.css */ "./node_modules/vue-phone-number-input/dist/vue-phone-number-input.css");
-/* harmony import */ var vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var vue2_filters__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue2-filters */ "./node_modules/vue2-filters/dist/vue2-filters.js");
+/* harmony import */ var vue2_filters__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(vue2_filters__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_modal_UserModal__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/modal/UserModal */ "./resources/js/components/modal/UserModal.vue");
+/* harmony import */ var _components_modal_RoleModal_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/modal/RoleModal.vue */ "./resources/js/components/modal/RoleModal.vue");
+/* harmony import */ var _components_modal_BranchModal__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/modal/BranchModal */ "./resources/js/components/modal/BranchModal.vue");
+/* harmony import */ var _components_modal_ServiceModal__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/modal/ServiceModal */ "./resources/js/components/modal/ServiceModal.vue");
+/* harmony import */ var _components_modal_LaundryModal__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/modal/LaundryModal */ "./resources/js/components/modal/LaundryModal.vue");
+/* harmony import */ var _components_modal_ReceiptModal__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/modal/ReceiptModal */ "./resources/js/components/modal/ReceiptModal.vue");
+/* harmony import */ var _components_Transactions_TransactionReviewModal_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Transactions/TransactionReviewModal.vue */ "./resources/js/components/Transactions/TransactionReviewModal.vue");
+/* harmony import */ var vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! vue-phone-number-input/dist/vue-phone-number-input.css */ "./node_modules/vue-phone-number-input/dist/vue-phone-number-input.css");
+/* harmony import */ var vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(vue_phone_number_input_dist_vue_phone_number_input_css__WEBPACK_IMPORTED_MODULE_22__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -88354,6 +89034,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
 
 
 
@@ -88398,21 +89079,22 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_moment__WEBPACK_IMPORTED_MODULE_4___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_moment__WEBPACK_IMPORTED_MODULE_4___default.a);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_input_dropdown__WEBPACK_IMPORTED_MODULE_3__["default"]); // Start Components
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_input_dropdown__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue2_filters__WEBPACK_IMPORTED_MODULE_14___default.a); // Start Components
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('vue-phone-number-input', vue_phone_number_input__WEBPACK_IMPORTED_MODULE_12___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('apexchart', vue_apexcharts__WEBPACK_IMPORTED_MODULE_11___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_10___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_5__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_5__["HasError"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MODULE_5__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_5__["AlertError"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('service-modal', _components_modal_ServiceModal__WEBPACK_IMPORTED_MODULE_17__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('laundry', _components_modal_LaundryModal__WEBPACK_IMPORTED_MODULE_18__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('UserModal', _components_modal_UserModal__WEBPACK_IMPORTED_MODULE_14__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('service-modal', _components_modal_ServiceModal__WEBPACK_IMPORTED_MODULE_18__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('laundry', _components_modal_LaundryModal__WEBPACK_IMPORTED_MODULE_19__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('UserModal', _components_modal_UserModal__WEBPACK_IMPORTED_MODULE_15__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('barcode', vue_barcode__WEBPACK_IMPORTED_MODULE_9___default.a);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('RoleModal', _components_modal_RoleModal_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('BranchModal', _components_modal_BranchModal__WEBPACK_IMPORTED_MODULE_16__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('receipt-modal', _components_modal_ReceiptModal__WEBPACK_IMPORTED_MODULE_19__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('review-modal', _components_Transactions_TransactionReviewModal_vue__WEBPACK_IMPORTED_MODULE_20__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('RoleModal', _components_modal_RoleModal_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('BranchModal', _components_modal_BranchModal__WEBPACK_IMPORTED_MODULE_17__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('receipt-modal', _components_modal_ReceiptModal__WEBPACK_IMPORTED_MODULE_20__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('review-modal', _components_Transactions_TransactionReviewModal_vue__WEBPACK_IMPORTED_MODULE_21__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('passport-clients', __webpack_require__(/*! ./components/passport/Clients.vue */ "./resources/js/components/passport/Clients.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/js/components/passport/AuthorizedClients.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('passport-personal-access-tokens', __webpack_require__(/*! ./components/passport/PersonalAccessTokens.vue */ "./resources/js/components/passport/PersonalAccessTokens.vue")["default"]); // End of Components
@@ -90073,8 +90755,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

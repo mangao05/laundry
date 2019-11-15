@@ -1,5 +1,5 @@
 <template>
-<div class="container border border-secondary p-3 mb-3" id="receiptContainer" style="height: 115vh; ">
+<div class="container border border-secondary p-3 mb-3" id="receiptContainer" style="height: 105vh; ">
     <div class="row">
         <div class="col-lg-4 " style="border-right: 1px solid black; ">
                 <v-select
@@ -19,7 +19,7 @@
                     <h3>Receipt #: {{ transaction_number }}</h3>
                     <h2> <i class="fas fa-user"></i> {{ customer }}</h2>
                 </div>
-            <div style="height: 60vh; border-bottom: 1px solid black; overflow-y: auto;" class="mb-2">
+            <div style="height: 65vh; border-bottom: 1px solid black; overflow-y: auto;" class="mb-2">
                 <table class="table table-light table-striped table-hover">
                     <thead>
                         <tr>
@@ -46,38 +46,24 @@
                     </tbody>
                 </table>
             </div>
-            <table class="table">
+            <table class="table ">
                 <tbody>
                     <tr>
                         <td colspan="3">
                             <span class="h2">Total:</span>
                         </td>
                         <td class="text-right">
-                            <span class="h2">₱{{ subtotal }}</span>
+                            <span class="h2">₱{{ subtotal | number('0,0') }}</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="3">
-                            <span class="h4">Cash Received:</span>
-                        </td>
-                        <td class="text-right">
-                            <span class="h4">₱{{ CashReceived }}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <span class="h5">Change</span>
-                        </td>
-                        <td class="text-right">
-                            <span class="h5">₱{{ change }}</span>
-                        </td>
-                    </tr>
+                   
                 </tbody>
             </table>
-               
             </div>
-             <div class="col-12 text-right mt-5">
-                <button id="payBtn" class="btn btn-success" @click="openAmountModal" disabled><i class="fas fa-dollar-sign    "></i> Pay Now</button>
+            <div>
+                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction" disabled><i class="fa fa-print" aria-hidden="true"></i>
+                                Print
+                  </button>
             </div>
            
            
@@ -98,12 +84,23 @@
                    <button class="btn btn-dark p-3" :class="(!dryActive) ? 'btn-active' : ''" @click="service('kilo')">Assorted Clothes</button>
                 </div>
             </div>
-            <div class="row justify-content-center m-3">
-                <div v-for="service in services.data" :key="service.id"  class="col-lg-4">
-                    <button class="btn btn-info btn-block m-2" style="min-height:150px;" @click="openQuantityModal(service.id, service.service, service.price)">
-                         <span class="text-uppercase">{{ service.service }}</span> <br>
-                         <span class="font-weight-bold">{{ service.price }} {{ (service.type == 'item') ? '/ pc' : '/ kg' }}</span>
-                    </button>
+            <hr style="border: 2px solid black;">
+            
+            <div class="row justify-content-center m-3 p-2">
+                <div v-for="service in services.data" :key="service.id"  class="col-lg-4 mb-2">
+                        <div class="p-1">
+                            <div class="row rounded border border-info" @click="openQuantityModal(service.id, service.service, service.price)" style="box-shadow: 0px 0px 3px gray; cursor:pointer;">
+                                <div class="col-md-4 p-2" >
+                                    <img src="image/coat.png" class="img-fluid">
+                                </div>
+                                 <div class="col-md-8 pt-4 bg-info text-center">
+                                    <span class="text-uppercase">{{ service.service }}</span>
+                                </div>
+                            </div>
+                        </div>
+                     
+                         
+                    
                 </div>
             </div>
             <div class="row">
@@ -137,7 +134,8 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="quantity" class="col-form-label">Quantity/Kilo</label>
-                    <input type="number" class="form-control" id="quantity" v-model="quantity">
+                    <input type="number" class="form-control" id="quantity" v-model="quantity"   :class="(error) ? 'border-danger' : ''">
+                    <span class="text-danger" v-show="error" >Please input Correct Quantity</span>
                 </div>
             </div>
             <div class="modal-footer">
@@ -148,7 +146,7 @@
         </div>   
     </div>
 
-      <div class="modal fade" id="enterAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="enterAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -169,7 +167,7 @@
             </div>
             </div>
         </div>   
-    </div>
+    </div> -->
 
   
 </div>
@@ -198,6 +196,7 @@ export default {
             page: 2,
             serviceType : 'item',
             pageCount: 0,
+            error:false
 
         }
     },
@@ -244,7 +243,10 @@ export default {
             
         },
         storeService(){     
-            var total = [];
+           if(this.quantity <= 0){
+              this.error = true
+           }else{
+               var total = [];
                 this.postServices.push({
                     service_id : this.service_id,
                     service: this.service_name,
@@ -266,6 +268,8 @@ export default {
 
                 console.log(this.subtotal);
 
+           }
+            
         },
         fetchCustomer(){
             this.customers = [];
@@ -276,7 +280,6 @@ export default {
             });
         },
         PrintTransaction() {
-            
             this.$htmlToPaper('PrintTransaction', () => {
                 axios.post('/api/transactions/create/savetransaction', {
                     services: this.postServices,
@@ -285,53 +288,50 @@ export default {
                 }).then(({data})=>{
                         this.postServices = [];
                         this.selected ='';
-                        this.subtotal = '';
+                        this.subtotal = 0;
                         
                 });
             });
         },
-        openAmountModal(){
-           
-            if(this.selected != ''){
-                $("#enterAmount").modal('show');
-            }else{
-                alert('Pick Customer');
-            }
-        },
-        paymentTransaction(){
-            // window.open(routeData.href, '_blank');
-            // this.CashReceived = this.amountRendered
-
-            if(this.subtotal  <=  this.CashReceived){
-                this.change = this.CashReceived - this.subtotal  ;
+        // openAmountModal(){
+        //     if(this.selected != ''){
+        //         $("#enterAmount").modal('show');
+        //     }else{
+        //         alert('Pick Customer');
+        //     }
+        // },
+        // paymentTransaction(){
+        
+        //     if(this.subtotal  <=  this.CashReceived){
+        //         this.change = this.CashReceived - this.subtotal  ;
             
-                Swal.fire({
-                    title: 'Are you sure about this Transaction?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Print it!'
-                    }).then((result) => {
-                    if (result.value) {
+        //         Swal.fire({
+        //             title: 'Are you sure about this Transaction?',
+        //             text: "You won't be able to revert this!",
+        //             type: 'warning',
+        //             showCancelButton: true,
+        //             confirmButtonColor: '#3085d6',
+        //             cancelButtonColor: '#d33',
+        //             confirmButtonText: 'Yes, Print it!'
+        //             }).then((result) => {
+        //             if (result.value) {
                         
-                        $("#enterAmount").modal('hide');
-                        this.PrintTransaction();
+        //                 $("#enterAmount").modal('hide');
+        //                 this.PrintTransaction();
                       
-                    }
-                    })
+        //             }
+        //             })
                 
-            }else{
-                Swal.fire({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: 'The amount given is Short!',
-                })
-                    this.CashReceived = 0;
-            }
-            console.log(this.CashReceived);
-        },
+        //     }else{
+        //         Swal.fire({
+        //             type: 'error',
+        //             title: 'Oops...',
+        //             text: 'The amount given is Short!',
+        //         })
+        //             this.CashReceived = 0;
+        //     }
+        //     console.log(this.CashReceived);
+        // },
         removeItem(index){
             var total = [];
              if(this.postServices.length == 1){
@@ -377,5 +377,8 @@ export default {
    }
    .btn-active{
        background-color: red !important; 
+   }
+   .btn-red{
+       background-color: #EF5B5B;
    }
 </style>

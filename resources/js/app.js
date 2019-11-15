@@ -23,6 +23,7 @@ import vSelect from 'vue-select'
 import VueApexCharts from 'vue-apexcharts'
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import UserTransaction from './components/UserTransaction.vue';
+import Vue2Filters from 'vue2-filters'
 // Start Modal 
 
 import UserModal from './components/modal/UserModal';
@@ -64,6 +65,7 @@ Vue.use(VueMoment);
 Vue.use(VueRouter);
 Vue.use(VueMoment);
 Vue.use(VueInputDropdown);
+Vue.use(Vue2Filters);
 // Start Components
 Vue.component('vue-phone-number-input', VuePhoneNumberInput);
 Vue.component('apexchart', VueApexCharts)
