@@ -62,15 +62,9 @@
             </div>
             <div>
                  <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction" disabled><i class="fa fa-print" aria-hidden="true"></i>
-                                Print
+                        Print
                   </button>
             </div>
-           
-           
-
- 
-
-
             <!-- End COlumn -->
         </div>
         <div class="col-lg-8">
@@ -78,10 +72,14 @@
             <hr style="border: 2px solid black;">
             <div class="row">
                 <div class="col-6 text-right">
-                    <button class="btn btn-dark p-3" :class="(dryActive) ? 'btn-active' : ''" @click="service('item')">Dry Clean</button>
+                    <nav class="nav nav-pills nav-justified ">
+                        <a class="nav-item nav-link p-3 font-weight-bold text-danger border border-success" :class="(dryActive) ? 'active' : ''" href="" @click.prevent="service('item')">Dry Clean</a>
+                    </nav>
                 </div>
                 <div class="col-6">
-                   <button class="btn btn-dark p-3" :class="(!dryActive) ? 'btn-active' : ''" @click="service('kilo')">Assorted Clothes</button>
+                     <nav class="nav nav-pills nav-justified ">
+                        <a class="nav-item nav-link border border-success p-3 font-weight-bold text-danger" :class="(!dryActive) ? 'active' : ''" href="" @click.prevent="service('kilo')">Assorted Clothes</a>
+                    </nav>
                 </div>
             </div>
             <hr style="border: 2px solid black;">
@@ -101,10 +99,7 @@
                                      </span>
                                 </div>
                             </div>
-                        </div>
-                     
-                         
-                    
+                        </div>     
                 </div>
             </div>
             <div class="row">
@@ -118,10 +113,8 @@
                    
                     <button class="btn btn-primary float-right" @click="service(serviceType, 'next')">Next <i class="fa fa-arrow-right" aria-hidden="true"></i> </button>
                 </div>
-              
             </div>
-        </div>   
-              
+        </div>          
     </div>
  
   
@@ -149,31 +142,6 @@
             </div>
         </div>   
     </div>
-
-      <!-- <div class="modal fade" id="enterAmount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Please Enter Exact Amount Recieved</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="quantity" class="col-form-label">Amount Rendered</label>
-                    <input type="number" class="form-control" id="quantity" v-model="amountRendered">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="paymentTransaction">Submit</button>
-            </div>
-            </div>
-        </div>   
-    </div> -->
-
-  
 </div>
 
 </template>
@@ -384,5 +352,12 @@ export default {
    }
    .btn-red{
        background-color: #EF5B5B;
+   }
+   .nav-pills .active{
+       color:white !important;
+       letter-spacing: 2px !important;
+       border: 2px solid green;
+       text-transform: uppercase;
+    
    }
 </style>

@@ -3177,38 +3177,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -9864,7 +9832,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=BioRhyme|Roboto&display=swap);", ""]);
 
 // module
-exports.push([module.i, "\n#receiptContainer[data-v-51af9cf8]{\n    font-family: 'BioRhyme', serif;\n}\n.btn-active[data-v-51af9cf8]{\n    background-color: red !important;\n}\n.btn-red[data-v-51af9cf8]{\n    background-color: #EF5B5B;\n}\n", ""]);
+exports.push([module.i, "\n#receiptContainer[data-v-51af9cf8]{\n    font-family: 'BioRhyme', serif;\n}\n.btn-active[data-v-51af9cf8]{\n    background-color: red !important;\n}\n.btn-red[data-v-51af9cf8]{\n    background-color: #EF5B5B;\n}\n.nav-pills .active[data-v-51af9cf8]{\n    color:white !important;\n    letter-spacing: 2px !important;\n    border: 2px solid green;\n    text-transform: uppercase;\n}\n", ""]);
 
 // exports
 
@@ -52271,7 +52239,7 @@ var render = function() {
                     attrs: { "aria-hidden": "true" }
                   }),
                   _vm._v(
-                    "\r\n                                Print\r\n                  "
+                    "\r\n                        Print\r\n                  "
                   )
                 ]
               )
@@ -52287,35 +52255,45 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-6 text-right" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-dark p-3",
-                  class: _vm.dryActive ? "btn-active" : "",
-                  on: {
-                    click: function($event) {
-                      return _vm.service("item")
+              _c("nav", { staticClass: "nav nav-pills nav-justified " }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "nav-item nav-link p-3 font-weight-bold text-danger border border-success",
+                    class: _vm.dryActive ? "active" : "",
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.service("item")
+                      }
                     }
-                  }
-                },
-                [_vm._v("Dry Clean")]
-              )
+                  },
+                  [_vm._v("Dry Clean")]
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-6" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-dark p-3",
-                  class: !_vm.dryActive ? "btn-active" : "",
-                  on: {
-                    click: function($event) {
-                      return _vm.service("kilo")
+              _c("nav", { staticClass: "nav nav-pills nav-justified " }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "nav-item nav-link border border-success p-3 font-weight-bold text-danger",
+                    class: !_vm.dryActive ? "active" : "",
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.service("kilo")
+                      }
                     }
-                  }
-                },
-                [_vm._v("Assorted Clothes")]
-              )
+                  },
+                  [_vm._v("Assorted Clothes")]
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -90770,8 +90748,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
