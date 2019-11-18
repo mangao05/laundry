@@ -43,24 +43,30 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-
         if($request->type == 'kilo'){
             $this->validate($request, [
                 'service' => 'required',
                 'type' => 'required',
                 'minimum' => 'required',
-                'price' => 'required'
+                'price' => 'required',
+                'image' => 'required'
             ]);
         }else{
             $this->validate($request, [
                 'service' => 'required',
                 'type' => 'required',
-                'price' => 'required'
+                'price' => 'required',
+                'image' => 'required'
             ]);
             $request['minimum'] = null;
         }
-
-        $service = Service::create($request->only('service', 'type', 'price', 'minimum'));
+     
+        $imageData = $request->image;
+        $fileName = \Carbon\Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        $img = \Image::make($imageData)->fit(251, 251);
+        $img->save(public_path('serviceIcon/').$fileName);
+        $request['icon'] = $fileName;
+        $service = Service::create($request->only('service', 'type', 'price', 'minimum', 'icon'));
 
         if($service){
             return $service;

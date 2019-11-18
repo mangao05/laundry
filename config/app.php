@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
          'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+         'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

@@ -4229,7 +4229,8 @@ __webpack_require__.r(__webpack_exports__);
         type: '',
         minimum: '',
         price: '',
-        deleted_at: ''
+        deleted_at: '',
+        image: null
       })
     };
   },
@@ -4239,6 +4240,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.post('api/services').then(function (_ref) {
         var data = _ref.data;
+        console.log(data);
         _this.servicesCreated = data;
 
         _this.loadDailyCreatedServices();
@@ -4268,31 +4270,39 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     onChange: function onChange(e) {
+      var _this4 = this;
+
       var file = e.target.files[0];
-      this.image = file;
       this.imageUrl = URL.createObjectURL(file);
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this4.form.image = e.target.result;
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadDailyCreatedServices();
     Fire.$emit('dailyServices', function () {
-      _this4.loadDailyCreatedServices();
+      _this5.loadDailyCreatedServices();
     });
     Fire.$on('editmode', function (data) {
-      _this4.editMode = true;
+      _this5.editMode = true;
 
-      _this4.form.fill(data);
+      _this5.form.fill(data);
 
-      _this4.form.service_id = data.id;
+      _this5.form.service_id = data.id;
     });
     Fire.$on('createMode', function () {
-      _this4.editMode = false;
+      _this5.editMode = false;
 
-      _this4.form.reset();
+      _this5.form.reset();
 
-      _this4.form.clear();
+      _this5.form.clear();
     });
   }
 });
@@ -90797,8 +90807,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -121,17 +121,19 @@
                 servicesCreatedToday: {},
                 form: new Form({
                     service_id : '',
-                   service: '',
-                   type : '',
-                   minimum : '',
-                   price:'',
-                   deleted_at:''
+                    service: '',
+                    type : '',
+                    minimum : '',
+                    price:'',
+                    deleted_at:'',
+                    image:null
                 })
             }
         },
         methods:{
             save(){
                 this.form.post('api/services').then(({data}) => {
+                    console.log(data)
                     this.servicesCreated = data;
                     this.loadDailyCreatedServices();
                     this.form.reset();
@@ -150,10 +152,16 @@
             loadDailyCreatedServices(){
                 axios.get('api/dailyServices').then((data)=>(this.servicesCreatedToday = data.data))
             },
-             onChange(e) {
+            onChange(e) {
+                
                 const file = e.target.files[0]
-                this.image = file
                 this.imageUrl = URL.createObjectURL(file)
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.form.image = e.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+
             }
         },
 
