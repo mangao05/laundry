@@ -6,6 +6,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name', 'Laravel') }}</title>
+  <meta name="user_type" content="{{ (isset(Auth::user()->user_type)) ? Auth::user()->user_type : 'none' }}">
 
   {{--  <!-- Styles -->  --}}
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">

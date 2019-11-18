@@ -30,21 +30,29 @@
                                     <span class="font-weight-bold">Last Created</span><br>
                                 </div>
 
-                                <div class="row justify-content-end " >
+                                <!-- <div class="row justify-content-end " >
                                     <div class="col-3 p-0 mb-2" v-show=" servicesCreatedToday !=''">
                                         <span class="badge badge-success p-2 letter-spacing rounded-0" style="border: 1px solid green;">View All</span>
                                     </div>
-                                </div>
+                                </div> -->
                                  <div class="col-12 p-0 mb-2 bg-dark mt-5" v-show="servicesCreatedToday ==''">
                                       <center>  <span class="letter-spacing " style="font-size:30px;">No Data to display</span> </center>
                                     </div>
                                 <transition-group appear name="list" tag="div">
                                    <!-- <div class="p-2"> -->
                                         <div v-for="created in servicesCreatedToday" :key = "created.id" style="box-shadow: 0px 0px 3px gray; width: 100%;" class="mb-2 p-3 list-item">
-                                            <span class="badge badge-info text-white p-2 letter-spacing" >Per {{ created.type }}</span><br>
-                                            <span class="font-weight-bold">Services:  </span><span>{{ created.service }}</span><br>
-                                            <span class="font-weight-bold">Price: </span><span>{{ (created.type == 'kilo') ? '&#8369;'+created.price+ '/kg' : '&#8369;'+created.price }}</span> <br>
-                                            <span class="font-weight-bold">Minimum: </span><span>{{ (created.type == 'kilo') ? created.minimum + 'kg' : 'No Minimum' }}</span> <br>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <span class="badge badge-info text-white p-2 letter-spacing" >Per {{ created.type }}</span><br>
+                                                    <span class="font-weight-bold">Services:  </span><span>{{ created.service }}</span><br>
+                                                    <span class="font-weight-bold">Price: </span><span>{{ (created.type == 'kilo') ? '&#8369;'+created.price+ '/kg' : '&#8369;'+created.price }}</span> <br>
+                                                    <span class="font-weight-bold">Minimum: </span><span>{{ (created.type == 'kilo') ? created.minimum + 'kg' : 'No Minimum' }}</span> <br>
+                                                </div>
+                                                <div class="col-6 text-center">
+                                                    <span><img :src="'/serviceIcon/'+created.icon" class="img-fluid w-50"></span>
+                                                </div>
+                                            </div>
+                                           
 
                                             <!-- <span class="font-weight-bold">Price: </span><span>{{ price }}</span> -->
                                         </div>
@@ -53,6 +61,12 @@
 
                             </div>
                             <div class="col-6">
+                                <span class="text-danger "><i>*icon can be 251x 251</i></span>
+                                <div id="preview " class="m-2 text-center ">
+                                    <img v-if="imageUrl" :src="imageUrl" class="img-fluid w-25 border border-dark" />
+                                </div>
+                                <input type="file" accept="image/*" @change="onChange" />
+                                
                                 <div class="form-group">
                                 <label>Services</label>
                                 <input v-model="form.service" type="text" name="username"
@@ -97,8 +111,11 @@
 <script>
     export default {
         props: ['modalName'],
+         name: 'imageUpload',
         data(){
             return {
+                image : null,
+                imageUrl: null,
                 editMode: false,
                 servicesCreated : {},
                 servicesCreatedToday: {},
@@ -132,6 +149,11 @@
 
             loadDailyCreatedServices(){
                 axios.get('api/dailyServices').then((data)=>(this.servicesCreatedToday = data.data))
+            },
+             onChange(e) {
+                const file = e.target.files[0]
+                this.image = file
+                this.imageUrl = URL.createObjectURL(file)
             }
         },
 

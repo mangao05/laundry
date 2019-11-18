@@ -74,14 +74,39 @@
 
   
 
-        <li class="nav-item">
-            <router-link to="/laundry" class="nav-link">
-            <i class="fas fa-tshirt  nav-icon text-white"></i>
-                <p class=" text-bold">
-                        <label for="" class="text-white">  Laundry</label> 
-                </p>
-            </router-link>
-        </li>
+      
+        <li class="nav-item has-treeview menu-close ">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-tachometer-alt text-white "></i>
+              <p>
+              <label for="" class="text-white">Laundry</label> 
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview pl-4">
+                <li class="nav-item">
+                    <router-link to="/oldlaundry" class="nav-link">
+                    <i class="fas fa-tshirt  nav-icon text-white"></i>
+                        <p class=" text-bold text-white">
+                              Laundry 1
+                        </p>
+                    </router-link>
+                </li>
+
+              <li class="nav-item">
+                <router-link to="/newlaundry" class="nav-link">
+                  <i class="fas fa-tshirt nav-icon text-white"   aria-hidden="true" style="color:#669DB2"></i>
+                    <p class=" text-bold text-white">
+                           Laundry 2 
+                    </p>
+                </router-link>
+              </li>
+
+          
+
+            </ul>
+          </li>
+          
         <li class="nav-item">
             <router-link to="/transaction" class="nav-link">
                 <i class="fa fa-sticky-note nav-icon text-white" aria-hidden="true" ></i>
