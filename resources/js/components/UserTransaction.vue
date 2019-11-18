@@ -1,6 +1,6 @@
 <template>
-<div class="container border border-secondary p-3 mb-3" id="receiptContainer" style="height: 105vh; ">
-    asdasdsa
+<div class="container border border-secondary p-3 mb-3" id="receiptContainer">
+
     <div class="row">
         <div class="col-lg-4 " style="border-right: 1px solid black; ">
                 <v-select
@@ -14,7 +14,7 @@
                     @input="customer = selected.name"
                 >
                 </v-select>
-            zxczx
+       
             <div id="PrintTransaction">
                 <div class="text-center">
                     <h3>Receipt #: {{ transaction_number }}</h3>

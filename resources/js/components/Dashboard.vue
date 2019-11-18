@@ -82,7 +82,6 @@
     export default {
         data(){
         Vue.prototype.$usertype = document.querySelector("meta[name='user_type']").getAttribute('content')
-
             return {
              series: [1,2,3,4,5,6,7],
                 chartOptions: {
@@ -101,13 +100,12 @@
                     }
                 }]
                 },
-
                 pending:0,
                 finish:0,
                 cancelled:0,
                 Statusvoid:0,
-
                 user_Name:'',
+                
             }
         },
         methods:{
@@ -127,7 +125,7 @@
            }
         },
         mounted() {
-            this.status();
+              this.status();
             this.userName();
             if(this.$usertype == 'staff'){
                 this.$router.push('/usertransaction');

@@ -3,7 +3,7 @@
       <h3 class="card-title">User Role</h3>
 
            <span  @click="openrolemodal()"  class="badge badge-success p-2 m-2 ml-auto float-right" style="font-size:20px;">
-                  <i class="fas fa-user-cog    "></i> Add User Role
+                  <i class="fas fa-user-cog    "></i> Add User Roles
             </span>
 
             <div class="card-body table-responsive p-0">
