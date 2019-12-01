@@ -3178,6 +3178,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -52168,13 +52171,19 @@ var render = function() {
             _vm._v(" "),
             _c("div", { attrs: { id: "PrintTransaction" } }, [
               _c("div", { staticClass: "text-center" }, [
-                _c("h3", [
+                _c("h1", [_vm._v("Bullseye")]),
+                _vm._v(" "),
+                _c("h4", [
                   _vm._v("Receipt #: " + _vm._s(_vm.transaction_number))
                 ]),
                 _vm._v(" "),
-                _c("h2", [
+                _c("h4", [
                   _c("i", { staticClass: "fas fa-user" }),
                   _vm._v(" " + _vm._s(_vm.customer))
+                ]),
+                _vm._v(" "),
+                _c("h6", [
+                  _vm._v("278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila")
                 ])
               ]),
               _vm._v(" "),
