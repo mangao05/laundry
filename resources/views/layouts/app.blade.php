@@ -52,13 +52,7 @@
 <body>
     <div id="app">
 
-<<<<<<< HEAD
-        <main class="py-4">
-            {{-- @include('partial\_navbar'); --}}
-=======
-        <main >
-     
->>>>>>> remotes/origin/loginDesign
+    
             <router-view></router-view>
             @yield('content')
         </main>
