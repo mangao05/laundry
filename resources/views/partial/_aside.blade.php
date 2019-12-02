@@ -58,6 +58,7 @@
                     </p>
                 </router-link>
               </li>
+            
 
             </ul>
           </li>
@@ -70,6 +71,15 @@
                   
                 </p>
             </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/customers" class="nav-link">
+           <i class="fa fa-cart-plus nav-icon text-white" aria-hidden="true"></i>
+              <p class=" text-bold">
+                      <label for="" class="text-white"> Customers</label> 
+                
+              </p>
+          </router-link>
         </li>
 
   

@@ -7,7 +7,7 @@
                 <button class="btn btn-success rounded-0 " @click= "openServiceModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Services</button>
             </div>
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered">
                     <tbody>
                         <tr>
                             <th>#</th>

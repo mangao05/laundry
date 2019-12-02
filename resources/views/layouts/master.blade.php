@@ -12,6 +12,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css'/>
+  
     @yield('style')
     <style>
 

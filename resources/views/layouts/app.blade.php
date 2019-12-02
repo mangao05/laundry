@@ -49,7 +49,7 @@
     <div id="app">
 
         <main class="py-4">
-     
+            {{-- @include('partial\_navbar'); --}}
             <router-view></router-view>
             @yield('content')
         </main>

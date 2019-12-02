@@ -15,6 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        // return Customer::latest()->paginate(20);
         return Customer::all();
     }
 
@@ -26,7 +27,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'cname' => 'required',
+        ]);
+
+         Customer::updateOrCreate(
+            ['name' => $request->cname],
+            [
+                'contact_number' => $request->cnumber,
+                'address1' => $request->caddress,
+                'address2' => $request->caddress
+            ]
+        );
     }
 
     /**
@@ -49,7 +61,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'cname' => 'required'
+        ]);
+        Customer::find($id)->update([
+            'name' => $request->cname,
+            'contact_number' => $request->cnumber,
+            'address1' => $request->caddress,
+            'address2' => $request->caddress
+        ]);
+
+        
     }
 
     /**
@@ -60,6 +82,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+     
+        Customer::find($id)->delete();
     }
 }

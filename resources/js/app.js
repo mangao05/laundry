@@ -24,6 +24,7 @@ import VueApexCharts from 'vue-apexcharts'
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import UserTransaction from './components/UserTransaction.vue';
 import Vue2Filters from 'vue2-filters'
+import VueToastr from "vue-toastr";
 // Start Modal 
 
 import UserModal from './components/modal/UserModal';
@@ -33,6 +34,7 @@ import ServiceModal from './components/modal/ServiceModal';
 import LaundryModal from './components/modal/LaundryModal';
 import ReceiptModal from './components/modal/ReceiptModal';
 import ReviewModal from './components/Transactions/TransactionReviewModal.vue';
+
 
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
@@ -66,6 +68,7 @@ Vue.use(VueRouter);
 Vue.use(VueMoment);
 Vue.use(VueInputDropdown);
 Vue.use(Vue2Filters);
+Vue.use(VueToastr);
 // Start Components
 Vue.component('vue-phone-number-input', VuePhoneNumberInput);
 Vue.component('apexchart', VueApexCharts)
@@ -107,6 +110,7 @@ let routes = [
     { path: '/branch', component: require('./components/Branch.vue').default },
     { path: '/transaction', component: require('./components/Transactions/Transaction.vue').default },
     { path: '/usertransaction', component: UserTransaction },
+    { path: '/customers', component:  require('./components/customer/CustomerComponent.vue').default }
   ]
 
   const options = {
