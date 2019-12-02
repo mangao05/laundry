@@ -4213,6 +4213,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['modalName'],
   name: 'imageUpload',
@@ -4268,6 +4269,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('api/dailyServices').then(function (data) {
         return _this3.servicesCreatedToday = data.data;
       });
+    },
+    clickImage: function clickImage() {
+      document.getElementById('iconBTn').click();
     },
     onChange: function onChange(e) {
       var _this4 = this;
@@ -54335,7 +54339,7 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-6" }, [
+                _c("div", { staticClass: "col-6 text-center" }, [
                   _vm._m(2),
                   _vm._v(" "),
                   _c(
@@ -54347,17 +54351,31 @@ var render = function() {
                     [
                       _vm.imageUrl
                         ? _c("img", {
-                            staticClass: "img-fluid w-25 border border-dark",
-                            attrs: { src: _vm.imageUrl }
+                            staticClass:
+                              "img-fluid w-50 p-2 border border-dark",
+                            attrs: { src: _vm.imageUrl },
+                            on: { click: _vm.clickImage }
                           })
-                        : _vm._e()
+                        : _c("img", {
+                            staticClass:
+                              "img-fluid w-50 border border-dark p-2",
+                            attrs: { src: "/serviceIcon/addIcon.png" },
+                            on: { click: _vm.clickImage }
+                          })
                     ]
                   ),
                   _vm._v(" "),
                   _c("input", {
-                    attrs: { type: "file", accept: "image/*" },
+                    attrs: {
+                      type: "file",
+                      id: "iconBTn",
+                      accept: "image/*",
+                      hidden: ""
+                    },
                     on: { change: _vm.onChange }
                   }),
+                  _vm._v(" "),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -54597,6 +54615,14 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("span", { staticClass: "font-weight-bold" }, [_vm._v("Last Created")]),
       _c("br")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "text-bold" }, [
+      _c("i", [_vm._v("Click To Upload Icon")])
     ])
   },
   function() {
@@ -90807,8 +90833,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

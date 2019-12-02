@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2019 at 07:56 AM
+-- Generation Time: Nov 18, 2019 at 06:14 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -282,7 +282,8 @@ INSERT INTO `services` (`id`, `service`, `price`, `minimum`, `type`, `icon`, `de
 (9, 'Wash Dry Press', 80, 3, 'kilo', 'washdrypress.png', NULL, '2019-11-12 22:01:40', '2019-11-12 22:01:40'),
 (10, 'Press Only', 58, 3, 'kilo', 'press.png', NULL, '2019-11-12 22:01:58', '2019-11-12 22:01:58'),
 (11, 'Comforters', 80, 3, 'kilo', 'comforters.png', NULL, '2019-11-12 22:02:34', '2019-11-12 22:02:34'),
-(12, 'coat', 300, NULL, 'item', 'coat.png', NULL, '2019-11-13 19:29:47', '2019-11-13 19:29:47');
+(12, 'coat', 300, NULL, 'item', 'coat.png', NULL, '2019-11-13 19:29:47', '2019-11-13 19:29:47'),
+(13, 'arrow', 1, NULL, 'item', '1574047832_5dd2105810b48.png', NULL, '2019-11-17 19:30:32', '2019-11-17 19:30:32');
 
 -- --------------------------------------------------------
 
@@ -333,7 +334,8 @@ INSERT INTO `transactions` (`id`, `transaction_number`, `customer_id`, `mode`, `
 (23, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:15:08', '2019-11-14 19:15:08'),
 (24, '20', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:15:32', '2019-11-14 19:15:32'),
 (25, '21', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
-(26, '22', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
+(26, '22', 1, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57'),
+(27, '23', NULL, 'pickup', NULL, 0, 'ongoing', NULL, '2019-11-17 19:54:02', '2019-11-17 19:54:02');
 
 -- --------------------------------------------------------
 
@@ -379,7 +381,8 @@ INSERT INTO `transaction_details` (`id`, `transaction_id`, `deleted_at`, `create
 (23, 23, NULL, '2019-11-14 19:15:08', '2019-11-14 19:15:08'),
 (24, 24, NULL, '2019-11-14 19:15:32', '2019-11-14 19:15:32'),
 (25, 25, NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
-(26, 26, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
+(26, 26, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57'),
+(27, 27, NULL, '2019-11-17 19:54:02', '2019-11-17 19:54:02');
 
 -- --------------------------------------------------------
 
@@ -432,7 +435,9 @@ INSERT INTO `transaction_items` (`id`, `transaction_details_id`, `service_id`, `
 (34, 22, 4, 'Jusi', 5, 1250, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
 (35, 22, 3, 'Barong Pina', 6, 1500, NULL, '2019-11-14 19:14:46', '2019-11-14 19:14:46'),
 (36, 25, 12, 'coat', 2, 600, NULL, '2019-11-14 19:17:21', '2019-11-14 19:17:21'),
-(37, 26, 12, 'coat', 2, 600, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57');
+(37, 26, 12, 'coat', 2, 600, NULL, '2019-11-14 19:17:57', '2019-11-14 19:17:57'),
+(38, 27, 13, 'arrow', 2, 2, NULL, '2019-11-17 19:54:02', '2019-11-17 19:54:02'),
+(39, 27, 13, 'arrow', 5, 5, NULL, '2019-11-17 19:54:02', '2019-11-17 19:54:02');
 
 -- --------------------------------------------------------
 
@@ -618,25 +623,25 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `transaction_details`
 --
 ALTER TABLE `transaction_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `transaction_items`
 --
 ALTER TABLE `transaction_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `users`

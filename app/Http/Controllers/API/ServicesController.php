@@ -116,7 +116,7 @@ class ServicesController extends Controller
     }
 
     public function dailyServices(){
-        return Service::latest()->take(2)->get();
+        return Service::latest()->take(4)->get();
     }
 
     public function fetchServices(){
