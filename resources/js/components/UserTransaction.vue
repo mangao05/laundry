@@ -17,8 +17,11 @@
        
             <div id="PrintTransaction">
                 <div class="text-center">
-                    <h3>Receipt #: {{ transaction_number }}</h3>
-                    <h2> <i class="fas fa-user"></i> {{ customer }}</h2>
+                    <h1>Bullseye</h1>
+                    <h4>Receipt #: {{ transaction_number }}</h4>
+                    <h4> <i class="fas fa-user"></i> {{ customer }}</h4>
+                     <h6>278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</h6>
+                     
                 </div>
             <div style="height: 65vh; border-bottom: 1px solid black; overflow-y: auto;" class="mb-2">
                 <table class="table table-light table-striped table-hover">

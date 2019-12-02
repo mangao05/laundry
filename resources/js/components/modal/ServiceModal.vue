@@ -53,20 +53,21 @@
                                                 </div>
                                             </div>
                                            
-
                                             <!-- <span class="font-weight-bold">Price: </span><span>{{ price }}</span> -->
                                         </div>
                                     <!-- </div>  -->
                                 </transition-group>
 
                             </div>
-                            <div class="col-6">
-                                <span class="text-danger "><i>*icon can be 251x 251</i></span>
+                            <div class="col-6 text-center">
+                                 <span class="text-bold"><i>Click To Upload Icon</i></span>
                                 <div id="preview " class="m-2 text-center ">
-                                    <img v-if="imageUrl" :src="imageUrl" class="img-fluid w-25 border border-dark" />
+                                    
+                                    <img v-if="imageUrl" :src="imageUrl" class="img-fluid w-50 p-2 border border-dark" @click="clickImage" />
+                                    <img v-else="" src="/serviceIcon/addIcon.png" class="img-fluid w-50 border border-dark p-2"   @click="clickImage" />
                                 </div>
-                                <input type="file" accept="image/*" @change="onChange" />
-                                
+                                <input type="file" id="iconBTn" accept="image/*" @change="onChange" hidden/>
+                                <span class="text-danger "><i>*icon can be 251x 251</i></span>
                                 <div class="form-group">
                                 <label>Services</label>
                                 <input v-model="form.service" type="text" name="username"
@@ -151,6 +152,9 @@
 
             loadDailyCreatedServices(){
                 axios.get('api/dailyServices').then((data)=>(this.servicesCreatedToday = data.data))
+            },
+            clickImage(){
+                document.getElementById('iconBTn').click()
             },
             onChange(e) {
                 

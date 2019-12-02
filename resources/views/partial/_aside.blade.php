@@ -1,12 +1,11 @@
 <aside class="main-sidebar elevation-4" style="background-color:#222D32;">
-    <a href="home" class="brand-link">
-      {{-- <img src="{{ asset('image/clothes-line.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8"> --}}
-           <img src="{{ asset('image/naotechIcon.png')}}"  alt="" class="elevation" width="100%"  style="opacity: .8">
+  <a href="/home" class="brand-link">
+    <img src="{{ asset('image/bullesyeLogo.png')}}" alt="Logo" class="brand-image img-circle elevation-3"
+         style="opacity: .8">
+    <span class="brand-text  text-danger"  style=" text-decoration: underline;  font-style: italic;"><h2 >BULLSEYE</h2></span>
+  </a>
 
-    </a>
-
-
+  
     <div class="sidebar text-dark">
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
