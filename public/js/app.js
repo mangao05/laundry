@@ -90986,7 +90986,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_UserTransaction_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/UserTransaction.vue */ "./resources/js/components/UserTransaction.vue");
 /* harmony import */ var vue2_filters__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue2-filters */ "./node_modules/vue2-filters/dist/vue2-filters.js");
 /* harmony import */ var vue2_filters__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(vue2_filters__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var vue_toastr__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vue-toastr */ "./node_modules/vue-toastr/dist/vue-toastr.esm.js");
+/* harmony import */ var vue_toastr__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! vue-toastr */ "./node_modules/vue-toastr/dist/vue-toastr.esm.js");
 /* harmony import */ var _components_modal_UserModal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/modal/UserModal */ "./resources/js/components/modal/UserModal.vue");
 /* harmony import */ var _components_modal_RoleModal_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/modal/RoleModal.vue */ "./resources/js/components/modal/RoleModal.vue");
 /* harmony import */ var _components_modal_BranchModal__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/modal/BranchModal */ "./resources/js/components/modal/BranchModal.vue");
@@ -91051,7 +91051,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_moment__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_input_dropdown__WEBPACK_IMPORTED_MODULE_3__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue2_filters__WEBPACK_IMPORTED_MODULE_14___default.a);
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_toastr__WEBPACK_IMPORTED_MODULE_15__["default"]); // Start Components
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_toastr__WEBPACK_IMPORTED_MODULE_24__["default"]); // Start Components
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('vue-phone-number-input', vue_phone_number_input__WEBPACK_IMPORTED_MODULE_12___default.a);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('apexchart', vue_apexcharts__WEBPACK_IMPORTED_MODULE_11___default.a);
@@ -92961,8 +92961,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
