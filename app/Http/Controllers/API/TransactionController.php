@@ -173,6 +173,20 @@ class TransactionController extends Controller
                 'price' =>  $service['price']
             ]);
         }
+        
+        return $transaction;
+    }
+
+    public function showReceipt($id){
+        return Transaction::with([
+            'customers',
+            'transaction_details' => function($query){
+                return $query->with('transaction_items');
+            }])
+            ->find($id);
+    }
+    public function getTransactions($id){
+        return Transaction::with('customers')->where('id', '!=', $id)->latest()->paginate(6);
     }
 
     

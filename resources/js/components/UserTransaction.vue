@@ -65,7 +65,7 @@
             </table>
             </div>
             <div>
-                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction" disabled><i class="fa fa-print" aria-hidden="true"></i>
+                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction"><i class="fa fa-print" aria-hidden="true"></i>
                         Print
                   </button>
             </div>
@@ -256,18 +256,26 @@ export default {
             });
         },
         PrintTransaction() {
-            this.$htmlToPaper('PrintTransaction', () => {
-                axios.post('/api/transactions/create/savetransaction', {
+
+         axios.post('/api/transactions/create/savetransaction', {
                     services: this.postServices,
                     transaction_number: this.transaction_number,
                     customer_id : this.selected._id,
-                }).then(({data})=>{
-                        this.postServices = [];
-                        this.selected ='';
-                        this.subtotal = 0;
-                        
-                });
+            }).then(({data})=>{
+                
+                this.postServices = [];
+                this.selected ='';
+                this.subtotal = 0;
+                
+                let routeData = this.$router.resolve({path: '/receipt/' + data.id});
+                window.open(routeData.href, '_blank');    
             });
+
+
+           
+            // this.$htmlToPaper('PrintTransaction', () => {
+           
+            // });
         },
         // openAmountModal(){
         //     if(this.selected != ''){

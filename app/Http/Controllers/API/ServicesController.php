@@ -25,11 +25,19 @@ class ServicesController extends Controller
     public function index()
     {
        if(isset($_GET['filter'])){
-           $transaction_no = Transaction::latest()->first('transaction_number');
+
+           $transaction_no = Transaction::latest()->first();
+           
+           if(isset($transaction_no->transaction_number)){
+                $transaction_no = $transaction_no->transaction_number;
+           }else{
+                $transaction_no = 0;
+           }
+
            return response()->json([
                 'countService' => Service::where('type', $_GET['filter'])->count(),
                 'service' => Service::where('type', $_GET['filter'])->latest()->paginate(6),
-                'transaction_number' => $transaction_no->transaction_number + 1
+                'transaction_number' => $transaction_no + 1
            ]);
        }
         return Service::all();

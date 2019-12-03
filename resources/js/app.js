@@ -65,7 +65,6 @@ Vue.use(VueSweetalert2, swaloptions)
 Vue.use(VueRouter);
 Vue.use(VueMoment);
 Vue.use(VueRouter);
-Vue.use(VueMoment);
 Vue.use(VueInputDropdown);
 Vue.use(Vue2Filters);
 Vue.use(VueToastr);
@@ -110,7 +109,12 @@ let routes = [
     { path: '/branch', component: require('./components/Branch.vue').default },
     { path: '/transaction', component: require('./components/Transactions/Transaction.vue').default },
     { path: '/usertransaction', component: UserTransaction },
-    { path: '/customers', component:  require('./components/customer/CustomerComponent.vue').default }
+    { path: '/customers', component:  require('./components/customer/CustomerComponent.vue').default },
+    { 
+      path: '/receipt/:id',
+      name: 'printReceipt',
+      component: require('./components/PrintPreview.vue').default
+    }
   ]
 
   const options = {
