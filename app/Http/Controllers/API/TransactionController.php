@@ -156,9 +156,18 @@ class TransactionController extends Controller
 
     public function saveTransaction(Request $request){
        
+        $customer = Customer::where('name', $request->customer)->first();
+
+        if(!isset($customer)){
+            $newCustomer = new Customer();
+            $newCustomer->name = $request->customer;
+            $newCustomer->save();
+        }
+        
+
         $transaction = Transaction::create([
             'transaction_number' => $request->transaction_number,
-            'customer_id' => $request->customer_id,
+            'customer_id' => (!isset($customer) ? $newCustomer->id : $customer->id),
             'mode' => 'pickup',
             'points_used' => 0,
             'status' => 'ongoing'
@@ -186,7 +195,11 @@ class TransactionController extends Controller
             ->find($id);
     }
     public function getTransactions($id){
-        return Transaction::with('customers')->where('id', '!=', $id)->latest()->paginate(6);
+        $transactions =  Transaction::with('customers')->where('id', '!=', $id)->latest()->paginate(6);
+
+        return response()->json([
+            'transactions' => $transactions
+        ]);
     }
 
     

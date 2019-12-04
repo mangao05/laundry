@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-lg-4 " style="border-right: 1px solid black; ">
-                <v-select
+                <!-- <v-select
                     v-model = "selected"
                     label="name"
                     :options="customers"
@@ -13,8 +13,19 @@
                     placeholder= "Select Customer"
                     @input="customer = selected.name"
                 >
-                </v-select>
-       
+                </v-select> -->
+
+                <vue-simple-suggest
+                    v-model="selected"
+                    :list="customers"
+                    :styles="autoCompleteStyle"
+                    :destyled=true
+                    :filter-by-query="true"
+                    display-attribute="title"
+                    value-attribute="id"
+                    placeholder="Customer">
+                </vue-simple-suggest>
+
             <div id="PrintTransaction">
                 <div class="text-center">
                       <p class="h3 text-center"><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image"  style="margin-left:70px;"><span class="text-danger" style="text-decoration: underline;margin-right:75px;"> BULLSEYE</span></p>
@@ -150,10 +161,19 @@
 
 </template>
 <script>
+import VueSimpleSuggest from 'vue-simple-suggest'
+import 'vue-simple-suggest/dist/styles.css' // Using a css-loader
 
 export default {
     data(){
         return {
+            autoCompleteStyle : {
+                vueSimpleSuggest: "position-relative mb-3",
+                inputWrapper: "",
+                defaultInput : "form-control text-center font-weight-bold text-uppercase border border-info",
+                suggestions: "position-absolute list-group z-1000 w-100 text-center",
+                suggestItem: "list-group-item"
+            },
             services : {},
             service_name: 'Service',
             service_id: 0,
@@ -176,6 +196,9 @@ export default {
 
         }
     },
+    components: {
+      VueSimpleSuggest
+    },
     methods: {
         service(type = 'item', page){
             if(type == 'item'){
@@ -187,7 +210,6 @@ export default {
             if(page == 'next'){
                 if(this.page == this.pageCount){
                     this.page = this.pageCount;
-                    
                 }else{
                     this.page = this.page + 1;
                 }
@@ -202,7 +224,6 @@ export default {
             }
 
             this.serviceType = type;
-            
             
             axios.get('/api/services?page='+this.page+'&filter='+this.serviceType).then(({data}) => {
                 this.services = data.service;
@@ -251,18 +272,17 @@ export default {
             this.customers = [];
             axios.get('api/customers').then(({data})=>{
                 data.forEach(element => {
-                    this.customers.push({ _id : element.id , name: element.name })
+                    this.customers.push({id: element.id, title: element.name})
                 });
             });
         },
         PrintTransaction() {
 
-         axios.post('/api/transactions/create/savetransaction', {
-                    services: this.postServices,
-                    transaction_number: this.transaction_number,
-                    customer_id : this.selected._id,
+            axios.post('/api/transactions/create/savetransaction', {
+                services: this.postServices,
+                transaction_number: this.transaction_number,
+                customer : this.selected
             }).then(({data})=>{
-                
                 this.postServices = [];
                 this.selected ='';
                 this.subtotal = 0;

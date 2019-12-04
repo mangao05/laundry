@@ -4,7 +4,7 @@
             <div class="col-2 bg-white p-2" style="box-shadow: 0px 0px 3px black;">
                 <div id="receiptContainer">
                     <div class="header text-center font-weight-bold pb-2" style="border-bottom: 2px dotted black; letter-spacing: 1px;">
-                        <p class="h3 "><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image" style="margin-right:-20px;"><span class="text-danger p-0" style="text-decoration: underline; font-size:20px;"> BULLSEYE</span></p>
+                        <p class="h3 "><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image" style="margin-right:-20px;height: 40px; width: 40px;">&nbsp;&nbsp; <span class="text-danger p-0" style="text-decoration: underline; font-size:20px;">BULLSEYE</span></p>
                         <span style="font-size: 12px;">Receipt #: {{ receiptDetails.transaction_number }}</span><br>
                         <span style="font-size: 12px;"> <i class="fas fa-user"></i> {{ name  }}</span> <br>  
                         <span style="font-size: 12px;">278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</span>
@@ -18,7 +18,7 @@
                                     <th>Price</th>
                                 </tr>
                             </thead>
-                            <tbody style="border-bottom: 2px dotted black;">
+                            <tbody style="border-bottom: 2px solid black;">
                                 <tr v-for="item in receiptDetails.transaction_details[0].transaction_items" :key="item.id">
                                     <td style="word-wrap: break;">{{ item.item }}</td>
                                     <td>{{ item.qty }}</td>
@@ -47,7 +47,10 @@
             </div>
             <div class="col-10 p-1" style="box-shadow: 0px 0px 3px gray;" id="receiptContainer">
                 <h1 class="text-center bg-dark p-2 font-weight-bold">Transaction List</h1>
-                <div class="row p-3 justify-content-center">
+                <div class="jumbotron text-center" v-show="loadingPage">
+                    <h1><i>Loading...</i></h1>
+                </div>
+                <div class="row p-3 justify-content-center" v-show="!loadingPage">
                     <div class="col-4" v-for="transaction in transactions" :key="transaction.id" >
                         <div class="card text-dark" style="border: 2px dotted #D0211C;">
                             <div class="card-body p-3">
@@ -63,17 +66,17 @@
                     </div>
                    
                 </div>
-                <!-- <div class="row p-3">
+                <div class="row p-3">
                     <div class="col-5">
-                        <button class="btn btn-primary" @click="paginate(serviceType, 'prev')"><i class="fa fa-arrow-left" aria-hidden="true" ></i> Prev</button>
+                        <button class="btn btn-primary" @click="transactionList('prev')"><i class="fa fa-arrow-left" aria-hidden="true"></i> Prev</button>
                     </div>
                     <div class="col-2">
-                        <span class="font-weight-bold">page 1 / 2</span>
+                        <span class="font-weight-bold">page {{ this.page }} / {{ this.pageCount }}</span>
                     </div>
                     <div class="col-5">
-                        <button class="btn btn-primary float-right">Next <i class="fa fa-arrow-right" aria-hidden="true"></i> </button>
+                        <button class="btn btn-primary float-right" @click="transactionList('next')">Next <i class="fa fa-arrow-right" aria-hidden="true"></i> </button>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -86,6 +89,9 @@ export default {
             total: 0,
             transactions: {},
             name:'',
+            page: 2,
+            pageCount: 0,
+            loadingPage: true
         }
     },
     methods: {
@@ -94,9 +100,38 @@ export default {
                 console.log("success");
             });
         },
-        transactionList(){
-            axios.get('/api/alltransaction/'+this.$route.params.id).then(({data}) => {
-                this.transactions = data.data
+        transactionList(action){
+            this.loadingPage = true;
+            if(action == 'next'){
+                if(this.page == this.pageCount){
+                    this.page = this.pageCount;
+                    this.$toastr.w(`You're on the last page.`)
+                    this.loadingPage = false;
+                }else{
+                    this.page = this.page + 1;
+                    this.loadTransaction();
+                }
+            }else if(action == 'prev'){
+                if(this.page == 1){
+                    this.page = 1;
+                    this.$toastr.w(`You're on the first page.`);
+                    this.loadingPage = false;
+                }else{
+                    this.page = this.page - 1;
+                    this.loadTransaction();
+                }
+            }else{
+                this.page = 1;
+                this.loadTransaction();
+            }
+
+            
+        },
+        loadTransaction(){
+            axios.get('/api/alltransaction/'+this.$route.params.id+'?page='+this.page).then(({data}) => {
+                this.transactions = data.transactions.data
+                this.pageCount = Math.ceil( data.transactions.total / data.transactions.per_page );
+                this.loadingPage = false;
             });
         },
         switchReceipt(id){
@@ -118,9 +153,6 @@ export default {
                   
             });
         },
-        paginate(){
-
-        }
     },
     created(){
         this.transactionList();
