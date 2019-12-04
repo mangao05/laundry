@@ -73,11 +73,7 @@
         </li>
         <li class="nav-item">
           <router-link to="/customers" class="nav-link">
-<<<<<<< HEAD
          <i class="fas fa-user-friends  nav-icon text-white"></i>
-=======
-           <i class="fa fa-user-friends nav-icon text-white" aria-hidden="true"></i>
->>>>>>> 5c4b16a25edfdaa56c6c645e70de0ff7bde4b1ca
               <p class=" text-bold">
                       <label for="" class="text-white"> Customers</label> 
                 
