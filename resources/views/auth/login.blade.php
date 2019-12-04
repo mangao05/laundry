@@ -20,7 +20,7 @@
              
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
                      
-                    <input id="email" type="email" class="input100 input_user form-control @error('email') is-invalid @enderror" name="email"  value="" required autocomplete="email" autofocus>
+                    <input id="email" type="email" class="input100 input_user form-control @error('email') is-invalid @enderror" name="email"  value="" required >
                     <span class="focus-input100"></span>
                     <span class="label-input100"> Email</span>
                    
@@ -28,7 +28,7 @@
                 
           
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input id="password" type="password" class="input100 input_pass form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" value = "">
+                    <input id="password" type="password" class="input100 input_pass form-control @error('password') is-invalid @enderror" name="password" required  value = "">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
                 </div>

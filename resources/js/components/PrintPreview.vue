@@ -4,9 +4,9 @@
             <div class="col-2 bg-white p-2" style="box-shadow: 0px 0px 3px black;">
                 <div id="receiptContainer">
                     <div class="header text-center font-weight-bold pb-2" style="border-bottom: 2px dotted black; letter-spacing: 1px;">
-                        <span class="h3">Bullseye</span> <br>
+                        <p class="h3 "><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image" style="margin-right:-20px;"><span class="text-danger p-0" style="text-decoration: underline; font-size:20px;"> BULLSEYE</span></p>
                         <span style="font-size: 12px;">Receipt #: {{ receiptDetails.transaction_number }}</span><br>
-                        <span style="font-size: 12px;"> <i class="fas fa-user"></i> {{ receiptDetails.customers.name }}</span> <br>  
+                        <span style="font-size: 12px;"> <i class="fas fa-user"></i> {{ name  }}</span> <br>  
                         <span style="font-size: 12px;">278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</span>
                     </div>   
                     <div class="body" >
@@ -61,14 +61,11 @@
                             </div>
                         </div>
                     </div>
-                     <!-- <a  class="btn btn-primary m-2" >
-                        Customer: {{ transaction.customers.name }}
-                        Receipt #: {{ transaction.transaction_number }}
-                     </a> -->
+                   
                 </div>
-                <div class="row p-3">
+                <!-- <div class="row p-3">
                     <div class="col-5">
-                        <button class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true" ></i> Prev</button>
+                        <button class="btn btn-primary" @click="paginate(serviceType, 'prev')"><i class="fa fa-arrow-left" aria-hidden="true" ></i> Prev</button>
                     </div>
                     <div class="col-2">
                         <span class="font-weight-bold">page 1 / 2</span>
@@ -76,7 +73,7 @@
                     <div class="col-5">
                         <button class="btn btn-primary float-right">Next <i class="fa fa-arrow-right" aria-hidden="true"></i> </button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -87,7 +84,8 @@ export default {
         return {
             receiptDetails : {},
             total: 0,
-            transactions: {}
+            transactions: {},
+            name:'',
         }
     },
     methods: {
@@ -109,7 +107,7 @@ export default {
             let total = [];
             axios.get('/api/fetchtransaction/receipt/'+this.$route.params.id).then(({data}) => {
                 this.receiptDetails = data
-
+               this.name = data.customers.name;
                 data.transaction_details[0].transaction_items.forEach(element => {
                     total.push(element.price);
                 });
@@ -117,9 +115,11 @@ export default {
                 this.total =  total.reduce(function(total, num){ 
                     return total + num 
                 }, 0);
-                
-                
+                  
             });
+        },
+        paginate(){
+
         }
     },
     created(){

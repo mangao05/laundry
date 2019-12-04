@@ -17,7 +17,7 @@
        
             <div id="PrintTransaction">
                 <div class="text-center">
-                    <h1>Bullseye</h1>
+                      <p class="h3 text-center"><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image"  style="margin-left:70px;"><span class="text-danger" style="text-decoration: underline;margin-right:75px;"> BULLSEYE</span></p>
                     <h4>Receipt #: {{ transaction_number }}</h4>
                     <h4> <i class="fas fa-user"></i> {{ customer }}</h4>
                      <h6>278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</h6>
@@ -65,14 +65,14 @@
             </table>
             </div>
             <div>
-                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction"><i class="fa fa-print" aria-hidden="true"></i>
-                        Print
+                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction"><i class="fas fa-save  nav-icon  "></i>
+                        Save Transaction
                   </button>
             </div>
             <!-- End COlumn -->
         </div>
         <div class="col-lg-8">
-            <h1 class="text-uppercase text-danger font-weight-bold text-center" style="text-decoration: underline; font-stretch:expanded; font-family: 'Oswald', sans-serif;" ><i>bullseye laundry</i></h1>
+            <h1 class="text-uppercase text-danger font-weight-bold text-center" style="text-decoration: underline; font-stretch:expanded; font-family: 'Oswald', sans-serif;" ><i>Product List</i></h1>
             <hr style="border: 2px solid black;">
             <div class="row">
                 <div class="col-6 text-right">
@@ -277,45 +277,6 @@ export default {
            
             // });
         },
-        // openAmountModal(){
-        //     if(this.selected != ''){
-        //         $("#enterAmount").modal('show');
-        //     }else{
-        //         alert('Pick Customer');
-        //     }
-        // },
-        // paymentTransaction(){
-        
-        //     if(this.subtotal  <=  this.CashReceived){
-        //         this.change = this.CashReceived - this.subtotal  ;
-            
-        //         Swal.fire({
-        //             title: 'Are you sure about this Transaction?',
-        //             text: "You won't be able to revert this!",
-        //             type: 'warning',
-        //             showCancelButton: true,
-        //             confirmButtonColor: '#3085d6',
-        //             cancelButtonColor: '#d33',
-        //             confirmButtonText: 'Yes, Print it!'
-        //             }).then((result) => {
-        //             if (result.value) {
-                        
-        //                 $("#enterAmount").modal('hide');
-        //                 this.PrintTransaction();
-                      
-        //             }
-        //             })
-                
-        //     }else{
-        //         Swal.fire({
-        //             type: 'error',
-        //             title: 'Oops...',
-        //             text: 'The amount given is Short!',
-        //         })
-        //             this.CashReceived = 0;
-        //     }
-        //     console.log(this.CashReceived);
-        // },
         removeItem(index){
             var total = [];
              if(this.postServices.length == 1){
