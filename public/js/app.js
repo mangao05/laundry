@@ -2675,15 +2675,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       receiptDetails: {},
       total: 0,
-      transactions: {}
+      transactions: {},
+      name: ''
     };
   },
   methods: {
@@ -2712,6 +2710,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/fetchtransaction/receipt/' + this.$route.params.id).then(function (_ref2) {
         var data = _ref2.data;
         _this2.receiptDetails = data;
+        _this2.name = data.customers.name;
         data.transaction_details[0].transaction_items.forEach(function (element) {
           total.push(element.price);
         });
@@ -2719,7 +2718,8 @@ __webpack_require__.r(__webpack_exports__);
           return total + num;
         }, 0);
       });
-    }
+    },
+    paginate: function paginate() {}
   },
   created: function created() {
     this.transactionList();
@@ -3449,40 +3449,6 @@ __webpack_require__.r(__webpack_exports__);
       }); // this.$htmlToPaper('PrintTransaction', () => {
       // });
     },
-    // openAmountModal(){
-    //     if(this.selected != ''){
-    //         $("#enterAmount").modal('show');
-    //     }else{
-    //         alert('Pick Customer');
-    //     }
-    // },
-    // paymentTransaction(){
-    //     if(this.subtotal  <=  this.CashReceived){
-    //         this.change = this.CashReceived - this.subtotal  ;
-    //         Swal.fire({
-    //             title: 'Are you sure about this Transaction?',
-    //             text: "You won't be able to revert this!",
-    //             type: 'warning',
-    //             showCancelButton: true,
-    //             confirmButtonColor: '#3085d6',
-    //             cancelButtonColor: '#d33',
-    //             confirmButtonText: 'Yes, Print it!'
-    //             }).then((result) => {
-    //             if (result.value) {
-    //                 $("#enterAmount").modal('hide');
-    //                 this.PrintTransaction();
-    //             }
-    //             })
-    //     }else{
-    //         Swal.fire({
-    //             type: 'error',
-    //             title: 'Oops...',
-    //             text: 'The amount given is Short!',
-    //         })
-    //             this.CashReceived = 0;
-    //     }
-    //     console.log(this.CashReceived);
-    // },
     removeItem: function removeItem(index) {
       var total = [];
 
@@ -51868,9 +51834,7 @@ var render = function() {
                 }
               },
               [
-                _c("span", { staticClass: "h3" }, [_vm._v("Bullseye")]),
-                _vm._v(" "),
-                _c("br"),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("span", { staticStyle: { "font-size": "12px" } }, [
                   _vm._v(
@@ -51882,7 +51846,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("span", { staticStyle: { "font-size": "12px" } }, [
                   _c("i", { staticClass: "fas fa-user" }),
-                  _vm._v(" " + _vm._s(_vm.receiptDetails.customers.name))
+                  _vm._v(" " + _vm._s(_vm.name))
                 ]),
                 _vm._v(" "),
                 _c("br"),
@@ -51901,7 +51865,7 @@ var render = function() {
                   staticStyle: { "font-size": "12px" }
                 },
                 [
-                  _vm._m(0),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -51940,7 +51904,7 @@ var render = function() {
                 [_vm._v("Terms and Conditions")]
               ),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("h6", { staticClass: "text-center" }, [_vm._v("Thank you!!!")])
             ])
@@ -52047,15 +52011,33 @@ var render = function() {
               ])
             }),
             0
-          ),
-          _vm._v(" "),
-          _vm._m(2)
+          )
         ]
       )
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "h3 " }, [
+      _c("img", {
+        staticClass: "brand-image",
+        staticStyle: { "margin-right": "-20px" },
+        attrs: { src: "/image/bullesyeLogo.png", alt: "Logo" }
+      }),
+      _c(
+        "span",
+        {
+          staticClass: "text-danger p-0",
+          staticStyle: { "text-decoration": "underline", "font-size": "20px" }
+        },
+        [_vm._v(" BULLSEYE")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -52103,36 +52085,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row p-3" }, [
-      _c("div", { staticClass: "col-5" }, [
-        _c("button", { staticClass: "btn btn-primary" }, [
-          _c("i", {
-            staticClass: "fa fa-arrow-left",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" Prev")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-2" }, [
-        _c("span", { staticClass: "font-weight-bold" }, [_vm._v("page 1 / 2")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-5" }, [
-        _c("button", { staticClass: "btn btn-primary float-right" }, [
-          _vm._v("Next "),
-          _c("i", {
-            staticClass: "fa fa-arrow-right",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -52891,7 +52843,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { attrs: { id: "PrintTransaction" } }, [
               _c("div", { staticClass: "text-center" }, [
-                _c("h1", [_vm._v("Bullseye")]),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("h4", [
                   _vm._v("Receipt #: " + _vm._s(_vm.transaction_number))
@@ -52924,13 +52876,13 @@ var render = function() {
                       staticClass: "table table-light table-striped table-hover"
                     },
                     [
-                      _vm._m(0),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
                         [
                           _vm.postServices.length == 0
-                            ? _c("tr", [_vm._m(1)])
+                            ? _c("tr", [_vm._m(2)])
                             : _vm._l(_vm.postServices, function(
                                 service,
                                 index
@@ -52976,7 +52928,7 @@ var render = function() {
               _c("table", { staticClass: "table " }, [
                 _c("tbody", [
                   _c("tr", [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-right" }, [
                       _c("span", { staticClass: "h2" }, [
@@ -52999,12 +52951,9 @@ var render = function() {
                   on: { click: _vm.PrintTransaction }
                 },
                 [
-                  _c("i", {
-                    staticClass: "fa fa-print",
-                    attrs: { "aria-hidden": "true" }
-                  }),
+                  _c("i", { staticClass: "fas fa-save  nav-icon  " }),
                   _vm._v(
-                    "\r\n                        Print\r\n                  "
+                    "\r\n                        Save Transaction\r\n                  "
                   )
                 ]
               )
@@ -53014,7 +52963,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-lg-8" }, [
-          _vm._m(3),
+          _vm._m(4),
           _vm._v(" "),
           _c("hr", { staticStyle: { border: "2px solid black" } }),
           _vm._v(" "),
@@ -53213,7 +53162,7 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.service_name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _vm._m(5)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
@@ -53305,6 +53254,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "h3 text-center" }, [
+      _c("img", {
+        staticClass: "brand-image",
+        staticStyle: { "margin-left": "70px" },
+        attrs: { src: "/image/bullesyeLogo.png", alt: "Logo" }
+      }),
+      _c(
+        "span",
+        {
+          staticClass: "text-danger",
+          staticStyle: {
+            "text-decoration": "underline",
+            "margin-right": "75px"
+          }
+        },
+        [_vm._v(" BULLSEYE")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Service")]),
@@ -53347,7 +53319,7 @@ var staticRenderFns = [
           "font-family": "'Oswald', sans-serif"
         }
       },
-      [_c("i", [_vm._v("bullseye laundry")])]
+      [_c("i", [_vm._v("Product List")])]
     )
   },
   function() {
@@ -92961,8 +92933,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry_shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laundry\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laundry\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
