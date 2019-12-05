@@ -110,6 +110,7 @@ let routes = [
     { path: '/transaction', component: require('./components/Transactions/Transaction.vue').default },
     { path: '/usertransaction', component: UserTransaction },
     { path: '/customers', component:  require('./components/customer/CustomerComponent.vue').default },
+    { path: '/keyboard', component: require('./components/keyboard/NumberKeysComponent.vue').default },
     { 
       path: '/receipt/:id',
       name: 'printReceipt',
@@ -138,7 +139,10 @@ routes // short for `routes: routes`
 })
 
 Vue.filter('currency', function (value) {
-  return '₱' + parseFloat(value).toFixed(2);
+  // return '₱' + parseFloat(value).toFixed(2);
+
+  // let val = (value/1).toFixed(2).replace(',', '.');
+  return '₱' +value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 
 Vue.filter('phone', function (phone) {

@@ -3209,6 +3209,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_simple_suggest__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-simple-suggest */ "./node_modules/vue-simple-suggest/dist/es6.js");
 /* harmony import */ var vue_simple_suggest_dist_styles_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-simple-suggest/dist/styles.css */ "./node_modules/vue-simple-suggest/dist/styles.css");
 /* harmony import */ var vue_simple_suggest_dist_styles_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_simple_suggest_dist_styles_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _modal_PaymentModal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal/PaymentModal.vue */ "./resources/js/components/modal/PaymentModal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3374,6 +3392,7 @@ __webpack_require__.r(__webpack_exports__);
 
  // Using a css-loader
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3395,7 +3414,7 @@ __webpack_require__.r(__webpack_exports__);
       customer: 'POS Customer',
       selected: '',
       subtotal: '0.00',
-      amountRendered: '',
+      amountRendered: 0,
       CashReceived: '0',
       change: '0',
       transaction_number: '0000',
@@ -3406,7 +3425,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    VueSimpleSuggest: vue_simple_suggest__WEBPACK_IMPORTED_MODULE_0__["default"]
+    VueSimpleSuggest: vue_simple_suggest__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'payment-modal': _modal_PaymentModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
     service: function service() {
@@ -3489,24 +3509,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     PrintTransaction: function PrintTransaction() {
-      var _this3 = this;
-
-      axios.post('/api/transactions/create/savetransaction', {
-        services: this.postServices,
-        transaction_number: this.transaction_number,
-        customer: this.selected
-      }).then(function (_ref3) {
-        var data = _ref3.data;
-        _this3.postServices = [];
-        _this3.selected = '';
-        _this3.subtotal = 0;
-
-        var routeData = _this3.$router.resolve({
-          path: '/receipt/' + data.id
-        });
-
-        window.open(routeData.href, '_blank');
-      }); // this.$htmlToPaper('PrintTransaction', () => {
+      $("#paymentModal").modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+      this.amountRendered = 0; // axios.post('/api/transactions/create/savetransaction', {
+      //     services: this.postServices,
+      //     transaction_number: this.transaction_number,
+      //     customer : this.selected
+      // }).then(({data})=>{
+      //     this.postServices = [];
+      //     this.selected ='';
+      //     this.subtotal = 0;
+      //     let routeData = this.$router.resolve({path: '/receipt/' + data.id});
+      //     window.open(routeData.href, '_blank');    
+      // });
+      // this.$htmlToPaper('PrintTransaction', () => {
       // });
     },
     removeItem: function removeItem(index) {
@@ -3747,6 +3765,160 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.loadCustomers();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      value: ""
+    };
+  },
+  methods: {
+    type: function type(number) {
+      var sum = "";
+
+      if (this.value == "") {
+        number == '.' ? sum = '0' + number : sum = number;
+      } else if (this.value == '00') {
+        number == '.' ? sum = '0' + number : sum = number;
+      } else if (this.value == '0') {
+        number == '.' ? sum = this.value + number : sum = number;
+      } else {
+        sum = this.value + number;
+      }
+
+      this.value = sum.toString();
+    },
+    getNumbers: function getNumbers(start, stop) {
+      return new Array(stop - start).fill(start).map(function (n, i) {
+        return n + i;
+      });
+    },
+    removeLast: function removeLast() {
+      var amount = this.value.toString();
+      this.value = amount.slice(0, this.value.length - 1);
+    },
+    clear: function clear() {
+      this.value = "";
+    },
+    returnValue: function returnValue() {
+      this.$parent.returnAmount(this.value);
+      this.value = '';
+    },
+    wholeAmount: function wholeAmount(amount) {
+      var currentAmount = parseInt(this.value);
+
+      if (this.value != '') {
+        this.value = currentAmount + amount;
+      } else {
+        this.value = amount.toString();
+      }
+    },
+    closeModal: function closeModal() {
+      this.$emit('closeModal');
+    }
   }
 });
 
@@ -4229,6 +4401,48 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _keyboard_NumberKeysComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../keyboard/NumberKeysComponent.vue */ "./resources/js/components/keyboard/NumberKeysComponent.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'keyboard': _keyboard_NumberKeysComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {};
+  },
+  methods: {
+    closeModal: function closeModal() {
+      $('#paymentModal').modal('hide');
+    },
+    returnAmount: function returnAmount(amount) {
+      $('#paymentModal').modal('hide');
+      this.$parent.amountRendered = amount;
+    }
   }
 });
 
@@ -53024,7 +53238,7 @@ var render = function() {
                 {
                   staticClass: "mb-2",
                   staticStyle: {
-                    height: "65vh",
+                    height: "30vh",
                     "border-bottom": "1px solid black",
                     "overflow-y": "auto"
                   }
@@ -53091,13 +53305,44 @@ var render = function() {
                     _vm._m(3),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-right" }, [
-                      _c("span", { staticClass: "h2" }, [
-                        _vm._v(
-                          "₱" + _vm._s(_vm._f("number")(_vm.subtotal, "0,0"))
-                        )
-                      ])
+                      _c(
+                        "span",
+                        {
+                          staticClass: "h2",
+                          staticStyle: { "font-size": "15px" }
+                        },
+                        [
+                          _vm._v(
+                            "₱" + _vm._s(_vm._f("number")(_vm.subtotal, "0,0"))
+                          )
+                        ]
+                      )
                     ])
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-right" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "h2",
+                          staticStyle: { "font-size": "12px" }
+                        },
+                        [
+                          _vm._v(
+                            "₱" +
+                              _vm._s(
+                                _vm._f("number")(_vm.amountRendered, "0,0")
+                              )
+                          )
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5)
                 ])
               ])
             ]),
@@ -53123,7 +53368,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-lg-8" }, [
-          _vm._m(4),
+          _vm._m(6),
           _vm._v(" "),
           _c("hr", { staticStyle: { border: "2px solid black" } }),
           _vm._v(" "),
@@ -53322,7 +53567,7 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.service_name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(7)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
@@ -53405,8 +53650,11 @@ var render = function() {
             ]
           )
         ]
-      )
-    ]
+      ),
+      _vm._v(" "),
+      _c("payment-modal")
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -53445,7 +53693,12 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Price")]),
         _vm._v(" "),
-        _c("td", { staticClass: "text-danger" }, [_vm._v("x")])
+        _c("td", { staticClass: "text-danger" }, [
+          _c("i", {
+            staticClass: "fa fa-times",
+            attrs: { "aria-hidden": "true" }
+          })
+        ])
       ])
     ])
   },
@@ -53462,7 +53715,41 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { attrs: { colspan: "3" } }, [
-      _c("span", { staticClass: "h2" }, [_vm._v("Total:")])
+      _c("span", { staticClass: "h2", staticStyle: { "font-size": "15px" } }, [
+        _vm._v("Total:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "3" } }, [
+      _c("span", { staticClass: "h2", staticStyle: { "font-size": "12px" } }, [
+        _vm._v("Cash Tendered:")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "3" } }, [
+        _c(
+          "span",
+          { staticClass: "h2", staticStyle: { "font-size": "12px" } },
+          [_vm._v("Change")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("td", { staticClass: "text-right" }, [
+        _c(
+          "span",
+          { staticClass: "h2", staticStyle: { "font-size": "12px" } },
+          [_vm._v("₱0")]
+        )
+      ])
     ])
   },
   function() {
@@ -53782,6 +54069,356 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm.value == ""
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "form-control mb-2 text-center font-weight-bold text-uppercase",
+            staticStyle: { height: "70px", "font-size": "28px" }
+          },
+          [_vm._v("Enter Amount")]
+        )
+      : _c(
+          "span",
+          {
+            staticClass:
+              "form-control mb-2 text-center font-weight-bold text-uppercase",
+            staticStyle: { height: "70px", "font-size": "28px" }
+          },
+          [_vm._v(_vm._s(_vm._f("currency")(_vm.value)))]
+        ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row mb-2" },
+      [
+        _vm._l(_vm.getNumbers(1, 4), function(n, index) {
+          return _c("div", { key: index, staticClass: "col-lg-3" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-secondary btn-block py-3 font-weight-bold",
+                on: {
+                  click: function($event) {
+                    return _vm.type(n)
+                  }
+                }
+              },
+              [_vm._v("\n                " + _vm._s(n) + "\n            ")]
+            )
+          ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-3" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block py-3 font-weight-bold",
+              on: {
+                click: function($event) {
+                  return _vm.wholeAmount(20)
+                }
+              }
+            },
+            [_vm._v("20")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row mb-2" },
+      [
+        _vm._l(_vm.getNumbers(4, 7), function(n, index) {
+          return _c("div", { key: index, staticClass: "col-lg-3" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-secondary btn-block py-3 font-weight-bold",
+                on: {
+                  click: function($event) {
+                    return _vm.type(n)
+                  }
+                }
+              },
+              [_vm._v("\n                " + _vm._s(n) + "\n            ")]
+            )
+          ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-3" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block py-3 font-weight-bold",
+              on: {
+                click: function($event) {
+                  return _vm.wholeAmount(50)
+                }
+              }
+            },
+            [_vm._v("50")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row mb-2" },
+      [
+        _vm._l(_vm.getNumbers(7, 10), function(n, index) {
+          return _c("div", { key: index, staticClass: "col-lg-3" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-secondary btn-block py-3 font-weight-bold",
+                on: {
+                  click: function($event) {
+                    return _vm.type(n)
+                  }
+                }
+              },
+              [_vm._v("\n                " + _vm._s(n) + "\n            ")]
+            )
+          ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-3" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-block py-3 font-weight-bold",
+              on: {
+                click: function($event) {
+                  return _vm.wholeAmount(100)
+                }
+              }
+            },
+            [_vm._v("100")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary btn-block py-3 font-weight-bold",
+            on: {
+              click: function($event) {
+                return _vm.type("00")
+              }
+            }
+          },
+          [_vm._v("\n                00\n            ")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary btn-block py-3 font-weight-bold",
+            on: {
+              click: function($event) {
+                return _vm.type("0")
+              }
+            }
+          },
+          [_vm._v("\n                0\n            ")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary btn-block py-3 font-weight-bold",
+            on: {
+              click: function($event) {
+                return _vm.type(".")
+              }
+            }
+          },
+          [_vm._v("\n                .\n            ")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-block py-3 font-weight-bold",
+            on: {
+              click: function($event) {
+                return _vm.wholeAmount(500)
+              }
+            }
+          },
+          [_vm._v("500")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-2" }, [
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn bg-white btn-block py-3 font-weight-bold",
+            attrs: { title: "CLEAR" },
+            on: {
+              click: function($event) {
+                return _vm.removeLast()
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-backward",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticStyle: { "font-size": "10px" } }, [
+              _vm._v("Clear")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-warning btn-block py-3 font-weight-bold",
+            attrs: { title: "CLEAR ALL" },
+            on: {
+              click: function($event) {
+                return _vm.clear()
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-times",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticStyle: { "font-size": "10px" } }, [
+              _vm._v("Clear All")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger btn-block py-3 font-weight-bold",
+            attrs: { title: "CLEAR ALL" },
+            on: {
+              click: function($event) {
+                return _vm.closeModal()
+              }
+            }
+          },
+          [
+            _c("i", {
+              staticClass: "fa fa-arrow-up",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticStyle: { "font-size": "10px" } }, [
+              _vm._v("Back")
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-block py-3 font-weight-bold",
+            staticStyle: { height: "80px" },
+            on: {
+              click: function($event) {
+                return _vm.wholeAmount(1000)
+              }
+            }
+          },
+          [_vm._v("1000")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success btn-block font-weight-bold",
+            attrs: { title: "Enter" },
+            on: {
+              click: function($event) {
+                return _vm.returnValue()
+              }
+            }
+          },
+          [
+            _vm._v("\n                ENTER "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", { staticStyle: { "font-size": "10px" } }, [
+              _vm._v("Return")
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54816,6 +55453,69 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade ",
+      attrs: {
+        id: "paymentModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "modelTitleId",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "modal-dialog modal-dialog-centered modal-lg",
+          attrs: { role: "document" }
+        },
+        [
+          _c("div", { staticClass: "modal-content bg-dark p-4 " }, [
+            _c(
+              "div",
+              { staticClass: "modal-body" },
+              [
+                _c("keyboard", {
+                  on: {
+                    closeModal: function($event) {
+                      return _vm.closeModal()
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -91944,6 +92644,9 @@ var routes = [{
   path: '/customers',
   component: __webpack_require__(/*! ./components/customer/CustomerComponent.vue */ "./resources/js/components/customer/CustomerComponent.vue")["default"]
 }, {
+  path: '/keyboard',
+  component: __webpack_require__(/*! ./components/keyboard/NumberKeysComponent.vue */ "./resources/js/components/keyboard/NumberKeysComponent.vue")["default"]
+}, {
   path: '/receipt/:id',
   name: 'printReceipt',
   component: __webpack_require__(/*! ./components/PrintPreview.vue */ "./resources/js/components/PrintPreview.vue")["default"]
@@ -91960,7 +92663,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
 });
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.filter('currency', function (value) {
-  return '₱' + parseFloat(value).toFixed(2);
+  // return '₱' + parseFloat(value).toFixed(2);
+  // let val = (value/1).toFixed(2).replace(',', '.');
+  return '₱' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.filter('phone', function (phone) {
   return phone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
@@ -92985,6 +93690,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/keyboard/NumberKeysComponent.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/keyboard/NumberKeysComponent.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NumberKeysComponent.vue?vue&type=template&id=e7875fba& */ "./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba&");
+/* harmony import */ var _NumberKeysComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NumberKeysComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NumberKeysComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/keyboard/NumberKeysComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NumberKeysComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./NumberKeysComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NumberKeysComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./NumberKeysComponent.vue?vue&type=template&id=e7875fba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/keyboard/NumberKeysComponent.vue?vue&type=template&id=e7875fba&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NumberKeysComponent_vue_vue_type_template_id_e7875fba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/modal/BranchModal.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/modal/BranchModal.vue ***!
@@ -93187,6 +93961,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LaundryModal_vue_vue_type_template_id_89266546___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LaundryModal_vue_vue_type_template_id_89266546___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/modal/PaymentModal.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/modal/PaymentModal.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentModal.vue?vue&type=template&id=6d4fecd8& */ "./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8&");
+/* harmony import */ var _PaymentModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentModal.vue?vue&type=script&lang=js& */ "./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PaymentModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/modal/PaymentModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PaymentModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modal/PaymentModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PaymentModal.vue?vue&type=template&id=6d4fecd8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modal/PaymentModal.vue?vue&type=template&id=6d4fecd8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PaymentModal_vue_vue_type_template_id_6d4fecd8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

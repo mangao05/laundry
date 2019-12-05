@@ -34,14 +34,14 @@
                      <h6>278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</h6>
                      
                 </div>
-            <div style="height: 65vh; border-bottom: 1px solid black; overflow-y: auto;" class="mb-2">
+            <div style="height: 30vh; border-bottom: 1px solid black; overflow-y: auto;" class="mb-2">
                 <table class="table table-light table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Service</th>
                             <th>Unit/Qty</th>
                             <th>Price</th>
-                            <td class="text-danger">x</td>
+                            <td class="text-danger"> <i class="fa fa-times" aria-hidden="true"></i> </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,10 +65,26 @@
                 <tbody>
                     <tr>
                         <td colspan="3">
-                            <span class="h2">Total:</span>
+                            <span class="h2" style="font-size: 15px;">Total:</span>
                         </td>
                         <td class="text-right">
-                            <span class="h2">₱{{ subtotal | number('0,0') }}</span>
+                            <span class="h2" style="font-size: 15px;">₱{{ subtotal | number('0,0') }}</span>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td colspan="3">
+                            <span class="h2" style="font-size: 12px;">Cash Tendered:</span>
+                        </td>
+                        <td class="text-right">
+                            <span class="h2" style="font-size: 12px;">₱{{ amountRendered | number('0,0') }}</span>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td colspan="3">
+                            <span class="h2" style="font-size: 12px;">Change</span>
+                        </td>
+                        <td class="text-right">
+                            <span class="h2" style="font-size: 12px;">₱0</span>
                         </td>
                     </tr>
                    
@@ -157,13 +173,14 @@
             </div>
         </div>   
     </div>
+    <payment-modal></payment-modal>
 </div>
 
 </template>
 <script>
 import VueSimpleSuggest from 'vue-simple-suggest'
 import 'vue-simple-suggest/dist/styles.css' // Using a css-loader
-
+import PaymentModal from './modal/PaymentModal.vue';
 export default {
     data(){
         return {
@@ -185,7 +202,7 @@ export default {
             customer: 'POS Customer',
             selected : '',
             subtotal: '0.00',
-            amountRendered:'',
+            amountRendered:0,
             CashReceived:'0',
             change:'0',
             transaction_number: '0000',
@@ -197,7 +214,8 @@ export default {
         }
     },
     components: {
-      VueSimpleSuggest
+      VueSimpleSuggest,
+      'payment-modal' : PaymentModal
     },
     methods: {
         service(type = 'item', page){
@@ -277,19 +295,23 @@ export default {
             });
         },
         PrintTransaction() {
-
-            axios.post('/api/transactions/create/savetransaction', {
-                services: this.postServices,
-                transaction_number: this.transaction_number,
-                customer : this.selected
-            }).then(({data})=>{
-                this.postServices = [];
-                this.selected ='';
-                this.subtotal = 0;
-                
-                let routeData = this.$router.resolve({path: '/receipt/' + data.id});
-                window.open(routeData.href, '_blank');    
+            $("#paymentModal").modal({
+                backdrop: 'static',
+                keyboard: false
             });
+            this.amountRendered = 0;
+            // axios.post('/api/transactions/create/savetransaction', {
+            //     services: this.postServices,
+            //     transaction_number: this.transaction_number,
+            //     customer : this.selected
+            // }).then(({data})=>{
+            //     this.postServices = [];
+            //     this.selected ='';
+            //     this.subtotal = 0;
+                
+            //     let routeData = this.$router.resolve({path: '/receipt/' + data.id});
+            //     window.open(routeData.href, '_blank');    
+            // });
 
 
            
