@@ -28,7 +28,7 @@
 
             <div id="PrintTransaction">
                 <div class="text-center">
-                      <p class="h3 text-center"><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image"  style="margin-left:70px;"><span class="text-danger" style="text-decoration: underline;margin-right:75px;"> BULLSEYE</span></p>
+                      <p class="text-center"><img src="/image/bullesyeLogo.png" alt="Logo" width="30" style="margin-left:50px;"><span class="text-danger" style="text-decoration: underline;margin-right:75px;"> BULLSEYE</span></p>
                     <h4>Receipt #: {{ transaction_number }}</h4>
                     <h4> <i class="fas fa-user"></i> {{ customer }}</h4>
                      <h6>278 Ermin Garcia Ave, Quezon City, 1102 Metro Manila</h6>
