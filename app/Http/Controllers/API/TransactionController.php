@@ -170,7 +170,7 @@ class TransactionController extends Controller
             'customer_id' => (!isset($customer) ? $newCustomer->id : $customer->id),
             'mode' => 'pickup',
             'points_used' => 0,
-            'status' => 'ongoing'
+            'status' => 'for_PickUp'
         ]);
 
         $transactiondetails = $transaction->transaction_details()->create();

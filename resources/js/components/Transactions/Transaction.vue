@@ -57,13 +57,13 @@
               <div class="card-header">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" :class="(finishActive) ? 'active' : ''" @click = "transactionsType('finish')">Finish Transactions</a>
+                        <a class="nav-link" :class="(finishActive) ? 'active' : ''" @click = "transactionsType('all')">All </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link " :class="(voidActive) ? 'active' : ''" @click = "transactionsType('void')">Void Transactions</a>
+                        <a class="nav-link " :class="(voidActive) ? 'active' : ''" @click = "transactionsType('void')">For PickUp</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" :class="(cancelActive) ? 'active' : ''" @click = "transactionsType('cancel')">Cancelled Transactions</a>
+                        <a class="nav-link" :class="(cancelActive) ? 'active' : ''" @click = "transactionsType('cancel')">Delivered</a>
                     </li>
                 </ul>
               </div>
@@ -95,7 +95,7 @@
                     <tr v-else v-for = "(transaction, index) in transactions" :key = "transaction.id">
                       <td>{{ index + 1 }}</td>
                       <td>{{ "Laundry_"+transaction.transaction_number }}</td>
-                      <td class="text-capitalize">{{ transaction.customers.name }}</td>
+                      <td class="text-capitalize">{{ transaction.customers.Name }}</td>
                       <td>{{ transaction.mode }}</td>
                       <td>{{ (transaction.mode == 'Deliver') ? 'N/A' : transaction.pickup_date }}</td>
                       <td>{{ transaction.status }}</td>
@@ -127,7 +127,7 @@ export default {
             finishActive : false,
             voidActive: false,
             cancelActive : false,
-            type: 'finish',
+            type: 'all',
             transaction_number : '',
             transaction_details : {},
             transaction_customers : {},
@@ -145,7 +145,7 @@ export default {
     methods: {
         transactionsType(type){
             this.type = type
-            if(type == 'finish'){
+            if(type == 'all'){
                 this.cancelActive = false
                 this.voidActive = false
                 this.finishActive = true
@@ -157,12 +157,14 @@ export default {
                 this.cancelActive = true
                 this.voidActive = false
                 this.finishActive = false
-            }
+            } 
+
+           
             axios.get('api/transactionsDetails/type/'+ type).then(({data}) => {
                 this.transactions = data.data;
-                  this.loading = false
-                console.log(data.data);
-              
+                console.log(  this.transactions );
+                  this.loading = false 
+                 
             })
        
         },

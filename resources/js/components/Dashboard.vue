@@ -23,43 +23,37 @@
                    <div class="col-md-7">
                          <label for="">Dashboard</label>
                         <div class="row pt-3" >  
-                            <div class="col-md-6">
-                                <div class="info-box p-0  " style="height:90px;" >
-                                    <span class="info-box-icon  p-2"><img src="image/pending.png"  alt="" srcset=""></span>
-                                    <div class="info-box-content m-2">
-                                        <span class="info-box-text">Pending</span>
-                                        <span class="info-box-number">{{ pending }}</span>
+                            <div class="col-md-12 text-center">
+                                <div class="info-box p-0  " style="height:130px;" >
+                                
+                                    <div class="info-box-content">
+                                        <span class="info-box-text mt-4 "  style="font-family: 'Anton', sans-serif; font-size:30px;">Total Customer's</span>
+                                        <span class="info-box-number h2">{{  all }}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                     <div class="info-box p-0 " style="height:90px;" >
-                                        <span class="info-box-icon   p-2"><img src="image/iron.png"  alt="" srcset=""></span>
-                                        <div class="info-box-content m-2">
-                                            <span class="info-box-text">Finish</span>
-                                            <span class="info-box-number">{{ finish }}</span>
-                                        </div>
-                                    </div>
-                            </div>
+                          
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="info-box p-0  " style="height:90px;">
-                                    <span class="info-box-icon   p-2"><img src="image/cancelled.png" alt="" srcset=""></span>
+                                    <span class="info-box-icon   p-2"><img src="image/void.png" alt="" srcset=""></span>
                                     <div class="info-box-content m-2">
-                                        <span class="info-box-text">Cancelled</span>
-                                        <span class="info-box-number">{{ cancelled }}</span>
+                                        <span class="info-box-text">For Pick-up</span>
+                                        <span class="info-box-number">{{ forPickUp }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-box p-0  " style="height:90px;">
-                                    <span class="info-box-icon   p-2"><img src="image/void.png" alt="" srcset=""></span>
+                                 <div class="info-box p-0  " style="height:90px;">
+                                    <span class="info-box-icon   p-2"><img src="image/iron.png"  alt="" srcset=""></span>
                                     <div class="info-box-content m-2">
-                                        <span class="info-box-text">Void</span>
-                                        <span class="info-box-number">{{ Statusvoid }}</span>
+                                         <span class="info-box-text">Picked Up</span>
+                                        <span class="info-box-number">{{ finish }}</span>
                                     </div>
                                 </div>
+
+                                
                             </div>
                         </div>
                    </div>
@@ -101,10 +95,9 @@
                         }
                     }]
                 },
-                pending:0,
+                forPickUp:0,
                 finish:0,
-                cancelled:0,
-                Statusvoid:0,
+                all:0,
                 user_Name:'',
                 
             }
@@ -112,10 +105,9 @@
         methods:{
            status(){
                axios.get('api/dashboardstatus').then(({data}) => {
-                    this.pending = data.on_going;
+                    this.forPickUp = data.for_PickUp;
                     this.finish = data.finish;
-                    this.cancelled = data.cancelled;
-                    this.Statusvoid = data.void;
+                    this.all = data.all;
                   
                 })
            },

@@ -98,20 +98,22 @@ class TransactionDetailsController extends Controller
     }
 
     public function transactionType($type){
-        return Transaction::with('customers')->where('status', $type)->latest()->paginate(10);
-        
+        if($type =='all'){
+            return Transaction::with('customers')->paginate(10);
+        }else{
+            return Transaction::with('customers')->where('status', $type)->latest()->paginate(10);
+        }
+       
     }
 
     public function dashboardStatus(){
-        $void =  Transaction::where('status', 'void')->count();
-        $onGoing =  Transaction::where('status', 'on_going')->count();
+        $all = Transaction::all()->count();
+        $for_PickUp =  Transaction::where('status', 'for_PickUp')->count();
         $finish =  Transaction::where('status', 'finish')->count();
-        $cancelled =  Transaction::where('status', 'cancel')->count();
         return response()->json([
-            'void' => $void,
-            'on_going' => $onGoing,
+            'all' => $all,
+            'for_PickUp' => $for_PickUp,
             'finish' => $finish,
-            'cancelled'=> $cancelled
         ]);
     }
 

@@ -3,7 +3,7 @@
         <!-- <input type="text" class="form-control " v-model="value" placeholder="amount" /> -->
         <span v-if="value == ''" class="form-control mb-2 text-center font-weight-bold text-uppercase" style="height: 70px; font-size: 28px;">Enter Amount</span>
          <span v-else class="form-control mb-2 text-center font-weight-bold text-uppercase" style="height: 70px; font-size: 28px;">{{ value | currency }}</span>
-        <!-- Output 7 - 9 numbers -->
+        <!-- Output  1-3 numbers -->
         <div class="row mb-2">
             <div class="col-lg-3" v-for="(n, index) in getNumbers(1,4)" :key="index">
                 <button class="btn btn-secondary btn-block py-3 font-weight-bold"   @click="type(n)">
@@ -25,7 +25,7 @@
                 <button class="btn btn-primary btn-block py-3 font-weight-bold" @click="wholeAmount(50)">50</button>
             </div>   
         </div>
-        <!-- Output 1-3 numbers-->
+        <!-- Output 7 - 9 numbers-->
         <div class="row mb-2">
           <div class="col-lg-3" v-for="(n, index) in getNumbers(7,10)" :key="index">
                 <button class="btn btn-secondary btn-block py-3 font-weight-bold"   @click="type(n)">

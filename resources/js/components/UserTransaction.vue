@@ -150,26 +150,37 @@
  
   
 
-    <div class="modal fade" id="enterQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="enterQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ service_name }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="quantity" class="col-form-label">Quantity/Kilo</label>
-                    <input type="number" class="form-control" id="quantity" v-model="quantity"   :class="(error) ? 'border-danger' : ''">
-                    <span class="text-danger" v-show="error" >Please input Correct Quantity</span>
+            <div class="modal-content productModal" >
+                <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ service_name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- <label for="quantity" class="col-form-label">Quantity/Kilo</label>
+                        <input type="number" class="form-control" id="quantity" v-model="quantity"   :class="(error) ? 'border-danger' : ''">
+                        <span class="text-danger" v-show="error" >Please input Correct Quantity</span> -->
+                        <div class="card">
+                            <img class="card-img-top" src="holder.js/100x180/" alt="">
+                            <div class="card-body">
+                                    Enter Quantity/Kilo
+                            </div>
+                        </div>
+                        <div class="row " >
+                           
+                      
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="storeService()">Submit</button>
-            </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="storeService()">Submit</button>
+                </div> -->
             </div>
         </div>   
     </div>
@@ -373,6 +384,8 @@ export default {
        letter-spacing: 2px !important;
        border: 2px solid green;
        text-transform: uppercase;
-    
+   }
+   .productModal{
+       max-height: 1000px !important;
    }
 </style>
