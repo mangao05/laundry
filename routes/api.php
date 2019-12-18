@@ -44,12 +44,12 @@ Route::get('transaction/number/{number}', 'API\TransactionController@transaction
 Route::get('fetchBranch','API\TransactionController@fetch_branch');
 Route::get('transactionDetails/remove/{id}', 'API\TransactionDetailsController@removeITem');
 Route::get('transactionsDetails/type/{type}', 'API\TransactionDetailsController@transactionType');
+Route::get('gettingDate/{date}/{type}','API\TransactionDetailsController@gettingdate');
 Route::get('dashboardstatus', 'API\TransactionDetailsController@dashboardStatus');
+Route::get('sales','API\TransactionDetailsController@Sale');
 Route::get('loginDetail','API\UserManagementController@username');
 Route::get('fetchtransaction/receipt/{id}', 'API\TransactionController@showReceipt');
-
 Route::get('alltransaction/{id}', 'API\TransactionController@getTransactions');
-
 Route::post('transactions/create/savetransaction', 'API\TransactionController@saveTransaction');
 
 

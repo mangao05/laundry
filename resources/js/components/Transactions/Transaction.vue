@@ -10,7 +10,48 @@
 
 
 <template>
+    
     <div class="row">
+        
+        <div class="col-8 mt-2">
+            <div class="card" style="height:270px;" >
+                <div class="card-title text-center bg-dark">
+                   <span style="font-size:30px;" >Total Sale</span>
+                </div>
+                <div class="card-body mt-4">
+                    <div class="row text-center">
+                         <div class="col-6 mt-3" style="line-height:20px;" >
+                               <span style="font-size:80px; font-weight:bold;" >{{ state.date | moment("DD")}}</span>
+                               <br>
+                               <span>{{ state.date | moment("MMMM")}}</span>
+                                <input  id="currentDate"  type="hidden" :value="state.date | moment('DD/MM/YYYY')">
+                    
+                        </div>
+                        <div class="col-6 " style="border-left:2px solid black;">
+                                <span v-if="loading" > <Gauge class="mt-4 mx-auto "></Gauge></span>
+                                <span v-else style="font-size:45px; font-weight:bold;">{{  totalClient  }}</span>
+                        </div>  
+                    </div>  
+                </div>
+                  <div class="card-footer bg-transparent border-dark">
+                      <div class="row text-center" style="font-weight:bold;">
+                          <div class="col-6 ">
+                             <span > Date</span>
+                          </div>
+                          <div class="col-6">
+                              Total  Laundry 
+                          </div>
+                      </div>
+                  </div>
+            </div>
+        </div>
+         <div class="col-4 mb-4">
+             <div class=" px-5 ">
+                   <datepicker v-model="state.date"  @input="selectedDate()" calendar-class="w-100  border-danger rounded-lg " :inline="true" ></datepicker>
+             </div>
+         
+        </div>
+
           <div class="col-12">
             <div class="card">
               <div class="card-header">
@@ -43,7 +84,15 @@
                     <tr v-show = "transactions.length == 0">
                         <td colspan="7" class="text-center font-weight-bold" > <i> No Record Yet...</i></td>
                     </tr>
-                    <tr v-for = "(transaction, index) in transactions" :key = "transaction.id">
+
+                    <tr v-if="loading" >
+                        <td colspan="7" > 
+                            <HourGlass style="margin-left:500px;"></HourGlass>
+                           
+                        </td>
+                    </tr>
+
+                    <tr v-else v-for = "(transaction, index) in transactions" :key = "transaction.id">
                       <td>{{ index + 1 }}</td>
                       <td>{{ "Laundry_"+transaction.transaction_number }}</td>
                       <td class="text-capitalize">{{ transaction.customers.name }}</td>
@@ -63,9 +112,17 @@
         </div>
 </template>
 <script>
+import moment from 'moment';
+import {HourGlass,Gauge} from 'vue-loading-spinner';
+
 export default {
+      components: {
+      HourGlass,
+      Gauge
+    },
     data(){
         return {
+            loading: true,
             transactions : {},
             finishActive : false,
             voidActive: false,
@@ -76,6 +133,13 @@ export default {
             transaction_customers : {},
             subtotal : '',
             customer_points : {},
+            state:{
+                date: new Date()
+                },
+            currentdate:0,
+            totalClient:0,
+      
+           
         }
     },
     methods: {
@@ -88,14 +152,29 @@ export default {
             }else if(type == 'void'){
                 this.finishActive = false
                 this.voidActive = true
+                this.cancelActive = false
             }else{
                 this.cancelActive = true
                 this.voidActive = false
                 this.finishActive = false
             }
             axios.get('api/transactionsDetails/type/'+ type).then(({data}) => {
-                this.transactions = data.data
+                this.transactions = data.data;
+                  this.loading = false
+                console.log(data.data);
+              
             })
+       
+        },
+        selectedDate(){
+             var date = moment(this.state.date).format('YYYY-MM-DD');
+             axios.get('api/gettingDate/'+ date +'/'+ this.type).then(({data}) => {
+                 this.totalClient = data.total
+                 this.transactions = data.data
+                 this.loading = false
+                 console.log(data.total)     
+            })
+            
         },
 
         viewReceipt(id){
