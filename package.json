@@ -42,20 +42,11 @@
         "vue-loading-spinner": "^1.0.11",
         "vue-material": "^1.0.0-beta-11",
         "vue-moment": "^4.0.0",
-<<<<<<< HEAD
-        "vue-phone-number-input": "^0.2.7",
-        "vue-print-nb": "^1.3.0",
-        "vue-router": "^3.0.6",
-        "vue-select": "^3.1.0",
-        "vue-simple-suggest": "^1.10.1",
-        "vue-sweetalert2": "^2.1.0",
-=======
         "vue-phone-number-input": "^0.2.8",
         "vue-print-nb": "^1.4.0",
         "vue-router": "^3.1.3",
         "vue-select": "^3.4.0",
         "vue-sweetalert2": "^2.1.5",
->>>>>>> TransactionFilters
         "vue-toastr": "^2.1.2",
         "vue-vanilla-datetime-picker": "^1.1.15",
         "vue2-filters": "^0.8.0",
