@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transaction;
 use App\TransactionItem;
-
+use DB;
+use Carbon\Carbon;
 class TransactionDetailsController extends Controller
 {
     /**
@@ -98,6 +99,7 @@ class TransactionDetailsController extends Controller
 
     public function transactionType($type){
         return Transaction::with('customers')->where('status', $type)->latest()->paginate(10);
+        
     }
 
     public function dashboardStatus(){
@@ -111,5 +113,32 @@ class TransactionDetailsController extends Controller
             'finish' => $finish,
             'cancelled'=> $cancelled
         ]);
+    }
+
+    public function Sale(){
+        // Carbon
+    
+
+        $data = Transaction::select('created_at')
+        ->get()
+        ->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->isoFormat('MMMM');
+        })->map(function($rows){
+            return [
+                'count' => $rows->count()
+            ];
+        });
+        // $data =
+        return  $data;
+             
+        
+    }
+    public function gettingdate($date,$type) {
+        $getDate = Transaction::with('customers')
+        ->where('created_at', 'LIKE', '%' . $date . '%')
+        ->where('status', $type)
+        ->latest()
+        ->paginate(10);
+        return $getDate;
     }
 }

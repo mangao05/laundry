@@ -1,6 +1,7 @@
 <style scoped>
    @import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
    @import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
+
    </style>
 <template>
     <div class="container-fluid">
@@ -17,11 +18,11 @@
                       
                    </div>
                </div>
-               <div class="row">
+               <div class="row " >
                    
                    <div class="col-md-7">
                          <label for="">Dashboard</label>
-                        <div class="row">  
+                        <div class="row pt-3" >  
                             <div class="col-md-6">
                                 <div class="info-box p-0  " style="height:90px;" >
                                     <span class="info-box-icon  p-2"><img src="image/pending.png"  alt="" srcset=""></span>
@@ -62,10 +63,10 @@
                             </div>
                         </div>
                    </div>
-                   <div class="col-md-4 ">
-                       <label for="">Daily Sales</label>
-                        <div id="chart">
-                            <apexchart type=donut width=380 :options="chartOptions" :series="series" />
+                   <div class="col-md-4">
+                       <label for="">Montly Sales</label>
+                        <div id="chart" >
+                            <apexchart type=donut width='450' :options="chartOptions" :series="series" />
                         </div>
                    </div>
                </div>
@@ -83,22 +84,22 @@
         data(){
         Vue.prototype.$usertype = document.querySelector("meta[name='user_type']").getAttribute('content')
             return {
-             series: [1,2,3,4,5,6,7],
+                series: [],
                 chartOptions: {
-                labels: ['Monday','Tuesday','Wenesday','Thursday','Friday','Satruday','Sunday'],
-                colors: ['#08F7FE','#09FBD3','#FE53BB','#FFACFC','#75D5FD','#A3D8F3','#35212A',],
-                responsive: [{
-                    breakpoint: 10,
-                    options: {
-                   
-                    chart: {
-                        width: 10
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                    }
-                }]
+                    labels: [],
+                    colors: ['#08F7FE','#09FBD3','#FE53BB','#FFACFC','#75D5FD','#A3D8F3','#35212A','#193697','#549F9E','#9CC49D','#D8D99D','#E0A569'],
+                    responsive: [{
+                        breakpoint: 10,
+                        options: {
+                    
+                        chart: {
+                            width: 10
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                        }
+                    }]
                 },
                 pending:0,
                 finish:0,
@@ -115,6 +116,17 @@
                     this.finish = data.finish;
                     this.cancelled = data.cancelled;
                     this.Statusvoid = data.void;
+                  
+                })
+           },
+           montlySale(){
+                axios.get('api/sales').then(({data}) => {
+                    var arrayData = Object.entries(data);
+                    arrayData.forEach(element => {
+                        this.chartOptions.labels.push(element[0]);
+                        this.series.push(element[1].count);  
+                    });
+                   
                 })
            },
            userName(){
@@ -127,6 +139,7 @@
         mounted() {
               this.status();
             this.userName();
+            this.montlySale();
             if(this.$usertype == 'staff'){
                 this.$router.push('/usertransaction');
             }

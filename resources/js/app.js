@@ -25,6 +25,8 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import UserTransaction from './components/UserTransaction.vue';
 import Vue2Filters from 'vue2-filters'
 import VueToastr from "vue-toastr";
+import Datepicker from 'vuejs-datepicker';
+
 // Start Modal 
 
 import UserModal from './components/modal/UserModal';
@@ -82,6 +84,8 @@ Vue.component('RoleModal',RoleModal);
 Vue.component('BranchModal',BranchModal);
 Vue.component('receipt-modal',ReceiptModal);
 Vue.component('review-modal', ReviewModal);
+Vue.component('datepicker',Datepicker);
+
 Vue.component(
   'passport-clients',
   require('./components/passport/Clients.vue').default
@@ -99,6 +103,7 @@ Vue.component(
 
 // End of Components
 let routes = [
+  { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/user', component: require('./components/User.vue').default },
     { path: '/home', component: require('./components/Dashboard.vue').default },
     { path: '/addservice', component: require('./components/AddService.vue').default },
