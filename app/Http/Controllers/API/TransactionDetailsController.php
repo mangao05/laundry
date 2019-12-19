@@ -118,9 +118,7 @@ class TransactionDetailsController extends Controller
     }
 
     public function Sale(){
-        // Carbon
-    
-
+        
         $data = Transaction::select('created_at')
         ->get()
         ->groupBy(function($date) {
@@ -136,11 +134,19 @@ class TransactionDetailsController extends Controller
         
     }
     public function gettingdate($date,$type) {
-        $getDate = Transaction::with('customers')
-        ->where('created_at', 'LIKE', '%' . $date . '%')
-        ->where('status', $type)
-        ->latest()
-        ->paginate(10);
+        if($type == 'all'){
+            $getDate = Transaction::with('customers')
+            ->where('created_at', 'LIKE', '%' . $date . '%')
+            ->latest()
+            ->paginate(10);
+        }else{
+            $getDate = Transaction::with('customers')
+            ->where('status', $type)
+            ->where('created_at', 'LIKE', '%' . $date . '%')
+            ->latest()
+            ->paginate(10);
+        }
+        
         return $getDate;
     }
 }

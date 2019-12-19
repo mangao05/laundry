@@ -27,7 +27,7 @@
                                 <div class="info-box p-0  " style="height:130px;" >
                                 
                                     <div class="info-box-content">
-                                        <span class="info-box-text mt-4 "  style="font-family: 'Anton', sans-serif; font-size:30px;">Total Customer's</span>
+                                        <span class="info-box-text mt-4 "  style="font-family: 'Anton', sans-serif; font-size:30px;">Total Transaction's</span>
                                         <span class="info-box-number h2">{{  all }}</span>
                                     </div>
                                 </div>

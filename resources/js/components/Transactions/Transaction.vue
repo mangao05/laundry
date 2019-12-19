@@ -60,10 +60,10 @@
                         <a class="nav-link" :class="(finishActive) ? 'active' : ''" @click = "transactionsType('all')">All </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link " :class="(voidActive) ? 'active' : ''" @click = "transactionsType('void')">For PickUp</a>
+                        <a class="nav-link " :class="(for_PickUpActive) ? 'active' : ''" @click = "transactionsType('for_PickUp')">For PickUp</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" :class="(cancelActive) ? 'active' : ''" @click = "transactionsType('cancel')">Delivered</a>
+                        <a class="nav-link" :class="(deliveredActive) ? 'active' : ''" @click = "transactionsType('delivered')">Delivered</a>
                     </li>
                 </ul>
               </div>
@@ -125,8 +125,8 @@ export default {
             loading: true,
             transactions : {},
             finishActive : false,
-            voidActive: false,
-            cancelActive : false,
+            for_PickUpActive: false,
+            deliveredActive : false,
             type: 'all',
             transaction_number : '',
             transaction_details : {},
@@ -146,23 +146,23 @@ export default {
         transactionsType(type){
             this.type = type
             if(type == 'all'){
-                this.cancelActive = false
-                this.voidActive = false
+                this.deliveredActive = false
+                this.for_PickUpActive = false
                 this.finishActive = true
-            }else if(type == 'void'){
+            }else if(type == 'for_PickUp'){
                 this.finishActive = false
-                this.voidActive = true
-                this.cancelActive = false
+                this.for_PickUpActive = true
+                this.deliveredActive = false
             }else{
-                this.cancelActive = true
-                this.voidActive = false
+                this.deliveredActive = true
+                this.for_PickUpActive = false
                 this.finishActive = false
             } 
 
            
             axios.get('api/transactionsDetails/type/'+ type).then(({data}) => {
                 this.transactions = data.data;
-                console.log(  this.transactions );
+                // console.log(this.transactions);
                   this.loading = false 
                  
             })
@@ -170,11 +170,13 @@ export default {
         },
         selectedDate(){
              var date = moment(this.state.date).format('YYYY-MM-DD');
+             console.log(date+''+this.type);
              axios.get('api/gettingDate/'+ date +'/'+ this.type).then(({data}) => {
                  this.totalClient = data.total
                  this.transactions = data.data
+                
                  this.loading = false
-                 console.log(data.total)     
+                //  console.log(data.total)     
             })
             
         },

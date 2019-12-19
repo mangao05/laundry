@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h3 class="card-title">User Role</h3>
+      <h3 class="card-title">Branch Management</h3>
 
            <span  @click="openbranchmodal()"   class="badge badge-success p-2 m-2 ml-auto float-right" style="font-size:20px;">
                   <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Branch

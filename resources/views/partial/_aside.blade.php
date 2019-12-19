@@ -42,7 +42,7 @@
             <li class="nav-item">
                 <router-link to="/user" class="nav-link">
               
-                    <i class="fa fa-users" aria-hidden="true" style="color:#669DB2"></i>
+                    <i class="fa fa-user-plus nav-icon  text-white" aria-hidden="true" ></i>
                     <p class=" text-bold">
                             <label for="" class="text-white">  User Information</label> 
                     </p>
@@ -52,7 +52,7 @@
            
               <li class="nav-item">
                 <router-link to="/role" class="nav-link">
-                  <i class="fa fa-users" aria-hidden="true" style="color:#669DB2"></i>
+                  <i class="fa fa-user-tag nav-icon  text-white" aria-hidden="true" ></i>
                     <p class=" text-bold">
                             <label for="" class="text-white">  User Role</label> 
                       
@@ -62,7 +62,7 @@
 
               <li class="nav-item">
                 <router-link to="/branch" class="nav-link">
-                   <i class="fas fa-store-alt " style="color:#669DB2"></i>
+                   <i class="fas fa-store-alt nav-icon  text-white " ></i>
                     <p class=" text-bold">
                             <label for="" class="text-white"> Branch</label> 
                     </p>
@@ -104,25 +104,26 @@
         </li>
           
         <li class="nav-item">
-            <router-link to="/transaction" class="nav-link">
-                <i class="fa fa-sticky-note nav-icon text-white" aria-hidden="true" ></i>
-            {{-- <i class="fas fa-tshirt  nav-icon" ></i> --}}
-                <p class=" text-bold">
-                        <label for="" class="text-white">  Transaction</label> 
-                  
-                </p>
-            </router-link>
-        </li>
+          <router-link to="/transaction" class="nav-link">
+              <i class="fa fa-sticky-note nav-icon text-white" aria-hidden="true" ></i>
+          {{-- <i class="fas fa-tshirt  nav-icon" ></i> --}}
+              <p class=" text-bold">
+                      <label for="" class="text-white">  Transaction</label> 
+                
+              </p>
+          </router-link>
+      </li>
       @else
-          <li class="nav-item">
-              <router-link to="/laundry" class="nav-link">
-              <i class="fas fa-tshirt  nav-icon"></i>
-                  <p class=" text-bold">
-                  Transactions
-                  </p>
-              </router-link>
-          </li>
+      <li class="nav-item">
+        <router-link to="/newlaundry" class="nav-link">
+          <i class="fas fa-tshirt nav-icon text-white"   aria-hidden="true" style="color:#669DB2"></i>
+            <p class=" text-bold text-white">
+                   Laundry
+            </p>
+        </router-link>
+      </li>
       @endif
+
 
         </ul>
       </nav>
