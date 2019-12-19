@@ -23,13 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->user_type != 'Administrator')
-        {
-            return view('welcome');
-        }
-        else
-        {
-            return view('home');
-        }
+        return view('home');
     }
 }
