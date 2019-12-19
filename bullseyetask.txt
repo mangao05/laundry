@@ -1,0 +1,45 @@
+Task 
+
+USER
+Fix User Module not working
+
+
+USER ROLE
+
+Activate/Deactivate 
+Remove option of select job role 
+Change placeholder to Role Name
+
+
+BRANCH
+
+Branch Deactivate and Activate
+Form => Name(nullable), Code(nullable), Address
+Search field
+Pagination
+
+SERVICES 
+
+Search, Pagination
+Image nullable/Default 
+Change services label to name
+Radio button => services or item
+Change type to dry clean and assorted clothes
+
+
+CUSTOMERS 
+
+Select Branch for Customer (nullable)
+Pagination and Search
+
+LAUNDRY
+
+Option Services or Items
+if services -> pick if dry or assorted
+
+TRANSACTION
+
+Search Field
+
+
+Create TRASH MODULE
