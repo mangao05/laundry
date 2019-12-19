@@ -168,6 +168,8 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
             'transaction_number' => $request->transaction_number,
             'customer_id' => (!isset($customer) ? $newCustomer->id : $customer->id),
+            'changed' => $request->change,
+            'amountRendered' => $request->amountRendered,
             'mode' => 'pickup',
             'points_used' => 0,
             'status' => 'for_PickUp'

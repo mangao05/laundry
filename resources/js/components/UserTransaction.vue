@@ -3,18 +3,6 @@
 
     <div class="row">
         <div class="col-lg-4 " style="border-right: 1px solid black; ">
-                <!-- <v-select
-                    v-model = "selected"
-                    label="name"
-                    :options="customers"
-                    item-text = "name"
-                    item-value = "_id"
-                    required
-                    placeholder= "Select Customer"
-                    @input="customer = selected.name"
-                >
-                </v-select> -->
-
                 <vue-simple-suggest
                     v-model="selected"
                     :list="customers"
@@ -76,7 +64,7 @@
                             <span class="h2" style="font-size: 12px;">Cash Tendered:</span>
                         </td>
                         <td class="text-right">
-                            <span class="h2" style="font-size: 12px;">₱{{ amountRendered | number('0,0') }}</span>
+                            <span class="h2" style="font-size: 12px;">{{ amountRendered | currency }}</span>
                         </td>
                     </tr>
                      <tr>
@@ -84,7 +72,7 @@
                             <span class="h2" style="font-size: 12px;">Change</span>
                         </td>
                         <td class="text-right">
-                            <span class="h2" style="font-size: 12px;">₱0</span>
+                            <span class="h2" style="font-size: 12px;">{{ change | currency }}</span>
                         </td>
                     </tr>
                    
@@ -92,9 +80,12 @@
             </table>
             </div>
             <div>
-                 <button id="payBtn" class="btn btn-success btn-block"  @click="PrintTransaction"><i class="fas fa-save  nav-icon  "></i>
-                        Save Transaction
-                  </button>
+                <button class="btn btn-info btn-block" @click="PrintTransaction" >
+                    Pay Now
+                </button>
+                <button id="payBtn" class="btn btn-success btn-block" @click="saveTransaction()" :disabled="isDisabled" ><i class="fas fa-save  nav-icon  "></i>
+                    Save Transaction
+                </button>
             </div>
             <!-- End COlumn -->
         </div>
@@ -148,43 +139,16 @@
         </div>          
     </div>
  
-  
-
-    <div class="modal fade" id="enterQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog" role="document">
-            <div class="modal-content productModal" >
-                <!-- <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ service_name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div> -->
+    <div class="modal fade " id="enterQuantity" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-dark p-4 ">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <!-- <label for="quantity" class="col-form-label">Quantity/Kilo</label>
-                        <input type="number" class="form-control" id="quantity" v-model="quantity"   :class="(error) ? 'border-danger' : ''">
-                        <span class="text-danger" v-show="error" >Please input Correct Quantity</span> -->
-                        <div class="card">
-                            <img class="card-img-top" src="holder.js/100x180/" alt="">
-                            <div class="card-body">
-                                    Enter Quantity/Kilo
-                            </div>
-                        </div>
-                        <div class="row " >
-                           
-                      
-                        </div>
-
-                    </div>
+                   <num-key @closeModal="closeModal()"  :options="numberOptions"></num-key>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="storeService()">Submit</button>
-                </div> -->
             </div>
-        </div>   
+        </div>
     </div>
-    <payment-modal></payment-modal>
+    <payment-modal :subtotal="subtotal"></payment-modal>
 </div>
 
 </template>
@@ -192,6 +156,7 @@
 import VueSimpleSuggest from 'vue-simple-suggest'
 import 'vue-simple-suggest/dist/styles.css' // Using a css-loader
 import PaymentModal from './modal/PaymentModal.vue';
+import NumKeyComponent from './keyboard/NumberKeysComponent.vue';
 export default {
     data(){
         return {
@@ -201,6 +166,10 @@ export default {
                 defaultInput : "form-control text-center font-weight-bold text-uppercase border border-info",
                 suggestions: "position-absolute list-group z-1000 w-100 text-center",
                 suggestItem: "list-group-item"
+            },
+            numberOptions: {
+                number_only : true,
+                label : 'Enter Qty/Kg'
             },
             services : {},
             service_name: 'Service',
@@ -220,15 +189,26 @@ export default {
             page: 2,
             serviceType : 'item',
             pageCount: 0,
-            error:false
+            error:false,
+            isDisabled: true
 
         }
     },
     components: {
       VueSimpleSuggest,
-      'payment-modal' : PaymentModal
+      'payment-modal' : PaymentModal,
+      'num-key' : NumKeyComponent
     },
     methods: {
+        closeModal(){
+            this.isDisabled = true;
+            $('#enterQuantity').modal('hide');    
+        },
+        returnAmount(value){
+            $("#enterQuantity").modal('hide');
+            this.quantity = value;
+            this.storeService();
+        },
         service(type = 'item', page){
             if(type == 'item'){
                 this.dryActive = true;
@@ -265,8 +245,13 @@ export default {
             this.service_name = service;
             this.service_id = id;
             this.service_price = price;
-            $("#enterQuantity").modal('show');
+            $("#enterQuantity").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
             
+            this.amountRendered = 0;
+            this.change = 0;
         },
         storeService(){     
            if(this.quantity <= 0){
@@ -283,7 +268,7 @@ export default {
                 $("#enterQuantity").modal('hide');
 
                 this.postServices.forEach(details => {
-                    total.push(details.price * details.quantity)
+                    total.push(details.price)
                     
                     document.getElementById('payBtn').removeAttribute("disabled");
                 });
@@ -291,9 +276,6 @@ export default {
                 this.subtotal =  total.reduce(function(total, num){ 
                     return total + num 
                 }, 0);
-
-                console.log(this.subtotal);
-
            }
             
         },
@@ -306,29 +288,40 @@ export default {
             });
         },
         PrintTransaction() {
-            $("#paymentModal").modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            if(this.postServices.length < 1){
+                this.$toastr.e("Please pick services first.", "Empty");
+            }else{
+                $("#paymentModal").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+            }
+            
             this.amountRendered = 0;
-            // axios.post('/api/transactions/create/savetransaction', {
-            //     services: this.postServices,
-            //     transaction_number: this.transaction_number,
-            //     customer : this.selected
-            // }).then(({data})=>{
-            //     this.postServices = [];
-            //     this.selected ='';
-            //     this.subtotal = 0;
+            this.change = 0;
+        },
+        saveTransaction(){
+            if(this.amountRendered < 1){
+                this.$toastr.e("Please put payment first!", "Empty Payment");
+                return;
+            }
+            
+            axios.post('/api/transactions/create/savetransaction', {
+                services: this.postServices,
+                transaction_number: this.transaction_number,
+                customer : this.selected,
+                amountRendered: this.amountRendered,
+                change: this.change
+            }).then(({data})=>{
+                this.postServices = [];
+                this.selected ='';
+                this.subtotal = 0;
                 
-            //     let routeData = this.$router.resolve({path: '/receipt/' + data.id});
-            //     window.open(routeData.href, '_blank');    
-            // });
+                let routeData = this.$router.resolve({path: '/receipt/' + data.id});
+                window.open(routeData.href, '_blank');    
+                
+            });
 
-
-           
-            // this.$htmlToPaper('PrintTransaction', () => {
-           
-            // });
         },
         removeItem(index){
             var total = [];

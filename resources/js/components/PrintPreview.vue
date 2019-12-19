@@ -28,7 +28,15 @@
                             <tfoot class="font-weight-bold">
                                 <tr>
                                     <td colspan="2">Total:</td>
-                                    <td>₱{{ total }}</td>
+                                    <td>{{ total | currency}}</td>
+                                </tr>
+                                <tr v-show="receiptDetails.amountRendered">
+                                    <td colspan="2">Cash Tender:</td>
+                                    <td>{{ receiptDetails.amountRendered | currency}}</td>
+                                </tr>
+                                <tr v-show="receiptDetails.changed">
+                                    <td colspan="2">Changed:</td>
+                                    <td>{{ receiptDetails.changed | currency}}</td>
                                 </tr>
                             </tfoot>
                         </table>
