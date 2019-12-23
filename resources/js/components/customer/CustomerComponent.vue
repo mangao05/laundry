@@ -1,6 +1,7 @@
 <template>
     <div class="card">
               <div class="card-header">
+                <search :options="searchOptions" @searchSuccess="search"></search>
                 <h3 class="card-title">Customer Management</h3>
                 <div class="card-tools">
                   <button class="btn btn-success rounded-0" @click="addCustomerModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Customer</button>
@@ -54,10 +55,17 @@ export default {
     data(){
        
         return {
-            customers: {}
+            customers: {},
+            searchOptions : {
+              table : 'customers',
+              column : 'name'
+            }
         }
     },
     methods : {
+        search(e){
+          this.customers = e;
+        },
         addCustomerModal(){
             this.$refs.customerModal.$data.editMode = false;
             this.$refs.customerModal.$data.customerDetails.cname = '';

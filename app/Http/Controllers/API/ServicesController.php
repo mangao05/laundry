@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service;
 use App\Transaction;
+use DB;
 
 class ServicesController extends Controller
 {
@@ -136,4 +137,13 @@ class ServicesController extends Controller
         return Service::find($id);
     }
     
+    public function search(Request $request){
+        $table =  $request->table;
+        $search = $request->search;
+        $column = $request->column;
+        return DB::table($table)
+                    ->select('*')
+                    ->where($column, 'like', '%'. $search .'%')
+                    ->get();
+    }
 }

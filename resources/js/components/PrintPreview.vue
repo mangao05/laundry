@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 bg-white p-2" style="box-shadow: 0px 0px 3px black;">
-                <div id="receiptContainer">
-                    <div class="header text-center font-weight-bold pb-2" style="border-bottom: 2px dotted black; letter-spacing: 1px;">
+                <div id="receiptContainer" >
+                    <div class="header text-center font-weight-bold pb-2" style="border-bottom: 2px dotted black; letter-spacing: 1px; width: 350px;">
                         <p class="h3 "><img src="/image/bullesyeLogo.png" alt="Logo" class="brand-image" style="margin-right:-20px;height: 40px; width: 40px;">&nbsp;&nbsp; <span class="text-danger p-0" style="text-decoration: underline; font-size:20px;">BULLSEYE</span></p>
                         <span style="font-size: 12px;">Receipt #: {{ receiptDetails.transaction_number }}</span><br>
                         <span style="font-size: 12px;"> <i class="fas fa-user"></i> {{ name  }}</span> <br>  
@@ -20,7 +20,7 @@
                             </thead>
                             <tbody style="border-bottom: 2px solid black;">
                                 <tr v-for="item in receiptDetails.transaction_details[0].transaction_items" :key="item.id">
-                                    <td style="word-wrap: break;">{{ item.item }}</td>
+                                    <td style="word-wrap: break; min-width:280px;">{{ item.item }}</td>
                                     <td>{{ item.qty }}</td>
                                     <td>{{ item.price }}</td>
                                 </tr>
@@ -40,7 +40,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        <h6 class="text-center bg-dark p-1 text-uppercase">Terms and Conditions</h6>
+                        <h6 class=" bg-dark p-1 text-uppercase">Terms and Conditions</h6>
                         
                         <ol style="font-size: 9px;" class="pl-3 ">
                             <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima veniam earum dicta quo unde aliquam.</li>
@@ -48,7 +48,7 @@
                             <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima veniam earum dicta quo unde aliquam.</li>
                             <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima veniam earum dicta quo unde aliquam.</li>
                         </ol>
-                        <h6 class="text-center">Thank you!!!</h6>
+                        <h6>Thank you!!!</h6>
                     </div>
                 </div>
                 <button class="btn btn-danger btn-block" @click="printReceipt"> <i class="fa fa-print" aria-hidden="true"></i> Print</button>

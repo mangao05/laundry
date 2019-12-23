@@ -19,7 +19,7 @@
                             <td colspan="7" class="text-center jumbotron" style="font-size:30px;"> <i> No Data Found</i></td>
                         </tr>
                         <tr v-for="(branches, index) in branch" :key = "branches.id"  >
-                            <td>{{ index+1 }}</td>
+                            <td>{{ index + 1 }}</td>
                             <td>{{ branches.branch_code }}</td>
                             <td>{{ branches.branch_address }}</td>
                             <td>
@@ -51,6 +51,7 @@
              loadBranch(){
               axios.get('api/branch').then(({data}) => {
                     this.branch = data
+                    
                 })
             },
              editBranch(id){

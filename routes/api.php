@@ -54,3 +54,5 @@ Route::post('transactions/create/savetransaction', 'API\TransactionController@sa
 
 
 Route::post('/logout', 'Auth\LoginController@logout');
+
+Route::post('/search', 'API\ServicesController@search');
