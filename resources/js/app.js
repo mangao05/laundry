@@ -38,7 +38,8 @@ import ReceiptModal from './components/modal/ReceiptModal';
 import ReviewModal from './components/Transactions/TransactionReviewModal.vue';
 import SearchInput from './components/accessories/SearchInputComponent.vue';
 
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+// import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
 
 
@@ -85,7 +86,12 @@ Vue.component('BranchModal',BranchModal);
 Vue.component('receipt-modal',ReceiptModal);
 Vue.component('review-modal', ReviewModal);
 Vue.component('datepicker',Datepicker);
+<<<<<<< HEAD
 Vue.component('search', SearchInput);
+=======
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+>>>>>>> origin/changes
 Vue.component(
   'passport-clients',
   require('./components/passport/Clients.vue').default

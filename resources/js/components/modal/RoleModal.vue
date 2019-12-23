@@ -8,19 +8,19 @@
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header  bg-primary">
-                             <h5 class="modal-title">Add Role To User </h5>
+                             <h5 class="modal-title">Role Name </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
                 <div class="modal-body text-center p-4" style="letter-spacing:1px;">
                     <div class="input-group">
-                        <input type="text" class="form-control" v-model="form.role_name" placeholder="Input role for user ..." :class="{ 'is-invalid': form.errors.has('role_name') }">
-                        <select v-model="form.role_type"    :class="{ 'is-invalid': form.errors.has('role_type') }">
+                        <input type="text" class="form-control" v-model="form.role_name" placeholder="Input Role Name ..." :class="{ 'is-invalid': form.errors.has('role_name') }">
+                        <!-- <select v-model="form.role_type"    :class="{ 'is-invalid': form.errors.has('role_type') }">
                             <option value="" selected disabled>Select Job Role</option>
                             <option value="Administrator">Administrator</option>
                              <option value="staff">staff</option>
-                        </select>
+                        </select> -->
                         <div class="input-group-append">
                             <button type="button" @click="editMode === true ? updaterole() : saveRole()" class="btn btn-primary">{{ editMode === true ? "Update" : "Confirm" }}</button>
                         </div>
@@ -53,6 +53,7 @@
         methods:{
             saveRole(){
                 this.form.post('api/role').then(({data}) => {
+            
                     this.roleCreated = data;
                     this.form.reset();
                     Toast.fire({

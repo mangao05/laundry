@@ -14,7 +14,9 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return Branch::all();
+        
+        $data = Branch::paginate(2);
+    	return response()->json($data);
     }
 
     /**
@@ -27,7 +29,7 @@ class BranchController extends Controller
     {
         // return $request->all();
         $this->validate($request, [
-            'branch_code' => 'required',
+            // 'branch_code' => 'required',
             'address' =>'required'
         ]);
 
@@ -60,7 +62,7 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'branch_code' => 'required',
+            // 'branch_code' => 'required',
             'address' =>'required'
         ]);
 
@@ -82,5 +84,15 @@ class BranchController extends Controller
     {
         $Branch = Branch::findOrfail($id);
         $Branch->delete();
+    }
+
+    public function branchStatus($id,$status){
+        if($status == 'activated'){
+            $update_status  = Branch::where('id',$id)->update(['status'=>'deactivated']);
+            return 'deactivated' ;
+        }else{
+            $update_status  = Branch::where('id',$id)->update(['status'=>'activated']);
+            return 'activated';
+        }
     }
 }

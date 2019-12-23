@@ -44,7 +44,7 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <span class="badge badge-info text-white p-2 letter-spacing" >Per {{ created.type }}</span><br>
-                                                    <span class="font-weight-bold">Services:  </span><span>{{ created.service }}</span><br>
+                                                    <span class="font-weight-bold">Name:  </span><span>{{ created.service }}</span><br>
                                                     <span class="font-weight-bold">Price: </span><span>{{ (created.type == 'kilo') ? '&#8369;'+created.price+ '/kg' : '&#8369;'+created.price }}</span> <br>
                                                     <span class="font-weight-bold">Minimum: </span><span>{{ (created.type == 'kilo') ? created.minimum + 'kg' : 'No Minimum' }}</span> <br>
                                                 </div>
@@ -68,8 +68,14 @@
                                 </div>
                                 <input type="file" id="iconBTn" accept="image/*" @change="onChange" hidden/>
                                 <span class="text-danger "><i>*icon can be 251x 251</i></span>
+
+                               <div class="form-group">
+                                    <input type="radio" name=""  checked>services
+                                    <input type="radio" name="" > Item
+                               </div>
+
                                 <div class="form-group">
-                                <label>Services</label>
+                                <label>Name</label>
                                 <input v-model="form.service" type="text" name="username"
                                     class="form-control rounded-0"  :class="{ 'is-invalid': form.errors.has('service') }">
                                 <has-error :form="form" field="service"></has-error>

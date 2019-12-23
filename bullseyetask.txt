@@ -6,25 +6,25 @@ Fix User Module not working
 
 USER ROLE
 
-Activate/Deactivate 
-Remove option of select job role 
-Change placeholder to Role Name
+Activate/Deactivate (OK)
+Remove option of select job role (OK) 
+Change placeholder to Role Name (OK)
 
 
 BRANCH
 
-Branch Deactivate and Activate
-Form => Name(nullable), Code(nullable), Address
+Branch Deactivate and Activate (ok)
+Form => Name(nullable), Code(nullable), Address (ok)
 Search field
-Pagination
+Pagination (ok)
 
 SERVICES 
 
 Search, Pagination
-Image nullable/Default 
-Change services label to name
-Radio button => services or item
-Change type to dry clean and assorted clothes
+Image nullable/Default (ok)
+Change services label to name (ok)
+Radio button => services or item (ok but no function)
+Change type to dry clean and assorted clothes 
 
 
 CUSTOMERS 

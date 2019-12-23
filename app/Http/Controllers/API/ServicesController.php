@@ -58,28 +58,33 @@ class ServicesController extends Controller
                 'type' => 'required',
                 'minimum' => 'required',
                 'price' => 'required',
-                'image' => 'required'
+             
             ]);
         }else{
             $this->validate($request, [
                 'service' => 'required',
                 'type' => 'required',
                 'price' => 'required',
-                'image' => 'required'
+            
             ]);
             $request['minimum'] = null;
         }
      
-        $imageData = $request->image;
-        $fileName = \Carbon\Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
-        $img = \Image::make($imageData)->fit(251, 251);
-        $img->save(public_path('serviceIcon/').$fileName);
-        $request['icon'] = $fileName;
-        $service = Service::create($request->only('service', 'type', 'price', 'minimum', 'icon'));
 
-        if($service){
-            return $service;
+
+        if($request->image == null){
+            $request['icon'] = 'default.png';
+        }else{
+            $imageData = $request->image;
+            $fileName = \Carbon\Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+            $img = \Image::make($imageData)->fit(251, 251);
+            $img->save(public_path('serviceIcon/').$fileName);
+            $request['icon'] = $fileName;
+           
         }
+            $service = Service::create($request->only('service', 'type', 'price', 'minimum', 'icon'));
+            return $service;
+      
     }
 
     /**

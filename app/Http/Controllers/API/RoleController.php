@@ -27,7 +27,7 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'role_name' => 'required',
-            'role_type'=>'required'
+            // 'role_type'=>'required'
         ]);
 
         $role = new Role;
@@ -60,7 +60,7 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'role_name' => 'required|Min:4',
-            'role_type'=>'required'
+            // 'role_type'=>'required'
         ]);
 
         $role = Role::findOrfail($id);

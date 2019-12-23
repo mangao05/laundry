@@ -13,15 +13,24 @@
                             <th>#</th>
                             <th>Branch code</th>
                             <th>Address</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
-                         <tr v-show="branch.length == 0">
+                         <!-- <tr v-show="branch.length == 0">
                             <td colspan="7" class="text-center jumbotron" style="font-size:30px;"> <i> No Data Found</i></td>
+<<<<<<< HEAD
                         </tr>
                         <tr v-for="(branches, index) in branch" :key = "branches.id"  >
                             <td>{{ index + 1 }}</td>
+=======
+                        </tr> -->
+                        <tr v-for="(branches, index) in branch.data" :key = "branches.id"  >
+                            <td>{{ index+1 }}</td>
+>>>>>>> origin/changes
                             <td>{{ branches.branch_code }}</td>
                             <td>{{ branches.branch_address }}</td>
+                             <td class="text-success" v-if="branches.status ==='activated'">  <span  @click = "branchStatus(branches.id,branches.status)" >{{ branches.status }}</span></td>
+                             <td class="text-danger" v-if="branches.status !='activated'">  <span  @click = "branchStatus(branches.id,branches.status)" >{{ branches.status }}</span></td>
                             <td>
                                <span class="badge badge-primary p-2" @click = "editBranch(branches.id)" >Edit</span>
                                 <span class="badge badge-danger p-2" @click = "deleteBranch(branches.id)">Delete</span>
@@ -30,10 +39,20 @@
                     </tbody>
                 </table>
             </div>
+        
     <BranchModal @BranchCreated="branchload"></BranchModal>
+     <div class="row h-25">
+                 <pagination :data="branch" @pagination-change-page="loadBranch" :container-class="'className'">
+                    <span slot="prev-nav">&lt; Previous</span>
+                    <span slot="next-nav">Next &gt;</span>
+                </pagination> 
+     </div>
     </div>
+    
 </template>
-
+<style>
+    
+</style>
 <script>
     export default {
          data(){
@@ -48,8 +67,8 @@
                   $("#branchModal").modal('show');
 
             },
-             loadBranch(){
-              axios.get('api/branch').then(({data}) => {
+            loadBranch(page = 1) {   
+              axios.get('api/branch?page=' + page).then(({data}) => {
                     this.branch = data
                     
                 })
@@ -90,6 +109,17 @@
             branchload(){
                 this.loadBranch();
             },
+            branchStatus(id,status){
+            
+                 axios.get('api/branchstatus/'+id+'/'+status).then(({data}) => {
+                     console.log(data)
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Account Successfully'+' '+ data
+                        })
+                        this.loadBranch();
+                    });
+            }
         },
 
         created: function(){

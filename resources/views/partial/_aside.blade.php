@@ -112,7 +112,7 @@
                 
               </p>
           </router-link>
-      </li>
+        </li>
       @else
       <li class="nav-item">
         <router-link to="/newlaundry" class="nav-link">

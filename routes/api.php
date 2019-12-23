@@ -42,6 +42,7 @@ Route::get('getService/{id}', 'API\ServicesController@getServiceById');
 Route::get('getUser/{id}/{status}','API\UserManagementController@getUserId');
 Route::get('transaction/number/{number}', 'API\TransactionController@transaction_number');
 Route::get('fetchBranch','API\TransactionController@fetch_branch');
+Route::get('branchstatus/{id}/{status}','API\BranchController@branchStatus');
 Route::get('transactionDetails/remove/{id}', 'API\TransactionDetailsController@removeITem');
 Route::get('transactionsDetails/type/{type}', 'API\TransactionDetailsController@transactionType');
 Route::get('gettingDate/{date}/{type}','API\TransactionDetailsController@gettingdate');
