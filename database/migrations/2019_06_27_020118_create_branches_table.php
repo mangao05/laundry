@@ -17,6 +17,7 @@ class CreateBranchesTable extends Migration
             $table->bigIncrements('id');
             $table->string('branch_code');
             $table->string('branch_address');
+            $table->string('status');
             $table->time('deleted_at')->nullable();
             $table->timestamps();
         });

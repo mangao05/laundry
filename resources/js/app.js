@@ -38,7 +38,8 @@ import ReceiptModal from './components/modal/ReceiptModal';
 import ReviewModal from './components/Transactions/TransactionReviewModal.vue';
 
 
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+// import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
 
 
@@ -85,6 +86,7 @@ Vue.component('BranchModal',BranchModal);
 Vue.component('receipt-modal',ReceiptModal);
 Vue.component('review-modal', ReviewModal);
 Vue.component('datepicker',Datepicker);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.component(
   'passport-clients',
