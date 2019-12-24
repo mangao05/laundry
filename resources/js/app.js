@@ -86,12 +86,9 @@ Vue.component('BranchModal',BranchModal);
 Vue.component('receipt-modal',ReceiptModal);
 Vue.component('review-modal', ReviewModal);
 Vue.component('datepicker',Datepicker);
-<<<<<<< HEAD
 Vue.component('search', SearchInput);
-=======
 Vue.component('pagination', require('laravel-vue-pagination'));
 
->>>>>>> origin/changes
 Vue.component(
   'passport-clients',
   require('./components/passport/Clients.vue').default
