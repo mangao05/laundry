@@ -123,7 +123,8 @@ let routes = [
       path: '/receipt/:id',
       name: 'printReceipt',
       component: require('./components/PrintPreview.vue').default
-    }
+    },
+    { path: '/trash', component: require('./components/Trash.vue').default },
   ]
 
   const options = {

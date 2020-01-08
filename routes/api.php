@@ -35,11 +35,18 @@ Route::apiResource('transactions', 'API\TransactionController', [
     'except' => ['show']
 ]);
 
-Route::get('transactions/{type}/{id}', 'API\TransactionController@show');
+//services
 Route::get('dailyServices', 'API\ServicesController@dailyServices');
 Route::get('fetchServices', 'API\ServicesController@fetchServices');
 Route::get('getService/{id}', 'API\ServicesController@getServiceById');
+
+//user
 Route::get('getUser/{id}/{status}','API\UserManagementController@getUserId');
+Route::get('loginDetail','API\UserManagementController@username');
+
+
+//transaction
+Route::get('transactions/{type}/{id}', 'API\TransactionController@show');
 Route::get('transaction/number/{number}', 'API\TransactionController@transaction_number');
 Route::get('fetchBranch','API\TransactionController@fetch_branch');
 Route::get('branchstatus/{id}/{status}','API\BranchController@branchStatus');
@@ -48,12 +55,26 @@ Route::get('transactionsDetails/type/{type}', 'API\TransactionDetailsController@
 Route::get('gettingDate/{date}/{type}','API\TransactionDetailsController@gettingdate');
 Route::get('dashboardstatus', 'API\TransactionDetailsController@dashboardStatus');
 Route::get('sales','API\TransactionDetailsController@Sale');
-Route::get('loginDetail','API\UserManagementController@username');
 Route::get('fetchtransaction/receipt/{id}', 'API\TransactionController@showReceipt');
 Route::get('alltransaction/{id}', 'API\TransactionController@getTransactions');
 Route::post('transactions/create/savetransaction', 'API\TransactionController@saveTransaction');
 
 
 Route::post('/logout', 'Auth\LoginController@logout');
-
 Route::post('/search', 'API\ServicesController@search');
+
+//trashFile
+Route::get('trashuser','API\UserManagementController@trashUser');
+Route::get('trashbranch','API\BranchController@trashBranch');
+Route::get('trashservices','API\ServicesController@trashServices');
+Route::get('trashcustomer','API\CustomerController@trashCustomer');
+
+
+//restore
+Route::post('restorefile','API\ServicesController@restoreFile');
+
+//search
+Route::post('searchfile','API\ServicesController@searchFile');
+
+
+

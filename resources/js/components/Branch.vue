@@ -18,15 +18,12 @@
                         </tr>
                          <!-- <tr v-show="branch.length == 0">
                             <td colspan="7" class="text-center jumbotron" style="font-size:30px;"> <i> No Data Found</i></td>
-<<<<<<< HEAD
                         </tr>
                         <tr v-for="(branches, index) in branch" :key = "branches.id"  >
                             <td>{{ index + 1 }}</td>
-=======
                         </tr> -->
                         <tr v-for="(branches, index) in branch.data" :key = "branches.id"  >
                             <td>{{ index+1 }}</td>
->>>>>>> origin/changes
                             <td>{{ branches.branch_code }}</td>
                             <td>{{ branches.branch_address }}</td>
                              <td class="text-success" v-if="branches.status ==='activated'">  <span  @click = "branchStatus(branches.id,branches.status)" >{{ branches.status }}</span></td>

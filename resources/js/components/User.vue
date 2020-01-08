@@ -1,11 +1,18 @@
 <template>
     <div class="container">
-        <h3 class="card-title">User Management</h3>
+        <h5>User Management</h5>
 
-           <span  @click="openusermodal()"  class="badge badge-success p-2 m-2 ml-auto float-right" style="font-size:20px;">
-                  <i class="fa fa-user-plus nav-icon" aria-hidden="true"></i> Add User
-            </span>
-
+            <div class="row">
+                  <div class="col-9">
+                     <span  @click="openusermodal()"  class="badge badge-success p-2 m-2 ml-auto float-left" style="font-size:20px;">
+                         <i class="fa fa-user-plus nav-icon" aria-hidden="true"></i> Add User
+                    </span>
+                  </div>
+                  <div class="col-3">
+                      <search :options="searchOptions" @searchSuccess="search"></search>   
+                  </div>
+            </div>
+            
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                     <tbody  class="text-center" style="letter-spacing:1px;">
@@ -49,17 +56,23 @@
                 userdata:{},
                 branch:{},
                 role:{},
-                form : new Form({})
+                form : new Form({}),
+                searchOptions : {
+                    table : 'users',
+                    column : 'name'
+                }
             }
         },
         methods:{
+            search(e){
+            this.user = e;
+            },
             openusermodal(){
                   $("#userModal").modal('show');
             },
             loadUser(){
               axios.get('api/UserManagement').then(({data}) => {
                     this.user = data
-
                 })
             },
              loadUserRole(){
@@ -123,9 +136,9 @@
 
 
          created: function(){
-             this.loadUser();
-               this.loadUserRole();
-               this.loadBranch();
+            this.loadUser();
+            this.loadUserRole();
+            this.loadBranch();
         },
     }
 </script>

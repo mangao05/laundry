@@ -15,7 +15,7 @@ BRANCH
 
 Branch Deactivate and Activate (ok)
 Form => Name(nullable), Code(nullable), Address (ok)
-Search field
+Search field 
 Pagination (ok)
 
 SERVICES 
@@ -24,12 +24,12 @@ Search, Pagination
 Image nullable/Default (ok)
 Change services label to name (ok)
 Radio button => services or item (ok but no function)
-Change type to dry clean and assorted clothes 
+Change type to dry clean and assorted clothes   (ok)
 
 
 CUSTOMERS 
 
-Select Branch for Customer (nullable)
+Select Branch for Customer (nullable)  (ok)
 Pagination and Search
 
 LAUNDRY

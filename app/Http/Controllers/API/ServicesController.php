@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service;
 use App\Transaction;
+use App\User;
 use DB;
 
 class ServicesController extends Controller
@@ -151,4 +152,41 @@ class ServicesController extends Controller
                     ->where($column, 'like', '%'. $search .'%')
                     ->get();
     }
+
+    public function trashServices(){
+        return \DB::table('services')
+        ->whereNotNull('deleted_at')
+        ->get();
+    }
+
+    public function restoreFile(Request $request){
+        $table =  $request->table;
+        $id =  $request->id;
+
+         DB::table($table)
+        ->where('id',$id)
+        ->update(['deleted_at' => null]);
+        return $table;
+
+    }
+    public function searchFile(Request $request){
+        $table =  $request->table;
+        $search = $request->search;
+
+        if($table == 'branches'){
+            $column = 'branch_address';
+        }else if($table == 'services'){
+            $column = 'service';
+        }else{
+            $column = 'name';
+        }
+        
+        return DB::table($table)
+                    ->select('*')
+                    ->whereNotNull('deleted_at')
+                    ->where($column, 'like', '%'. $search .'%')
+                    ->get();              
+    }
+  
+    
 }

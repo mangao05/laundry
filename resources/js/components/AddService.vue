@@ -1,12 +1,22 @@
 <template>
     <div class="container">
 
-             <h3 class="card-title">Services</h3>
+             <h6>Services</h6>
              
-            <search :options="searchOptions" @searchSuccess="search"></search>
-            <div class="input-group input-group-sm float-right mb-4" style="width: 150px;">
-                <button class="btn btn-success rounded-0 " @click= "openServiceModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Services</button>
-            </div>
+             <div class="row" >
+                 <div class="col-md-9 ">
+                     <div class="input-group input-group-sm float-left mb-4" style="width: 150px;">
+                            <button class="btn btn-success rounded-0 " @click= "openServiceModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Services</button>
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                       <search :options="searchOptions" @searchSuccess="search"></search>
+                     
+                 </div>
+                   
+             </div>
+         
+           
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-bordered">
                     <tbody>

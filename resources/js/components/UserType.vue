@@ -1,10 +1,19 @@
 <template>
     <div class="container">
-      <h3 class="card-title">User Role</h3>
+      <h6>User Role</h6>
 
-           <span  @click="openrolemodal()"  class="badge badge-success p-2 m-2 ml-auto float-right" style="font-size:20px;">
-                  <i class="fas fa-user-cog    "></i> Add Role Name
-            </span>
+          
+            <div class="row">
+                  <div class="col-9">
+                    <span  @click="openrolemodal()"  class="badge badge-success p-2 m-2 ml-auto float-left" style="font-size:20px;">
+                        <i class="fas fa-user-cog    "></i> Add Role Name
+                    </span>
+                  </div>
+                  <div class="col-3">
+                      <search :options="searchOptions" @searchSuccess="search"></search>   
+                  </div>
+            </div>
+            
 
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
@@ -39,10 +48,17 @@
             return {
                 role:{},
                 roledata:{},
-                form : new Form({})
+                form : new Form({}),
+                searchOptions : {
+                    table : 'roles',
+                    column : 'role'
+                }
             }
         },
         methods:{
+            search(e){
+            this.role = e;
+            },
             openrolemodal(){
                   $("#roleModal").modal('show');
             },

@@ -68,8 +68,6 @@
                     </p>
                 </router-link>
               </li>
-            
-
             </ul>
           </li>
 
@@ -106,19 +104,31 @@
         <li class="nav-item">
           <router-link to="/transaction" class="nav-link">
               <i class="fa fa-sticky-note nav-icon text-white" aria-hidden="true" ></i>
-          {{-- <i class="fas fa-tshirt  nav-icon" ></i> --}}
-              <p class=" text-bold">
+                     <p class=" text-bold">
                       <label for="" class="text-white">  Transaction</label> 
                 
               </p>
           </router-link>
         </li>
+      
+
+        <li class="nav-item">
+          <router-link to="/trash" class="nav-link">
+             <i class="fa fa-trash nav-icon text-white" aria-hidden="true"></i>    
+              <p class=" text-bold">
+                      <label for="" class="text-white">Recycle Bin</label> 
+                
+              </p>
+          </router-link>
+        </li>
+
       @else
       <li class="nav-item">
         <router-link to="/newlaundry" class="nav-link">
           <i class="fas fa-tshirt nav-icon text-white"   aria-hidden="true" style="color:#669DB2"></i>
             <p class=" text-bold text-white">
                    Laundry
+                   
             </p>
         </router-link>
       </li>

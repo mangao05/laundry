@@ -92,18 +92,18 @@
                                     <label>Type</label>
                                     <select v-model="form.type" class="form-control rounded-0" :class="{ 'is-invalid': form.errors.has('type') }">
                                         <option value="">Select Type</option>
-                                        <option value="kilo">Per Kilo</option>
-                                        <option value="item">Per Item</option>
+                                        <option value="dry">dry clean</option>
+                                        <option value="assorted">assorted clothes</option>
                                     </select>
                                     <has-error :form="form" field="type"></has-error>
                                 </div>
 
-                                <div class="form-group rounded-0" v-show="form.type == 'kilo'" style="display:none;">
+                                <!-- <div class="form-group rounded-0" v-show="form.type == 'kilo'" style="display:none;">
                                     <label>Minimum</label>
                                     <input v-model="form.minimum" type="text" name="username"
                                         class="form-control" :class="{ 'is-invalid': form.errors.has('minimum') }">
                                     <has-error :form="form" field="minimum"></has-error>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

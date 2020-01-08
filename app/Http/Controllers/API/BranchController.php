@@ -95,4 +95,10 @@ class BranchController extends Controller
             return 'activated';
         }
     }
+
+    public function trashBranch(){
+      return \DB::table('branches')
+        ->whereNotNull('deleted_at')
+        ->get();
+    }
 }

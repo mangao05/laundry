@@ -95,7 +95,7 @@
                     <tr v-else v-for = "(transaction, index) in transactions" :key = "transaction.id">
                       <td>{{ index + 1 }}</td>
                       <td>{{ "Laundry_"+transaction.transaction_number }}</td>
-                      <td class="text-capitalize">{{ transaction.customers.Name }}</td>
+                      <td class="text-capitalize " :class="transaction.customers == null ? 'text-danger font-weight-bold' : 'text-dark'">{{  transaction.customers != null ? transaction.customers.name : 'DELETED'   }}</td>
                       <td>{{ transaction.mode }}</td>
                       <td>{{ (transaction.mode == 'Deliver') ? 'N/A' : transaction.pickup_date }}</td>
                       <td>{{ transaction.status }}</td>
@@ -123,6 +123,7 @@ export default {
     data(){
         return {
             loading: true,
+          
             transactions : {},
             finishActive : false,
             for_PickUpActive: false,
@@ -162,7 +163,7 @@ export default {
            
             axios.get('api/transactionsDetails/type/'+ type).then(({data}) => {
                 this.transactions = data.data;
-                // console.log(this.transactions);
+                console.log(this.transactions);
                   this.loading = false 
                  
             })

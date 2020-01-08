@@ -23,6 +23,15 @@
                                 <label for="caddress">Address</label>
                                 <textarea class="form-control" v-model="customerDetails.caddress" placeholder="Enter Address"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="caddress">Select Branch</label>
+                                <div class="form-group">
+                                  <select class="form-control"  >
+                                    <option v-for="branches in branch" :key = "branches.id" >{{ branches.branch_address }}</option>
+                                  </select>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -44,7 +53,9 @@ export default {
                 cnumber : '',
                 caddress : ''
             },
+      
             editMode: false,
+            branch:{},
         }
     },
     methods: {
@@ -82,7 +93,17 @@ export default {
                 this.$toastr.s("Successfully Updated");
                 $("#addCustomer").modal('hide');
             })
-        }
+        },
+         loadBranch() {   
+              axios.get('api/branch').then(({data}) => {
+                    this.branch = data.data
+                    console.log(this.branch)
+                })
+        },
+    },
+    created() {
+        this.loadBranch();
+        
     }
 }
 </script>

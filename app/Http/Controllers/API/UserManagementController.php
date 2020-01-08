@@ -113,5 +113,11 @@ class UserManagementController extends Controller
         return \Auth::user();
     }
 
+    public function trashUser(){
+            return DB::table('users')
+            ->whereNotNull('deleted_at')
+            ->get();
+    }
+
 
 }

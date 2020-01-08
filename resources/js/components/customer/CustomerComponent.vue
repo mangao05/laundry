@@ -1,11 +1,20 @@
 <template>
     <div class="card">
               <div class="card-header">
-                <search :options="searchOptions" @searchSuccess="search"></search>
-                <h3 class="card-title">Customer Management</h3>
-                <div class="card-tools">
-                  <button class="btn btn-success rounded-0" @click="addCustomerModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Customer</button>
+             
+                <h5>Customer Management</h5>
+
+                <div class="row">
+                  <div class="col-9">
+                    <div class="card-tools">
+                      <button class="btn btn-success rounded-0" @click="addCustomerModal"> <i class="fa fa-plus" aria-hidden="true"></i> Add Customer</button>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                      <search :options="searchOptions" @searchSuccess="search"></search>   
+                  </div>
                 </div>
+               
               </div>
               <div class="card-body">
                 <table class="table table-bordered table-hover">
@@ -32,16 +41,7 @@
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
-              <!-- <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-              </div> -->
+  
               <add-customer ref="customerModal" @successCreated="loadCustomers"></add-customer>
             </div>
             

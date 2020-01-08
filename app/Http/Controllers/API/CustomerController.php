@@ -82,7 +82,11 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-     
         Customer::find($id)->delete();
+    }
+    public function trashCustomer(){
+        return \DB::table('customers')
+        ->whereNotNull('deleted_at')
+        ->get();
     }
 }
